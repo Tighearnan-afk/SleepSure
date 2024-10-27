@@ -10,7 +10,7 @@
 
     <FlyoutItem
     Title="Dashboard"
-    Icon="dotnet_bot.png">
+    Icon="dashboard_icon.png">
 
         <ShellContent
         ContentTemplate="{DataTemplate pages:Dashboard}" />
