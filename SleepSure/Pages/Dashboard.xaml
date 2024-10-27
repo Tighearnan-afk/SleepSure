@@ -79,14 +79,14 @@
                 </FlexLayout>
             </VerticalStackLayout>
 
-            <VerticalStackLayout x:Name="Outside">
+            <VerticalStackLayout x:Name="Garden">
                 <!--Vertical stack used to position area name above the grouping of devices-->
                 <Label Text="Garden"
                        FontSize="Caption"
                        FontAttributes="Bold"
                        HorizontalOptions="CenterAndExpand"/>
 
-                <FlexLayout x:Name="Garden Devices"
+                <FlexLayout x:Name="GardenDevices"
                     JustifyContent="SpaceEvenly"
                     Direction="Row"
                     Wrap="Wrap">
