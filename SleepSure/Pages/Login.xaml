@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SleepSure.Pages.Login"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             Title="Login">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="385"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="360"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--<BoxView Color="Red" Grid.Column="0" Grid.Row="0"></BoxView>
+        <BoxView Color="Blue" Grid.Column="0" Grid.Row="1"></BoxView>
+        <BoxView Color="Green" Grid.Column="0" Grid.Row="2"></BoxView>
+        <BoxView Color="Yellow" Grid.Column="1" Grid.Row="0"></BoxView>
+        <BoxView Color="orange" Grid.Column="1" Grid.Row="1"></BoxView>
+        <BoxView Color="purple" Grid.Column="1" Grid.Row="2"></BoxView>
+        <BoxView Color="black" Grid.Column="2" Grid.Row="0"></BoxView>
+        <BoxView Color="white" Grid.Column="2" Grid.Row="1"></BoxView>
+        <BoxView Color="gold" Grid.Column="2" Grid.Row="2"></BoxView> -->
+        <Border Grid.Row="1" 
+                Grid.Column="1" 
+                Stroke="Black"
+                StrokeThickness="0.5">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20,20,20,20"/>
+            </Border.StrokeShape>
+            <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="0">
+                <Label HorizontalOptions="Center"
+                       Padding="0,5,0,5"
+                       FontSize="Large"
+                       FontAttributes="Bold">
+                    Welcome to Sleepsure!</Label>
+
+                <uranium:TextField Title="Email"
+                                   Margin="10"/>
+
+                <uranium:TextField Title="Password"
+                                    Margin="10"/>
+
+                <HorizontalStackLayout Margin="10,40">
+                    <uranium:CheckBox x:Name="stayLoggedInCheck"
+                                      Padding="0,-5,-15,0"/>
+                    <Label FontSize="Caption">Stay Logged In?</Label>
+                    
+                    
+                </HorizontalStackLayout>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="115"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="btnLogin"
+                            StyleClass="FilledButton" 
+                            Text="Login"
+                            Margin="10,0,0,0"/>
+
+                    <Button x:Name="btnRegister"
+                            StyleClass="OutlinedButton" 
+                            Text="Register"
+                            Margin="0,0,10,0"
+                            Grid.Column="2"/>
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>
