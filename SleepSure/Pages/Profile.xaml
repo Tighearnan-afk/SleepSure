@@ -21,6 +21,7 @@
                      Margin="10">
             <Button Text="Logout"
                     HorizontalOptions="CenterAndExpand"
+                    BackgroundColor="{StaticResource Warning}"
                     StyleClass="FilledButton"/>
         </StackLayout>
     </StackLayout>
