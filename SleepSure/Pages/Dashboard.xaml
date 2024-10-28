@@ -14,7 +14,8 @@
             <StackLayout Orientation="Horizontal">
                 <!--StackLayout used because HorizontalStackLayout causes horizontal options for the button view to not work-->
                 <Uranium:ButtonView HorizontalOptions="EndAndExpand">
-                    <ImageButton HeightRequest="25"
+                    <ImageButton x:Name="btnAddDevice"
+                                 HeightRequest="25"
                                  WidthRequest="25">
                         <ImageButton.Source>
                             <FontImageSource FontFamily="MaterialRounded"
@@ -31,7 +32,7 @@
                        HorizontalOptions="CenterAndExpand" />
 
                 <FlexLayout x:Name="LivingRoomDevices"
-                            JustifyContent="SpaceEvenly"
+                            JustifyContent="SpaceAround"
                             Direction="Row"
                             Wrap="Wrap">
                     <Border Stroke="Black"

@@ -5,7 +5,13 @@ public partial class Dashboard : ContentPage
 	public Dashboard()
 	{
 		InitializeComponent();
-	}
+        btnAddDevice.Clicked += OnBtnAddDevice_Clicked;
+    }
+
+    public async void OnBtnAddDevice_Clicked(object? sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("adddevice");
+    }
 
     public async void OnTapGestureRecogniserTappedLight(object? sender, TappedEventArgs args)
     {

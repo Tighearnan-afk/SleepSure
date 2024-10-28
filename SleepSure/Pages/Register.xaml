@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SleepSure.Pages.Register"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             Title="Register">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="385" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="360" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="1"
+                Grid.Column="1"
+                Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                StrokeThickness="0.8">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20,20,20,20" />
+            </Border.StrokeShape>
+            <VerticalStackLayout Grid.Row="1"
+                                 Grid.Column="1"
+                                 Spacing="0">
+                <Label HorizontalOptions="Center"
+                       Padding="0,5,0,5"
+                       FontSize="Large"
+                       FontAttributes="Bold">
+                    Welcome to Sleepsure!</Label>
+
+                <uranium:TextField Title="Email"
+                                   Margin="10" />
+
+                <uranium:TextField Title="Password"
+                                   Margin="10" />
+
+                <HorizontalStackLayout Margin="10,40">
+                    <uranium:CheckBox x:Name="stayLoggedInCheck"
+                                      Padding="0,-5,-15,0" />
+                    <Label FontSize="Caption">Stay Logged In?</Label>
+
+
+                </HorizontalStackLayout>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="115" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Button x:Name="btnRegister"
+                            StyleClass="FilledButton"
+                            TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}"
+                            Text="Register"
+                            Margin="10,0,0,0" />
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

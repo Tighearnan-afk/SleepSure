@@ -65,6 +65,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\AddDevice.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\Dashboard.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -80,6 +83,12 @@
 	  <MauiXaml Update="Pages\Profile.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\Register.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Security.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\ThermostatDeviceDetails.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -93,9 +102,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\Roboto-Bold.ttf" />
+	  <None Remove="Resources\Fonts\Roboto-Regular.ttf" />
 	  <None Remove="Resources\Images\dashboard_icon.png" />
 	  <None Remove="Resources\Images\notification_icon.png" />
 	  <None Remove="Resources\Images\profile_icon.png" />
+	  <None Remove="Resources\Images\Security.png" />
+	  <None Remove="Resources\Images\securitycamera.svg" />
 	  <None Remove="Resources\Images\videofeed_icon.png" />
 	</ItemGroup>
 

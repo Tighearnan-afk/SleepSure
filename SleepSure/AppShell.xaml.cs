@@ -11,6 +11,7 @@ namespace SleepSure
             //Register routes
             Routing.RegisterRoute("lightdevicedetails", typeof(LightDeviceDetails));
             Routing.RegisterRoute("thermostatdevicedetails", typeof(ThermostatDeviceDetails));
+            Routing.RegisterRoute("adddevice", typeof(AddDevice));
         }
     }
 }

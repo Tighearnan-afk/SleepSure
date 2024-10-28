@@ -8,6 +8,21 @@
     Shell.FlyoutBehavior="Flyout"
     Title="SleepSure">
 
+    <Shell.FlyoutHeader>
+        <StackLayout Orientation="Horizontal"
+                     Background="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource SecondaryDarkText}}">
+        <Label Text="SleepSure"
+                   TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+               FontSize="Title"
+               FontAttributes="Bold"
+               VerticalOptions="CenterAndExpand"
+               Padding="10"/>
+        <Image Source="securitycamera.svg" 
+               HeightRequest="100"
+               WidthRequest="100"
+               HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+    </Shell.FlyoutHeader>
     <FlyoutItem
     Title="Dashboard"
     Icon="dashboard_icon.png">
@@ -16,6 +31,14 @@
         ContentTemplate="{DataTemplate pages:Dashboard}" />
 
     </FlyoutItem>
+
+    <FlyoutItem Title="Security"
+                Icon="security.png">
+
+        <ShellContent ContentTemplate="{DataTemplate pages:Dashboard}" />
+
+    </FlyoutItem>
+
     <FlyoutItem Title="Video Feed"
                 Icon="videofeed_icon.png">
 

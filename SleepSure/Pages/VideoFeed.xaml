@@ -2,26 +2,37 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SleepSure.Pages.VideoFeed"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              Title="VideoFeed">
     <StackLayout Orientation="Vertical">
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal"
+                     Padding="10">
         <Border Stroke="Black"
                 StrokeThickness="0.4"
-                Padding="0,0,5,0">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="5" />
-            </Border.StrokeShape>
-            <!-- <Border.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedVideoFeed"
-                                      NumberOfTapsRequired="1" />
-            </Border.GestureRecognizers> -->
+                HorizontalOptions="CenterAndExpand">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5" />
+                </Border.StrokeShape>
 
                 <ImageButton Source="placeholder250x250.png"
-                             HeightRequest="250"
-                             WidthRequest="250"
-                             HorizontalOptions="CenterAndExpand"/>
-
+                             Aspect="AspectFill"
+                             HorizontalOptions="CenterAndExpand" />
             </Border>
+        </StackLayout>
+
+        <!--Code retrieved from https://www.artesian.io/how-to-create-a-dropdown-list-in-net-maui/
+        to allow me to illustrate the visual design im going for in regards to the dropdown-->
+
+        <StackLayout Orientation="Horizontal">
+            <Picker Title="Please select a camera"
+                    HorizontalOptions="CenterAndExpand">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Back Door Camera</x:String>
+                        <x:String>Back Wall Camera</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
         </StackLayout>
     </StackLayout>
 </ContentPage>
