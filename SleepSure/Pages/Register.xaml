@@ -17,6 +17,10 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <Image Source="securitycamera.svg"
+               Grid.Column="1"
+               Grid.Row="0" />
+
         <Border Grid.Row="1"
                 Grid.Column="1"
                 Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"

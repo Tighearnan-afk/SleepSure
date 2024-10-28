@@ -6,17 +6,15 @@
              xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              Title="Dashboard">
     <ScrollView>
-        <StackLayout x:Name="PageStack"
-                     Orientation="Vertical"
-                     Margin="10"
-                     Spacing="10">
-            <!--Root vertical stack that flows down the page-->
+        <FlexLayout Direction="Column"
+                    Wrap="Wrap">
+            <!--Root column flexlayout that flows down the page-->
             <StackLayout Orientation="Horizontal">
                 <!--StackLayout used because HorizontalStackLayout causes horizontal options for the button view to not work-->
-                <Uranium:ButtonView HorizontalOptions="EndAndExpand">
-                    <ImageButton x:Name="btnAddDevice"
-                                 HeightRequest="25"
-                                 WidthRequest="25">
+                <Uranium:ButtonView HorizontalOptions="EndAndExpand" 
+                                    MaximumHeightRequest="50"
+                                    MaximumWidthRequest="50">
+                    <ImageButton x:Name="btnAddDevice">
                         <ImageButton.Source>
                             <FontImageSource FontFamily="MaterialRounded"
                                              Glyph="{x:Static m:MaterialRounded.Edit_square}" />
@@ -32,7 +30,7 @@
                        HorizontalOptions="CenterAndExpand" />
 
                 <FlexLayout x:Name="LivingRoomDevices"
-                            JustifyContent="SpaceAround"
+                            JustifyContent="SpaceEvenly"
                             Direction="Row"
                             Wrap="Wrap">
                     <Border Stroke="Black"
@@ -100,7 +98,7 @@
                        HorizontalOptions="CenterAndExpand" />
 
                 <FlexLayout x:Name="GardenDevices"
-                            JustifyContent="SpaceAround"
+                            JustifyContent="SpaceEvenly"
                             Direction="Row"
                             Wrap="Wrap">
                     <Border Stroke="Black"
@@ -195,7 +193,7 @@
                        HorizontalOptions="CenterAndExpand" />
 
                 <FlexLayout x:Name="BasementDevices"
-                            JustifyContent="SpaceAround"
+                            JustifyContent="SpaceEvenly"
                             Direction="Row"
                             Wrap="Wrap">
                     <Border Stroke="Black"
@@ -262,7 +260,7 @@
                        HorizontalOptions="CenterAndExpand" />
 
                 <FlexLayout x:Name="KitchenDevices"
-                            JustifyContent="SpaceAround"
+                            JustifyContent="SpaceEvenly"
                             Direction="Row"
                             Wrap="Wrap">
                     <Border Stroke="Black"
@@ -328,7 +326,7 @@
                        HorizontalOptions="CenterAndExpand" />
 
                 <FlexLayout x:Name="HallwayDevices"
-                            JustifyContent="SpaceAround"
+                            JustifyContent="SpaceEvenly"
                             Direction="Row"
                             Wrap="Wrap">
                     <Border Stroke="Black"
@@ -359,7 +357,7 @@
                     </Border>
                 </FlexLayout>
             </VerticalStackLayout>
-        </StackLayout>
-        <!--End of page stack-->
+        </FlexLayout>
+        <!--End of page column flexlayout-->
     </ScrollView>
 </ContentPage>

@@ -35,7 +35,7 @@
     <FlyoutItem Title="Security"
                 Icon="security.png">
 
-        <ShellContent ContentTemplate="{DataTemplate pages:Dashboard}" />
+        <ShellContent ContentTemplate="{DataTemplate pages:Security}" />
 
     </FlyoutItem>
 
