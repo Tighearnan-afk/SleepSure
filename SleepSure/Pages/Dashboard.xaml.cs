@@ -26,4 +26,19 @@ public partial class Dashboard : ContentPage
     {
         await Shell.Current.GoToAsync("thermostatdevicedetails");
     }
+
+    public async void OnTapGestureRecogniserTappedWaterLeakSensor(object? sender, TappedEventArgs args)
+    {
+        await Shell.Current.GoToAsync("thermostatdevicedetails");
+    }
+
+    public async void OnTapGestureRecogniserTappedHumiditySensor(object? sender, TappedEventArgs args)
+    {
+        await Shell.Current.GoToAsync("thermostatdevicedetails");
+    }
+
+    public async void OnTapGestureRecogniserTappedVibrationSensor(object? sender, TappedEventArgs args)
+    {
+        await Shell.Current.GoToAsync("thermostatdevicedetails");
+    }
 }

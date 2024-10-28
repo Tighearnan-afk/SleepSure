@@ -16,5 +16,22 @@
         ContentTemplate="{DataTemplate pages:Dashboard}" />
 
     </FlyoutItem>
+    <FlyoutItem Title="Video Feed"
+                Icon="videofeed_icon.png">
 
+        <ShellContent ContentTemplate="{DataTemplate pages:VideoFeed}" />
+
+    </FlyoutItem>
+    <FlyoutItem Title="Notifications"
+                Icon="notification_icon.png">
+
+        <ShellContent ContentTemplate="{DataTemplate pages:Notifications}" />
+
+    </FlyoutItem>
+    <FlyoutItem Title="Profile"
+                Icon="profile_icon.png">
+
+        <ShellContent ContentTemplate="{DataTemplate pages:Profile}" />
+
+    </FlyoutItem>
 </Shell>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SleepSure.Pages.Profile"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             Title="Profile">
+    <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Horizontal">
+            <Image Source="default_profilepicture.png"
+                   HorizontalOptions="CenterAndExpand"
+                   HeightRequest="100"
+                   WidthRequest="100"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal"
+                     Margin="10">
+            <Label Text="Hello Guest"
+                   HorizontalOptions="CenterAndExpand"
+                   FontSize="Title" />
+        </StackLayout>
+        <StackLayout Orientation="Horizontal"
+                     Margin="10">
+            <Button Text="Logout"
+                    HorizontalOptions="CenterAndExpand"
+                    StyleClass="FilledButton"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

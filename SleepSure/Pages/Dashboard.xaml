@@ -7,48 +7,56 @@
              Title="Dashboard">
     <ScrollView>
         <StackLayout x:Name="PageStack"
-                     Orientation="Vertical" 
+                     Orientation="Vertical"
                      Margin="10"
-                     Spacing="10"> <!--Root vertical stack that flows down the page-->
-            <StackLayout Orientation="Horizontal"> <!--StackLayout used because HorizontalStackLayout causes horizontal options for the button view to not work-->
+                     Spacing="10">
+            <!--Root vertical stack that flows down the page-->
+            <StackLayout Orientation="Horizontal">
+                <!--StackLayout used because HorizontalStackLayout causes horizontal options for the button view to not work-->
                 <Uranium:ButtonView HorizontalOptions="EndAndExpand">
                     <ImageButton HeightRequest="25"
                                  WidthRequest="25">
                         <ImageButton.Source>
-                            <FontImageSource FontFamily="MaterialRounded" Glyph="{x:Static m:MaterialRounded.Edit_square}"/>
+                            <FontImageSource FontFamily="MaterialRounded"
+                                             Glyph="{x:Static m:MaterialRounded.Edit_square}" />
                         </ImageButton.Source>
                     </ImageButton>
                 </Uranium:ButtonView>
             </StackLayout>
-            <VerticalStackLayout x:Name="LivingRoom"> <!--Vertical stack used to position area name above the grouping of devices-->
+            <VerticalStackLayout x:Name="LivingRoom">
+                <!--Vertical stack used to position area name above the grouping of devices-->
                 <Label Text="Living Room"
                        FontSize="Caption"
                        FontAttributes="Bold"
-                       HorizontalOptions="CenterAndExpand"/>
+                       HorizontalOptions="CenterAndExpand" />
 
                 <FlexLayout x:Name="LivingRoomDevices"
-                                JustifyContent="SpaceEvenly"
-                                Direction="Row"
-                                Wrap="Wrap">
+                            JustifyContent="SpaceEvenly"
+                            Direction="Row"
+                            Wrap="Wrap">
                     <Border Stroke="Black"
-                                StrokeThickness="0.4"
-                                Padding="0,0,5,0">
+                            StrokeThickness="0.4"
+                            Padding="0,0,5,0">
                         <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5"/>
+                            <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedLight"
-                                                  NumberOfTapsRequired="1"/>
+                                                  NumberOfTapsRequired="1" />
                         </Border.GestureRecognizers>
-                        <StackLayout Orientation="Horizontal" Spacing="5">
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="5">
                             <Image BackgroundColor="Orange">
                                 <Image.Source>
-                                    <FontImageSource FontFamily="MaterialRounded" Glyph="{x:Static m:MaterialRounded.Lightbulb}" Color="Yellow"/>
+                                    <FontImageSource FontFamily="MaterialRounded"
+                                                     Glyph="{x:Static m:MaterialRounded.Lightbulb}"
+                                                     Color="Yellow" />
                                 </Image.Source>
                             </Image>
                             <StackLayout Orientation="Vertical">
-                                <Label Text="Living Room Light"/>
-                                <Label Text="On" VerticalOptions="CenterAndExpand"/>
+                                <Label Text="Living Room Light" />
+                                <Label Text="On"
+                                       VerticalOptions="CenterAndExpand" />
                             </StackLayout>
                         </StackLayout>
                     </Border>
@@ -57,21 +65,25 @@
                             StrokeThickness="0.4"
                             Padding="0,0,5,0">
                         <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5"/>
+                            <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedThermostat"
-                                                  NumberOfTapsRequired="1"/>
+                                                  NumberOfTapsRequired="1" />
                         </Border.GestureRecognizers>
-                        <StackLayout Orientation="Horizontal" Spacing="5">
-                            <Image >
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="5">
+                            <Image>
                                 <Image.Source>
-                                    <FontImageSource FontFamily="MaterialRounded" Glyph="{x:Static m:MaterialRounded.Thermometer}" Color="Red"/>
+                                    <FontImageSource FontFamily="MaterialRounded"
+                                                     Glyph="{x:Static m:MaterialRounded.Thermometer}"
+                                                     Color="Red" />
                                 </Image.Source>
                             </Image>
                             <StackLayout Orientation="Vertical">
-                                <Label Text="Living Room Thermostat"/>
-                                <Label Text="Temperature: 16 C" VerticalOptions="CenterAndExpand"/>
+                                <Label Text="Living Room Thermostat" />
+                                <Label Text="Temperature: 16 C"
+                                       VerticalOptions="CenterAndExpand" />
                             </StackLayout>
                         </StackLayout>
                     </Border>
@@ -84,31 +96,35 @@
                 <Label Text="Garden"
                        FontSize="Caption"
                        FontAttributes="Bold"
-                       HorizontalOptions="CenterAndExpand"/>
+                       HorizontalOptions="CenterAndExpand" />
 
                 <FlexLayout x:Name="GardenDevices"
-                    JustifyContent="SpaceEvenly"
-                    Direction="Row"
-                    Wrap="Wrap">
+                            JustifyContent="SpaceAround"
+                            Direction="Row"
+                            Wrap="Wrap">
                     <Border Stroke="Black"
-                    StrokeThickness="0.4"
-                    Padding="0,0,5,0">
+                            StrokeThickness="0.4"
+                            Padding="0,0,5,0">
                         <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5"/>
+                            <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedSecurityCamera"
-                                                  NumberOfTapsRequired="1"/>
+                                                  NumberOfTapsRequired="1" />
                         </Border.GestureRecognizers>
-                        <StackLayout Orientation="Horizontal" Spacing="5">
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="5">
                             <Image>
                                 <Image.Source>
-                                    <FontImageSource FontFamily="MaterialRounded" Glyph="{x:Static m:MaterialRounded.Speed_camera}" Color="Grey"/>
+                                    <FontImageSource FontFamily="MaterialRounded"
+                                                     Glyph="{x:Static m:MaterialRounded.Speed_camera}"
+                                                     Color="Grey" />
                                 </Image.Source>
                             </Image>
                             <StackLayout Orientation="Vertical">
-                                <Label Text="Back Door Camera"/>
-                                <Label Text="On" VerticalOptions="CenterAndExpand"/>
+                                <Label Text="Back Door Camera" />
+                                <Label Text="On"
+                                       VerticalOptions="CenterAndExpand" />
                             </StackLayout>
                         </StackLayout>
                     </Border>
@@ -117,21 +133,25 @@
                             StrokeThickness="0.4"
                             Padding="0,0,5,0">
                         <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5"/>
+                            <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedSecurityCamera"
-                                                  NumberOfTapsRequired="1"/>
+                                                  NumberOfTapsRequired="1" />
                         </Border.GestureRecognizers>
-                        <StackLayout Orientation="Horizontal" Spacing="5">
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="5">
                             <Image>
                                 <Image.Source>
-                                    <FontImageSource FontFamily="MaterialRounded" Glyph="{x:Static m:MaterialRounded.Speed_camera}" Color="Grey"/>
+                                    <FontImageSource FontFamily="MaterialRounded"
+                                                     Glyph="{x:Static m:MaterialRounded.Speed_camera}"
+                                                     Color="Grey" />
                                 </Image.Source>
                             </Image>
                             <StackLayout Orientation="Vertical">
-                                <Label Text="Back Wall Camera"/>
-                                <Label Text="On" VerticalOptions="CenterAndExpand"/>
+                                <Label Text="Back Wall Camera" />
+                                <Label Text="On"
+                                       VerticalOptions="CenterAndExpand" />
                             </StackLayout>
                         </StackLayout>
                     </Border>
@@ -140,21 +160,25 @@
                             StrokeThickness="0.4"
                             Padding="0,0,5,0">
                         <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5"/>
+                            <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedMovementSensor"
-                                      NumberOfTapsRequired="1"/>
+                                                  NumberOfTapsRequired="1" />
                         </Border.GestureRecognizers>
-                        <StackLayout Orientation="Horizontal" Spacing="5">
-                            <Image >
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="5">
+                            <Image>
                                 <Image.Source>
-                                    <FontImageSource FontFamily="MaterialRounded" Glyph="{x:Static m:MaterialRounded.Motion_sensor_idle}" Color="grey"/>
+                                    <FontImageSource FontFamily="MaterialRounded"
+                                                     Glyph="{x:Static m:MaterialRounded.Motion_sensor_idle}"
+                                                     Color="grey" />
                                 </Image.Source>
                             </Image>
                             <StackLayout Orientation="Vertical">
-                                <Label Text="Back Door Motion Sensor"/>
-                                <Label Text="Status: No Alerts" VerticalOptions="CenterAndExpand"/>
+                                <Label Text="Back Door Motion Sensor" />
+                                <Label Text="Status: No Alerts"
+                                       VerticalOptions="CenterAndExpand" />
                             </StackLayout>
                         </StackLayout>
                     </Border>
@@ -162,6 +186,179 @@
                 </FlexLayout>
             </VerticalStackLayout>
 
-        </StackLayout> <!--End of page stack-->
+            <VerticalStackLayout x:Name="Basement">
+                <!--Vertical stack used to position area name above the grouping of devices-->
+                <Label Text="Basement"
+                       FontSize="Caption"
+                       FontAttributes="Bold"
+                       HorizontalOptions="CenterAndExpand" />
+
+                <FlexLayout x:Name="BasementDevices"
+                            JustifyContent="SpaceAround"
+                            Direction="Row"
+                            Wrap="Wrap">
+                    <Border Stroke="Black"
+                            StrokeThickness="0.4"
+                            Padding="0,0,5,0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedWaterLeakSensor"
+                                                  NumberOfTapsRequired="1" />
+                        </Border.GestureRecognizers>
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="5">
+                            <Image>
+                                <Image.Source>
+                                    <FontImageSource FontFamily="MaterialRounded"
+                                                     Glyph="{x:Static m:MaterialRounded.Water_damage}"
+                                                     Color="Blue" />
+                                </Image.Source>
+                            </Image>
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="Basement Leak Sensor" />
+                                <Label Text="Status: Clear"
+                                       VerticalOptions="CenterAndExpand" />
+                            </StackLayout>
+                        </StackLayout>
+                    </Border>
+
+                    <Border Stroke="Black"
+                            StrokeThickness="0.4"
+                            Padding="0,0,5,0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedHumiditySensor"
+                                                  NumberOfTapsRequired="1" />
+                        </Border.GestureRecognizers>
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="5">
+                            <Image>
+                                <Image.Source>
+                                    <FontImageSource FontFamily="MaterialRounded"
+                                                     Glyph="{x:Static m:MaterialRounded.Humidity_percentage}"
+                                                     Color="Blue" />
+                                </Image.Source>
+                            </Image>
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="Basement Humidity Sensor" />
+                                <Label Text="Humidity: 30%"
+                                       VerticalOptions="CenterAndExpand" />
+                            </StackLayout>
+                        </StackLayout>
+                    </Border>
+                </FlexLayout>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout x:Name="Kitchen">
+                <!--Vertical stack used to position area name above the grouping of devices-->
+                <Label Text="Kitchen"
+                       FontSize="Caption"
+                       FontAttributes="Bold"
+                       HorizontalOptions="CenterAndExpand" />
+
+                <FlexLayout x:Name="KitchenDevices"
+                            JustifyContent="SpaceAround"
+                            Direction="Row"
+                            Wrap="Wrap">
+                    <Border Stroke="Black"
+                            StrokeThickness="0.4"
+                            Padding="0,0,5,0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedWaterLeakSensor"
+                                                  NumberOfTapsRequired="1" />
+                        </Border.GestureRecognizers>
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="5">
+                            <Image>
+                                <Image.Source>
+                                    <FontImageSource FontFamily="MaterialRounded"
+                                                     Glyph="{x:Static m:MaterialRounded.Door_sensor}"
+                                                     Color="Grey" />
+                                </Image.Source>
+                            </Image>
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="Kitchen Door Sensor" />
+                                <Label Text="Status: No Alerts"
+                                       VerticalOptions="CenterAndExpand" />
+                            </StackLayout>
+                        </StackLayout>
+                    </Border>
+
+                    <Border Stroke="Black"
+                            StrokeThickness="0.4"
+                            Padding="0,0,5,0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedHumiditySensor"
+                                                  NumberOfTapsRequired="1" />
+                        </Border.GestureRecognizers>
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="5">
+                            <Image>
+                                <Image.Source>
+                                    <FontImageSource FontFamily="MaterialRounded"
+                                                     Glyph="{x:Static m:MaterialRounded.Window_sensor}"
+                                                     Color="Grey" />
+                                </Image.Source>
+                            </Image>
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="Kitchen Window Sensor" />
+                                <Label Text="Status: No Alerts"
+                                       VerticalOptions="CenterAndExpand" />
+                            </StackLayout>
+                        </StackLayout>
+                    </Border>
+                </FlexLayout>
+            </VerticalStackLayout>
+            <VerticalStackLayout x:Name="Hallway">
+                <!--Vertical stack used to position area name above the grouping of devices-->
+                <Label Text="Hallway"
+                       FontSize="Caption"
+                       FontAttributes="Bold"
+                       HorizontalOptions="CenterAndExpand" />
+
+                <FlexLayout x:Name="HallwayDevices"
+                            JustifyContent="SpaceAround"
+                            Direction="Row"
+                            Wrap="Wrap">
+                    <Border Stroke="Black"
+                            StrokeThickness="0.4"
+                            Padding="0,0,5,0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedVibrationSensor"
+                                                  NumberOfTapsRequired="1" />
+                        </Border.GestureRecognizers>
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="5">
+                            <Image>
+                                <Image.Source>
+                                    <FontImageSource FontFamily="MaterialRounded"
+                                                     Glyph="{x:Static m:MaterialRounded.Vibration}"
+                                                     Color="Grey" />
+                                </Image.Source>
+                            </Image>
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="Vibration Sensor" />
+                                <Label Text="Status: No Alerts"
+                                       VerticalOptions="CenterAndExpand" />
+                            </StackLayout>
+                        </StackLayout>
+                    </Border>
+                </FlexLayout>
+            </VerticalStackLayout>
+        </StackLayout>
+        <!--End of page stack-->
     </ScrollView>
 </ContentPage>
