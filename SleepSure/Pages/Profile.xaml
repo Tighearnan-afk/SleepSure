@@ -3,12 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SleepSure.Pages.Profile"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              Title="Profile">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -18,12 +20,13 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <StackLayout Orientation="Horizontal"
                      Grid.Row="0"
                      Grid.Column="1"
-                     Grid.ColumnSpan="2">
+                     Grid.ColumnSpan="3">
             <Image Source="default_profilepicture.png"
                    HorizontalOptions="CenterAndExpand"
                    VerticalOptions="StartAndExpand"
@@ -34,37 +37,112 @@
         <StackLayout Orientation="Horizontal"
                      Grid.Row="1"
                      Grid.Column="1"
-                     Grid.ColumnSpan="2">
+                     Grid.ColumnSpan="3">
             <Label Text="Hello Guest"
                    HorizontalOptions="CenterAndExpand"
                    FontSize="Title" />
         </StackLayout>
-
         <StackLayout Orientation="Horizontal"
-                     Grid.Column="1"
                      Grid.Row="1"
-                     Grid.ColumnSpan="2"
-                     HorizontalOptions="CenterAndExpand">
-            <Button Text="Change Email"
-                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                    StyleClass="FilledButton" />
+                     Grid.Column="3">
+            <ImageButton 
+                         HorizontalOptions="End"
+                         VerticalOptions="Start"
+                         WidthRequest="25"
+                         HeightRequest="25">
+                <ImageButton.Source>
+                    <FontImageSource FontFamily="MaterialRounded"
+                                     Glyph="{x:Static m:MaterialRounded.Edit_square}"
+                                     Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                     Size="10"/>
+                </ImageButton.Source>
+            </ImageButton>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical"
+                     Grid.Column="1"
+                     Grid.Row="2"
+                     Grid.ColumnSpan="3">
+            <Label Text="Email" 
+                   FontSize="Small"/>
+            <uranium:TextField Text="Default@google.ie">
+                <uranium:TextField.Icon>
+                    <FontImageSource FontFamily="MaterialRounded"
+                                     Glyph="{x:Static m:MaterialRounded.Edit_square}"
+                                     Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                     Size="10" />
+                </uranium:TextField.Icon>
+            </uranium:TextField>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical"
+                     Grid.Column="1"
+                     Grid.Row="3"
+                     Grid.ColumnSpan="3">
+            <Label Text="Password"
+                   FontSize="Small" />
+            <uranium:TextField Text="*********">
+                <uranium:TextField.Icon>
+                    <FontImageSource FontFamily="MaterialRounded"
+                                     Glyph="{x:Static m:MaterialRounded.Edit_square}"
+                                     Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                     Size="10" />
+                </uranium:TextField.Icon>
+            </uranium:TextField>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical"
+                     Grid.Column="1"
+                     Grid.Row="4"
+                     Grid.ColumnSpan="3">
+            <Label Text="Phone Number"
+                   FontSize="Small" />
+            <uranium:TextField Text="0123456789">
+                <uranium:TextField.Icon>
+                    <FontImageSource FontFamily="MaterialRounded"
+                                     Glyph="{x:Static m:MaterialRounded.Edit_square}"
+                                     Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                     Size="10" />
+                </uranium:TextField.Icon>
+            </uranium:TextField>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical"
+                     Grid.Column="1"
+                     Grid.Row="5"
+                     Grid.ColumnSpan="3">
+            <Label Text="Address"
+                   FontSize="Small" />
+            <uranium:TextField Text="1 Fake Street, Dublin, Co. Dublin">
+                <uranium:TextField.Icon>
+                    <FontImageSource FontFamily="MaterialRounded"
+                                     Glyph="{x:Static m:MaterialRounded.Edit_square}"
+                                     Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                     Size="10" />
+                </uranium:TextField.Icon>
+            </uranium:TextField>
         </StackLayout>
 
         <StackLayout Orientation="Horizontal"
-                     Grid.Column="1"
-                     Grid.Row="2"
-                     Grid.ColumnSpan="2"
-                     HorizontalOptions="CenterAndExpand">
-            <Button Text="Change Password"
+                     Grid.Column="0"
+                     Grid.Row="6"
+                     Grid.ColumnSpan="2">
+
+            <Button Text="Confirm"
                     BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                    StyleClass="FilledButton"/>
+                    TextColor="{StaticResource White}"
+                    StyleClass="FilledButton"
+                    IsEnabled="False"
+                    HorizontalOptions="CenterAndExpand"/>
         </StackLayout>
 
         <StackLayout Orientation="Horizontal"
                      Grid.Column="3"
-                     Grid.Row="5">
+                     Grid.Row="6">
+            
             <Button Text="Logout"
                     BackgroundColor="{StaticResource Warning}"
+                    TextColor="{StaticResource White}"
                     StyleClass="FilledButton" />
         </StackLayout>
         

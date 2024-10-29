@@ -129,6 +129,7 @@
 
                         <Button Text="Off"
                                 BackgroundColor="{StaticResource Warning}"
+                                TextColor="{StaticResource White}"
                                 StyleClass="FilledButton"
                                 IsEnabled="True"
                                 Grid.Column="2"
@@ -183,6 +184,7 @@
 
                         <Button Text="Off"
                                 BackgroundColor="{StaticResource Warning}"
+                                TextColor="{StaticResource White}"
                                 StyleClass="FilledButton"
                                 IsEnabled="True"
                                 Grid.Column="2"

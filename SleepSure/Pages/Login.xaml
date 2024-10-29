@@ -42,13 +42,19 @@
                 <uranium:TextField Title="Password"
                                     Margin="10"/>
 
-                <HorizontalStackLayout Margin="10,40">
+                <StackLayout Orientation="Horizontal" 
+                             Margin="10,40">
                     <uranium:CheckBox x:Name="stayLoggedInCheck"
                                       Padding="0,-5,-15,0"/>
                     <Label Text="Stay Logged In?"
                            FontSize="Caption" />
-                    
-                </HorizontalStackLayout>
+
+                    <Label Text="Forgot Password?"
+                           TextColor="#3366CC"
+                           FontSize="Caption"
+                           HorizontalOptions="EndAndExpand" />
+
+                </StackLayout>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
