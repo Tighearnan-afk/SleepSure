@@ -9,8 +9,7 @@ namespace SleepSure
             InitializeComponent();
 
             //Register routes
-            Routing.RegisterRoute("lightdevicedetails", typeof(LightDeviceDetails));
-            Routing.RegisterRoute("thermostatdevicedetails", typeof(ThermostatDeviceDetails));
+            Routing.RegisterRoute("devicedetails", typeof(DeviceDetails));
             Routing.RegisterRoute("adddevice", typeof(AddDevice));
             Routing.RegisterRoute("videofeed", typeof(VideoFeed));
         }

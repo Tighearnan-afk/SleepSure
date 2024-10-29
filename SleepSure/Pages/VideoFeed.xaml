@@ -4,21 +4,26 @@
              x:Class="SleepSure.Pages.VideoFeed"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              Title="Video Feed">
-    <StackLayout Orientation="Vertical">
-        <StackLayout Orientation="Horizontal"
-                     Padding="10">
-            <Border Stroke="Black"
-                    StrokeThickness="0.4"
-                    HorizontalOptions="CenterAndExpand">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="5" />
-                </Border.StrokeShape>
+    <Border Stroke="Black"
+            StrokeThickness="0.4"
+            HorizontalOptions="CenterAndExpand">
+        <StackLayout Orientation="Vertical">
+        
+            <StackLayout Orientation="Horizontal"
+                         Padding="10"
+                         WidthRequest="600">
 
                 <Image Source="placeholdervideo.png"
-                             Aspect="AspectFit"
-                             HorizontalOptions="CenterAndExpand"
-                             VerticalOptions="Start"/>
-            </Border>
+                       Aspect="AspectFit"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="Start" />
+
+            </StackLayout>
+            <Button Text="View Archive" 
+                    StyleClass="FilledButton"
+                    WidthRequest="150"
+                    HorizontalOptions="Start"
+                    Margin="10,0,0,0"/>
         </StackLayout>
-    </StackLayout>
+    </Border>    
 </ContentPage>

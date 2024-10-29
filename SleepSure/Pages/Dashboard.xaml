@@ -42,11 +42,11 @@
                         </Border.GestureRecognizers>
                         <StackLayout Orientation="Horizontal"
                                      Spacing="5">
-                            <Image BackgroundColor="Orange">
+                            <Image>
                                 <Image.Source>
                                     <FontImageSource FontFamily="MaterialRounded"
                                                      Glyph="{x:Static m:MaterialRounded.Lightbulb}"
-                                                     Color="Yellow" />
+                                                     Color="Gold" />
                                 </Image.Source>
                             </Image>
                             <StackLayout Orientation="Vertical">

@@ -17,12 +17,21 @@
                FontAttributes="Bold"
                VerticalOptions="CenterAndExpand"
                Padding="10"/>
-        <Image Source="securitycamera.svg" 
+        <Image Source="securitycamera.png" 
                HeightRequest="100"
                WidthRequest="100"
                HorizontalOptions="EndAndExpand"/>
         </StackLayout>
     </Shell.FlyoutHeader>
+
+    <Shell.FlyoutBackdrop>
+        <LinearGradientBrush StartPoint="0,0"
+                             EndPoint="0,1">
+            <GradientStop Color="{StaticResource Primary}" Offset="0.1"/>
+            <GradientStop Color="{StaticResource White}" Offset="0.7"/>
+        </LinearGradientBrush>
+    </Shell.FlyoutBackdrop>
+    
     <FlyoutItem Title="Dashboard"
     Icon="dashboard_icon.png">
 

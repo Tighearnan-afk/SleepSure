@@ -15,36 +15,36 @@ public partial class Dashboard : ContentPage
 
     public async void OnTapGestureRecogniserTappedLight(object? sender, TappedEventArgs args)
     {
-        await Shell.Current.GoToAsync("lightdevicedetails");
+        await Shell.Current.GoToAsync("devicedetails");
     }
 
     public async void OnTapGestureRecogniserTappedThermostat(object? sender, TappedEventArgs args)
     {
-        await Shell.Current.GoToAsync("thermostatdevicedetails");
+        await Shell.Current.GoToAsync("devicedetails");
     }
 
     public async void OnTapGestureRecogniserTappedSecurityCamera(object? sender, TappedEventArgs args)
     {
-        await Shell.Current.GoToAsync("thermostatdevicedetails");
+        await Shell.Current.GoToAsync("devicedetails");
     }
 
     public async void OnTapGestureRecogniserTappedMovementSensor(object? sender, TappedEventArgs args)
     {
-        await Shell.Current.GoToAsync("thermostatdevicedetails");
+        await Shell.Current.GoToAsync("devicedetails");
     }
 
     public async void OnTapGestureRecogniserTappedWaterLeakSensor(object? sender, TappedEventArgs args)
     {
-        await Shell.Current.GoToAsync("thermostatdevicedetails");
+        await Shell.Current.GoToAsync("devicedetails");
     }
 
     public async void OnTapGestureRecogniserTappedHumiditySensor(object? sender, TappedEventArgs args)
     {
-        await Shell.Current.GoToAsync("thermostatdevicedetails");
+        await Shell.Current.GoToAsync("devicedetails");
     }
 
     public async void OnTapGestureRecogniserTappedVibrationSensor(object? sender, TappedEventArgs args)
     {
-        await Shell.Current.GoToAsync("thermostatdevicedetails");
+        await Shell.Current.GoToAsync("devicedetails");
     }
 }

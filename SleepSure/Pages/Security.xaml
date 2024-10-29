@@ -194,6 +194,75 @@
                                 Margin="0,0,0,10" />
                     </Grid>
                 </Border>
+
+                <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                        StrokeThickness="0.4"
+                        Padding="0,0,5,0"
+                        StyleClass="Elevation1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5" />
+                    </Border.StrokeShape>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Image x:Name="BackDoorMotioSensor"
+                               Grid.RowSpan="3">
+                            <Image.Source>
+                                <FontImageSource FontFamily="MaterialRounded"
+                                                 Glyph="{x:Static m:MaterialRounded.Motion_sensor_active}"
+                                                 Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"/>
+                            </Image.Source>
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedBackDoorMotionSensor"
+                                                      NumberOfTapsRequired="1" />
+                            </Image.GestureRecognizers>
+                        </Image>
+
+                        <Label Text="Back Door Motion Sensor"
+                               FontSize="Body"
+                               Grid.Column="1"
+                               Grid.ColumnSpan="2"
+                               HorizontalOptions="CenterAndExpand" />
+
+                        <Label Text="Status: No Motion"
+                               FontSize="Body"
+                               Grid.Column="1"
+                               Grid.Row="1"
+                               Grid.ColumnSpan="2"
+                               HorizontalOptions="Center"
+                               Margin="0,0,0,10"/>
+
+                        <Button Text="On"
+                                StyleClass="FilledButton"
+                                IsEnabled="False"
+                                Grid.Column="1"
+                                Grid.Row="2"
+                                MaximumWidthRequest="100"
+                                MaximumHeightRequest="100"
+                                Margin="0,0,0,20" />
+
+                        <Button Text="Off"
+                                BackgroundColor="{StaticResource Warning}"
+                                TextColor="{StaticResource White}"
+                                StyleClass="FilledButton"
+                                IsEnabled="True"
+                                Grid.Column="2"
+                                Grid.Row="2"
+                                MaximumWidthRequest="100"
+                                MaximumHeightRequest="100"
+                                Margin="0,0,0,20" />
+                    </Grid>
+                </Border>
+
             </StackLayout>
         </StackLayout>
     </ScrollView>

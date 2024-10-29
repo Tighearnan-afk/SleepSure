@@ -17,4 +17,10 @@ public partial class Security : ContentPage
     {
         await Shell.Current.GoToAsync("videofeed");
     }
+
+    public async void OnTapGestureRecogniserTappedBackDoorMotionSensor(object? sender, TappedEventArgs args)
+    {
+        await Shell.Current.GoToAsync("devicedetails");
+    }
+
 }

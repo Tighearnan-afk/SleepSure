@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SleepSure.Pages.DeviceDetails"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
+             Title="Device Details">
+    <ScrollView>
+        <Border Stroke="Black"
+                StrokeThickness="0.4"
+                MaximumWidthRequest="375">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="5" />
+            </Border.StrokeShape>
+
+            <StackLayout Orientation="Vertical"
+                         Spacing="10">
+
+                <StackLayout Orientation="Vertical">
+                    <Image MaximumHeightRequest="50"
+                           MaximumWidthRequest="50">
+                        <Image.Source>
+                            <FontImageSource FontFamily="MaterialRounded"
+                                             Glyph="{x:Static m:MaterialRounded.Image}"
+                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                                             Size="50" />
+                        </Image.Source>
+                    </Image>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <uranium:TextField Title="Device Name"
+                                       HorizontalOptions="CenterAndExpand"
+                                       Icon="{FontImageSource FontFamily=MaterialRounded, Glyph={x:Static m:MaterialRounded.Edit}}"
+                                       WidthRequest="350"
+                                       Padding="0,10,0,0" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <!--Picker Code retrieved from https://www.artesian.io/how-to-create-a-dropdown-list-in-net-maui/
+                    to allow me to illustrate the visual design im going for in regards to the dropdown-->
+                    <Picker Title="Device type"
+                            HorizontalOptions="CenterAndExpand"
+                            WidthRequest="350"
+                            MaximumWidthRequest="350">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Light</x:String>
+                                <x:String>Thermostat</x:String>
+                                <x:String>Camera</x:String>
+                                <x:String>Motion Sensor</x:String>
+                                <x:String>Leak Sensor</x:String>
+                                <x:String>Humidity Sensor</x:String>
+                                <x:String>Door Sensor</x:String>
+                                <x:String>Window Sensor</x:String>
+                                <x:String>Vibration Sensor</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <Picker Title="Location"
+                            HorizontalOptions="CenterAndExpand"
+                            WidthRequest="350"
+                            MaximumWidthRequest="350">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Living Room</x:String>
+                                <x:String>Garden</x:String>
+                                <x:String>Basement</x:String>
+                                <x:String>Kitchen</x:String>
+                                <x:String>Hallway</x:String>
+                                <x:String>Add Location +</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <uranium:EditorField Title="Description"
+                                         Icon="{FontImageSource FontFamily=MaterialRounded, Glyph={x:Static m:MaterialRounded.Edit}}"
+                                         HorizontalOptions="CenterAndExpand"
+                                         WidthRequest="350" />
+                </StackLayout>
+
+                <BoxView Color="{StaticResource Black}"
+                         HeightRequest="0.1"
+                         HorizontalOptions="Fill" />
+
+                <Label Text="Device Options" 
+                       FontSize="Medium"
+                       HorizontalOptions="Center"/>
+
+                <Slider ThumbColor="Gold"
+                        MinimumTrackColor="Goldenrod"
+                        Margin="10"/>
+
+                <Button Text="Remove Device"
+                        BackgroundColor="{StaticResource Warning}"
+                        StyleClass="FilledButton"
+                        HorizontalOptions="Center"/>
+
+                <StackLayout Orientation="Horizontal"
+                             VerticalOptions="EndAndExpand">
+                    <Button Text="On"
+                            StyleClass="FilledButton"
+                            IsEnabled="False"
+                            HorizontalOptions="Start"
+                            MaximumWidthRequest="100"
+                            MaximumHeightRequest="100"
+                            Margin="10,0,0,10" />
+
+                    <Button Text="Off"
+                            BackgroundColor="{StaticResource Warning}"
+                            TextColor="{StaticResource White}"
+                            StyleClass="FilledButton"
+                            IsEnabled="True"
+                            MaximumWidthRequest="100"
+                            MaximumHeightRequest="100"
+                            HorizontalOptions="EndAndExpand"
+                            Margin="0,0,10,10" />
+                </StackLayout>
+            </StackLayout>
+        </Border>
+    </ScrollView>
+</ContentPage>
