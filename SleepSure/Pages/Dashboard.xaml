@@ -16,7 +16,7 @@
     </ContentPage.ToolbarItems>
     <ScrollView>
         <FlexLayout Direction="Column"
-                    JustifyContent="SpaceAround"
+                    JustifyContent="SpaceBetween"
                     Wrap="Wrap"
                     Padding="10">  <!--Root column flexlayout that flows down the page-->
             <VerticalStackLayout x:Name="LivingRoom"> <!--Vertical stack used to position area name above the grouping of devices-->

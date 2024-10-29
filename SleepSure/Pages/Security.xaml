@@ -2,80 +2,197 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SleepSure.Pages.Security"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              Title="Security">
-    <StackLayout Orientation="Vertical">
-        <Border Stroke="Black"
-                StrokeThickness="0.4"
-                HorizontalOptions="CenterAndExpand">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="5" />
-            </Border.StrokeShape>
-            <StackLayout Orientation="Horizontal"
-                         Margin="20">
-                <Border>
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1" />
-                    </Border.GestureRecognizers>
-                    <Image>
-                        <Image.Source>
-                            <FontImageSource FontFamily="MaterialRounded"
-                                             Glyph="{x:Static m:MaterialRounded.Lock_open_right}"
-                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
-                                             Size="100" />
-                        </Image.Source>
-                    </Image>
-                </Border>
+    <ScrollView>
+        <StackLayout Orientation="Vertical"
+                     WidthRequest="385"
+                     HeightRequest="650">
+            <Border Stroke="Black"
+                    StrokeThickness="0.4"
+                    HorizontalOptions="CenterAndExpand">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5" />
+                </Border.StrokeShape>
+                <StackLayout Orientation="Horizontal"
+                             Margin="20">
+                    <Border>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" />
+                        </Border.GestureRecognizers>
+                        <Image>
+                            <Image.Source>
+                                <FontImageSource FontFamily="MaterialRounded"
+                                                 Glyph="{x:Static m:MaterialRounded.Lock_open_right}"
+                                                 Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                                                 Size="100" />
+                            </Image.Source>
+                        </Image>
+                    </Border>
 
-                <Border>
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1" />
-                    </Border.GestureRecognizers>
-                    <Image>
-                        <Image.Source>
-                            <FontImageSource FontFamily="MaterialRounded"
-                                             Glyph="{x:Static m:MaterialRounded.Home}"
-                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
-                                             Size="100" />
-                        </Image.Source>
-                    </Image>
-                </Border>
+                    <Border>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" />
+                        </Border.GestureRecognizers>
+                        <Image>
+                            <Image.Source>
+                                <FontImageSource FontFamily="MaterialRounded"
+                                                 Glyph="{x:Static m:MaterialRounded.Home}"
+                                                 Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                                                 Size="100" />
+                            </Image.Source>
+                        </Image>
+                    </Border>
 
-                <Border BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}">
+                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" />
+                        </Border.GestureRecognizers>
+                        <Image>
+                            <Image.Source>
+                                <FontImageSource FontFamily="MaterialRounded"
+                                                 Glyph="{x:Static m:MaterialRounded.Shield}"
+                                                 Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                                                 Size="100" />
+                            </Image.Source>
+                        </Image>
+                    </Border>
+                </StackLayout>
+            </Border>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Current Status:"
+                       FontSize="Title"
+                       FontAttributes="Bold"
+                       HorizontalOptions="CenterAndExpand" />
+                <Label x:Name="SystemStatus"
+                       Text="Armed"
+                       TextColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                       FontSize="Title"
+                       FontAttributes="Bold"
+                       HorizontalOptions="CenterAndExpand" />
+            </StackLayout>
+
+            <StackLayout Orientation="Vertical"
+                         Margin="10"
+                         Spacing="10">
+                <Label Text="Devices"
+                       FontSize="Medium"
+                       FontAttributes="Bold"
+                       HorizontalOptions="CenterAndExpand"
+                       Padding="10"/>
+                <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                        StrokeThickness="0.4"
+                        Padding="0,0,5,0"
+                        StyleClass="Elevation1">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="5" />
                     </Border.StrokeShape>
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1" />
-                    </Border.GestureRecognizers>
-                    <Image>
-                        <Image.Source>
-                            <FontImageSource FontFamily="MaterialRounded"
-                                             Glyph="{x:Static m:MaterialRounded.Shield}"
-                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
-                                             Size="100" />
-                        </Image.Source>
-                    </Image>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Image x:Name="BackDoorCamera"
+                               Source="placeholdervideo.png"
+                               Grid.RowSpan="2">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedBackDoorCamera"
+                                                      NumberOfTapsRequired="1" />
+                            </Image.GestureRecognizers>
+                        </Image>
+
+                        <Label Text="Back Door Camera" 
+                               FontSize="Body"
+                               Grid.Column="1"
+                               Grid.ColumnSpan="2"
+                               HorizontalOptions="CenterAndExpand"/>
+
+                        <Button Text="On"
+                                StyleClass="FilledButton" 
+                                IsEnabled="False"
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                MaximumWidthRequest="100"
+                                MaximumHeightRequest="100"
+                                Margin="0,0,0,10"/>
+
+                        <Button Text="Off"
+                                BackgroundColor="{StaticResource Warning}"
+                                StyleClass="FilledButton"
+                                IsEnabled="True"
+                                Grid.Column="2"
+                                Grid.Row="2"
+                                MaximumWidthRequest="100"
+                                MaximumHeightRequest="100"
+                                Margin="0,0,0,10" />
+                    </Grid>
+                </Border>
+
+                <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                        StrokeThickness="0.4"
+                        Padding="0,0,5,0"
+                        StyleClass="Elevation1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5" />
+                    </Border.StrokeShape>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Image x:Name="BackWallCamera"
+                               Source="placeholdervideo.png"
+                               Grid.RowSpan="2">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedBackWallCamera"
+                                                      NumberOfTapsRequired="1" />
+                            </Image.GestureRecognizers>
+                        </Image>
+
+                        <Label Text="Back Wall Camera"
+                               FontSize="Body"
+                               Grid.Column="1"
+                               Grid.ColumnSpan="2"
+                               HorizontalOptions="CenterAndExpand" />
+
+                        <Button Text="On"
+                                StyleClass="FilledButton"
+                                IsEnabled="False"
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                MaximumWidthRequest="100"
+                                MaximumHeightRequest="100"
+                                Margin="0,0,0,10" />
+
+                        <Button Text="Off"
+                                BackgroundColor="{StaticResource Warning}"
+                                StyleClass="FilledButton"
+                                IsEnabled="True"
+                                Grid.Column="2"
+                                Grid.Row="2"
+                                MaximumWidthRequest="100"
+                                MaximumHeightRequest="100"
+                                Margin="0,0,0,10" />
+                    </Grid>
                 </Border>
             </StackLayout>
-        </Border>
-
-        <StackLayout Orientation="Horizontal">
-            <Label Text="Current Status:"
-                   FontSize="Title"
-                   FontAttributes="Bold"
-                   HorizontalOptions="CenterAndExpand"></Label>
-            <Label x:Name="SystemStatus"
-                   Text="Armed"
-                   TextColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                   FontSize="Title"
-                   FontAttributes="Bold"
-                   HorizontalOptions="CenterAndExpand" />
         </StackLayout>
-        
-        <FlexLayout Direction="Row"
-                    Wrap="Wrap">
-            
-        </FlexLayout>
-    </StackLayout>
+    </ScrollView>
 </ContentPage>

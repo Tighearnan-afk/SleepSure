@@ -7,33 +7,18 @@
     <StackLayout Orientation="Vertical">
         <StackLayout Orientation="Horizontal"
                      Padding="10">
-        <Border Stroke="Black"
-                StrokeThickness="0.4"
-                HorizontalOptions="CenterAndExpand">
+            <Border Stroke="Black"
+                    StrokeThickness="0.4"
+                    HorizontalOptions="CenterAndExpand">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="5" />
                 </Border.StrokeShape>
 
-                <ImageButton Source="placeholder250x250.png"
-                             Aspect="AspectFill"
-                             HorizontalOptions="CenterAndExpand" />
+                <Image Source="placeholdervideo.png"
+                             Aspect="AspectFit"
+                             HorizontalOptions="CenterAndExpand"
+                             VerticalOptions="Start"/>
             </Border>
-        </StackLayout>
-
-        <!--Code retrieved from https://www.artesian.io/how-to-create-a-dropdown-list-in-net-maui/
-        to allow me to illustrate the visual design im going for in regards to the dropdown-->
-
-        <StackLayout Orientation="Horizontal">
-            <Picker Title="Please select a camera"
-                    HorizontalOptions="CenterAndExpand"
-                    WidthRequest="350">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Back Door Camera</x:String>
-                        <x:String>Back Wall Camera</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
         </StackLayout>
     </StackLayout>
 </ContentPage>

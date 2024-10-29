@@ -12,6 +12,7 @@ namespace SleepSure
             Routing.RegisterRoute("lightdevicedetails", typeof(LightDeviceDetails));
             Routing.RegisterRoute("thermostatdevicedetails", typeof(ThermostatDeviceDetails));
             Routing.RegisterRoute("adddevice", typeof(AddDevice));
+            Routing.RegisterRoute("videofeed", typeof(VideoFeed));
         }
     }
 }
