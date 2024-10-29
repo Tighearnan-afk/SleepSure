@@ -37,28 +37,23 @@
                        FontAttributes="Bold">
                     Welcome to Sleepsure!</Label>
 
+                <uranium:TextField Title="Name"
+                                   Margin="10" />
+
                 <uranium:TextField Title="Email"
                                    Margin="10" />
 
                 <uranium:TextField Title="Password"
                                    Margin="10" />
 
-                <HorizontalStackLayout Margin="10,40">
-                    <uranium:CheckBox x:Name="stayLoggedInCheck"
-                                      Padding="0,-5,-15,0" />
-                    <Label FontSize="Caption">Stay Logged In?</Label>
-
-
-                </HorizontalStackLayout>
-
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100" />
-                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="115" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="100" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="95" />
                     </Grid.RowDefinitions>
                     <Button x:Name="btnRegister"
                             StyleClass="FilledButton"

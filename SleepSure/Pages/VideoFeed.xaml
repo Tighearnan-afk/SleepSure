@@ -25,7 +25,8 @@
 
         <StackLayout Orientation="Horizontal">
             <Picker Title="Please select a camera"
-                    HorizontalOptions="CenterAndExpand">
+                    HorizontalOptions="CenterAndExpand"
+                    WidthRequest="350">
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Back Door Camera</x:String>

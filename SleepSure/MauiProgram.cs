@@ -14,7 +14,7 @@ namespace SleepSure
                 .UseUraniumUIMaterial()
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("Roboto-Regular.ttf", "RobotoRegular");
+                    fonts.AddFont("Roboto-Regular.ttf", "RobotoRegular"); //Retrieved from https://fonts.google.com/specimen/Roboto
                     fonts.AddFont("Roboto-Bold.ttf", "RobotoBold");
                     fonts.AddMaterialSymbolsFonts();
                 });

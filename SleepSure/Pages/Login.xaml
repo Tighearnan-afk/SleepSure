@@ -18,6 +18,7 @@
         </Grid.RowDefinitions>
 
         <Image Source="securitycamera.svg"
+               
                Grid.Column="1"
                Grid.Row="0"/>
 
@@ -29,11 +30,11 @@
                 <RoundRectangle CornerRadius="20,20,20,20"/>
             </Border.StrokeShape>
             <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="0">
-                <Label HorizontalOptions="Center"
+                <Label Text="Welcome to Sleepsure!"
+                       HorizontalOptions="Center"
                        Padding="0,5,0,5"
                        FontSize="Large"
-                       FontAttributes="Bold">
-                    Welcome to Sleepsure!</Label>
+                       FontAttributes="Bold" />
 
                 <uranium:TextField Title="Email"
                                    Margin="10"/>
@@ -44,8 +45,8 @@
                 <HorizontalStackLayout Margin="10,40">
                     <uranium:CheckBox x:Name="stayLoggedInCheck"
                                       Padding="0,-5,-15,0"/>
-                    <Label FontSize="Caption">Stay Logged In?</Label>
-                    
+                    <Label Text="Stay Logged In?"
+                           FontSize="Caption" />
                     
                 </HorizontalStackLayout>
 

@@ -12,7 +12,7 @@
         <StackLayout Orientation="Horizontal"
                      Background="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource SecondaryDarkText}}">
         <Label Text="SleepSure"
-                   TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+               TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
                FontSize="Title"
                FontAttributes="Bold"
                VerticalOptions="CenterAndExpand"
@@ -23,8 +23,7 @@
                HorizontalOptions="EndAndExpand"/>
         </StackLayout>
     </Shell.FlyoutHeader>
-    <FlyoutItem
-    Title="Dashboard"
+    <FlyoutItem Title="Dashboard"
     Icon="dashboard_icon.png">
 
         <ShellContent

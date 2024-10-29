@@ -5,27 +5,23 @@
              xmlns:Uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              Title="Dashboard">
+    <ContentPage.ToolbarItems> <!--Code retrieced from https://blog.ewers-peters.de/customize-the-title-bar-of-a-maui-app-with-these-simple-steps#heading-background-color-->
+        <ToolbarItem x:Name="btnAddDevice">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="MaterialRounded"
+                                 Glyph="{x:Static m:MaterialRounded.Edit_square}"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ScrollView>
         <FlexLayout Direction="Column"
-                    Wrap="Wrap">
-            <!--Root column flexlayout that flows down the page-->
-            <StackLayout Orientation="Horizontal">
-                <!--StackLayout used because HorizontalStackLayout causes horizontal options for the button view to not work-->
-                <Uranium:ButtonView HorizontalOptions="EndAndExpand" 
-                                    MaximumHeightRequest="50"
-                                    MaximumWidthRequest="50">
-                    <ImageButton x:Name="btnAddDevice">
-                        <ImageButton.Source>
-                            <FontImageSource FontFamily="MaterialRounded"
-                                             Glyph="{x:Static m:MaterialRounded.Edit_square}" />
-                        </ImageButton.Source>
-                    </ImageButton>
-                </Uranium:ButtonView>
-            </StackLayout>
-            <VerticalStackLayout x:Name="LivingRoom">
-                <!--Vertical stack used to position area name above the grouping of devices-->
+                    JustifyContent="SpaceAround"
+                    Wrap="Wrap"
+                    Padding="10">  <!--Root column flexlayout that flows down the page-->
+            <VerticalStackLayout x:Name="LivingRoom"> <!--Vertical stack used to position area name above the grouping of devices-->
                 <Label Text="Living Room"
-                       FontSize="Caption"
+                       FontSize="Body"
                        FontAttributes="Bold"
                        HorizontalOptions="CenterAndExpand" />
 
@@ -33,9 +29,10 @@
                             JustifyContent="SpaceEvenly"
                             Direction="Row"
                             Wrap="Wrap">
-                    <Border Stroke="Black"
+                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                             StrokeThickness="0.4"
-                            Padding="0,0,5,0">
+                            Padding="0,0,5,0"
+                            StyleClass="Elevation1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
@@ -60,9 +57,10 @@
                         </StackLayout>
                     </Border>
 
-                    <Border Stroke="Black"
+                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                             StrokeThickness="0.4"
-                            Padding="0,0,5,0">
+                            Padding="0,0,5,0"
+                            StyleClass="Elevation1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
@@ -90,10 +88,9 @@
                 </FlexLayout>
             </VerticalStackLayout>
 
-            <VerticalStackLayout x:Name="Garden">
-                <!--Vertical stack used to position area name above the grouping of devices-->
+            <VerticalStackLayout x:Name="Garden"> <!--Vertical stack used to position area name above the grouping of devices-->
                 <Label Text="Garden"
-                       FontSize="Caption"
+                       FontSize="Body"
                        FontAttributes="Bold"
                        HorizontalOptions="CenterAndExpand" />
 
@@ -101,9 +98,10 @@
                             JustifyContent="SpaceEvenly"
                             Direction="Row"
                             Wrap="Wrap">
-                    <Border Stroke="Black"
+                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                             StrokeThickness="0.4"
-                            Padding="0,0,5,0">
+                            Padding="0,0,5,0"
+                            StyleClass="Elevation1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
@@ -128,9 +126,10 @@
                         </StackLayout>
                     </Border>
 
-                    <Border Stroke="Black"
+                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                             StrokeThickness="0.4"
-                            Padding="0,0,5,0">
+                            Padding="0,0,5,0"
+                            StyleClass="Elevation1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
@@ -155,9 +154,10 @@
                         </StackLayout>
                     </Border>
 
-                    <Border Stroke="Black"
+                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                             StrokeThickness="0.4"
-                            Padding="0,0,5,0">
+                            Padding="0,0,5,0"
+                            StyleClass="Elevation1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
@@ -185,10 +185,9 @@
                 </FlexLayout>
             </VerticalStackLayout>
 
-            <VerticalStackLayout x:Name="Basement">
-                <!--Vertical stack used to position area name above the grouping of devices-->
+            <VerticalStackLayout x:Name="Basement"> <!--Vertical stack used to position area name above the grouping of devices-->
                 <Label Text="Basement"
-                       FontSize="Caption"
+                       FontSize="Body"
                        FontAttributes="Bold"
                        HorizontalOptions="CenterAndExpand" />
 
@@ -196,9 +195,10 @@
                             JustifyContent="SpaceEvenly"
                             Direction="Row"
                             Wrap="Wrap">
-                    <Border Stroke="Black"
+                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                             StrokeThickness="0.4"
-                            Padding="0,0,5,0">
+                            Padding="0,0,5,0"
+                            StyleClass="Elevation1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
@@ -223,9 +223,10 @@
                         </StackLayout>
                     </Border>
 
-                    <Border Stroke="Black"
+                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                             StrokeThickness="0.4"
-                            Padding="0,0,5,0">
+                            Padding="0,0,5,0"
+                            StyleClass="Elevation1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
@@ -252,10 +253,9 @@
                 </FlexLayout>
             </VerticalStackLayout>
 
-            <VerticalStackLayout x:Name="Kitchen">
-                <!--Vertical stack used to position area name above the grouping of devices-->
+            <VerticalStackLayout x:Name="Kitchen">  <!--Vertical stack used to position area name above the grouping of devices-->
                 <Label Text="Kitchen"
-                       FontSize="Caption"
+                       FontSize="Body"
                        FontAttributes="Bold"
                        HorizontalOptions="CenterAndExpand" />
 
@@ -263,9 +263,10 @@
                             JustifyContent="SpaceEvenly"
                             Direction="Row"
                             Wrap="Wrap">
-                    <Border Stroke="Black"
+                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                             StrokeThickness="0.4"
-                            Padding="0,0,5,0">
+                            Padding="0,0,5,0"
+                            StyleClass="Elevation1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
@@ -290,9 +291,10 @@
                         </StackLayout>
                     </Border>
 
-                    <Border Stroke="Black"
+                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                             StrokeThickness="0.4"
-                            Padding="0,0,5,0">
+                            Padding="0,0,5,0"
+                            StyleClass="Elevation1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
@@ -318,10 +320,9 @@
                     </Border>
                 </FlexLayout>
             </VerticalStackLayout>
-            <VerticalStackLayout x:Name="Hallway">
-                <!--Vertical stack used to position area name above the grouping of devices-->
+            <VerticalStackLayout x:Name="Hallway"> <!--Vertical stack used to position area name above the grouping of devices-->
                 <Label Text="Hallway"
-                       FontSize="Caption"
+                       FontSize="Body"
                        FontAttributes="Bold"
                        HorizontalOptions="CenterAndExpand" />
 
@@ -329,9 +330,10 @@
                             JustifyContent="SpaceEvenly"
                             Direction="Row"
                             Wrap="Wrap">
-                    <Border Stroke="Black"
+                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                             StrokeThickness="0.4"
-                            Padding="0,0,5,0">
+                            Padding="0,0,5,0"
+                            StyleClass="Elevation1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
@@ -357,7 +359,6 @@
                     </Border>
                 </FlexLayout>
             </VerticalStackLayout>
-        </FlexLayout>
-        <!--End of page column flexlayout-->
+        </FlexLayout> <!--End of page column flexlayout-->
     </ScrollView>
 </ContentPage>
