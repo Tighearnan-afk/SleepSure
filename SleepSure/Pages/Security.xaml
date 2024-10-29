@@ -215,11 +215,14 @@
                         </Grid.RowDefinitions>
 
                         <Image x:Name="BackDoorMotioSensor"
-                               Grid.RowSpan="3">
+                               Grid.RowSpan="3"
+                               MaximumWidthRequest="90"
+                               MaximumHeightRequest="90">
                             <Image.Source>
                                 <FontImageSource FontFamily="MaterialRounded"
                                                  Glyph="{x:Static m:MaterialRounded.Motion_sensor_active}"
-                                                 Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"/>
+                                                 Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                                                 Size="65"/>
                             </Image.Source>
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedBackDoorMotionSensor"

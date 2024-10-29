@@ -68,7 +68,13 @@
                                         HorizontalOptions="CenterAndExpand"
                                         WidthRequest="350" />
                 </StackLayout>
-            
+
+                <Button Text="Create"
+                        StyleClass="FilledButton"
+                        VerticalOptions="EndAndExpand"
+                        HorizontalOptions="EndAndExpand" 
+                        Margin="10"/>
+
             </StackLayout>
         </Border>
     </ScrollView>

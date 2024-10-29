@@ -28,7 +28,9 @@
                 <FlexLayout x:Name="LivingRoomDevices"
                             JustifyContent="SpaceEvenly"
                             Direction="Row"
-                            Wrap="Wrap">
+                            Wrap="Wrap"
+                            MaximumWidthRequest="600"
+                            Margin="10">
                     <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                             StrokeThickness="0.4"
                             Padding="0,0,5,0"
@@ -97,7 +99,9 @@
                 <FlexLayout x:Name="GardenDevices"
                             JustifyContent="SpaceEvenly"
                             Direction="Row"
-                            Wrap="Wrap">
+                            Wrap="Wrap"
+                            MaximumWidthRequest="600"
+                            Margin="10">
                     <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                             StrokeThickness="0.4"
                             Padding="0,0,5,0"
@@ -194,7 +198,9 @@
                 <FlexLayout x:Name="BasementDevices"
                             JustifyContent="SpaceEvenly"
                             Direction="Row"
-                            Wrap="Wrap">
+                            Wrap="Wrap"
+                            MaximumWidthRequest="600"
+                            Margin="10">
                     <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                             StrokeThickness="0.4"
                             Padding="0,0,5,0"
@@ -262,7 +268,9 @@
                 <FlexLayout x:Name="KitchenDevices"
                             JustifyContent="SpaceEvenly"
                             Direction="Row"
-                            Wrap="Wrap">
+                            Wrap="Wrap"
+                            MaximumWidthRequest="600"
+                            Margin="10">
                     <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                             StrokeThickness="0.4"
                             Padding="0,0,5,0"
@@ -329,7 +337,9 @@
                 <FlexLayout x:Name="HallwayDevices"
                             JustifyContent="SpaceEvenly"
                             Direction="Row"
-                            Wrap="Wrap">
+                            Wrap="Wrap"
+                            MaximumWidthRequest="600"
+                            Margin="10">
                     <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                             StrokeThickness="0.4"
                             Padding="0,0,5,0"
