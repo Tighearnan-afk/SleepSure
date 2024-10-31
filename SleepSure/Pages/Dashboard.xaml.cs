@@ -1,11 +1,26 @@
+using SleepSure.ViewModel;
+
 namespace SleepSure.Pages;
 
 public partial class Dashboard : ContentPage
 {
-	public Dashboard()
+	public Dashboard(DeviceViewModel viewModel)
 	{
 		InitializeComponent();
         btnAddDevice.Clicked += OnBtnAddDevice_Clicked;
+
+        //Set the binding context to the view model
+        BindingContext = viewModel;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (BindingContext is DeviceViewModel viewModel)
+        {
+            viewModel.GetDevicesCommand.Execute(null);
+        }
     }
 
     public async void OnBtnAddDevice_Clicked(object? sender, EventArgs e)

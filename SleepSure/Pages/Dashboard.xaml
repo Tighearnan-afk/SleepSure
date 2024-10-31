@@ -2,9 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SleepSure.Pages.Dashboard"
+             xmlns:model="clr-namespace:SleepSure.Model"
+             xmlns:viewmodel="clr-namespace:SleepSure.ViewModel"
+             x:DataType="viewmodel:DeviceViewModel"
              xmlns:Uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
-             Title="Dashboard">
+             Title="{Binding PageTitle}">
     <ContentPage.ToolbarItems> <!--Code retrieced from https://blog.ewers-peters.de/customize-the-title-bar-of-a-maui-app-with-these-simple-steps#heading-background-color-->
         <ToolbarItem x:Name="btnAddDevice">
             <ToolbarItem.IconImageSource>
@@ -15,12 +18,12 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ScrollView>
-        <FlexLayout Direction="Column"
+        <!--<FlexLayout Direction="Column"
                     JustifyContent="SpaceBetween"
                     Wrap="Wrap"
-                    Padding="10">  <!--Root column flexlayout that flows down the page-->
-            <VerticalStackLayout x:Name="LivingRoom"> <!--Vertical stack used to position area name above the grouping of devices-->
-                <Label Text="Living Room"
+                    Padding="10">  Root column flexlayout that flows down the page-->
+        <!-- <VerticalStackLayout x:Name="LivingRoom">Vertical stack used to position area name above the grouping of devices-->
+              <!--  <Label Text="Living Room"
                        FontSize="Body"
                        FontAttributes="Bold"
                        HorizontalOptions="CenterAndExpand" />
@@ -90,8 +93,8 @@
                 </FlexLayout>
             </VerticalStackLayout>
 
-            <VerticalStackLayout x:Name="Garden"> <!--Vertical stack used to position area name above the grouping of devices-->
-                <Label Text="Garden"
+            <VerticalStackLayout x:Name="Garden"> Vertical stack used to position area name above the grouping of devices-->
+               <!-- <Label Text="Garden"
                        FontSize="Body"
                        FontAttributes="Bold"
                        HorizontalOptions="CenterAndExpand" />
@@ -189,8 +192,8 @@
                 </FlexLayout>
             </VerticalStackLayout>
 
-            <VerticalStackLayout x:Name="Basement"> <!--Vertical stack used to position area name above the grouping of devices-->
-                <Label Text="Basement"
+            <VerticalStackLayout x:Name="Basement"> Vertical stack used to position area name above the grouping of devices-->
+               <!-- <Label Text="Basement"
                        FontSize="Body"
                        FontAttributes="Bold"
                        HorizontalOptions="CenterAndExpand" />
@@ -259,8 +262,8 @@
                 </FlexLayout>
             </VerticalStackLayout>
 
-            <VerticalStackLayout x:Name="Kitchen">  <!--Vertical stack used to position area name above the grouping of devices-->
-                <Label Text="Kitchen"
+            <VerticalStackLayout x:Name="Kitchen">  Vertical stack used to position area name above the grouping of devices-->
+        <!-- <Label Text="Kitchen"
                        FontSize="Body"
                        FontAttributes="Bold"
                        HorizontalOptions="CenterAndExpand" />
@@ -328,8 +331,8 @@
                     </Border>
                 </FlexLayout>
             </VerticalStackLayout>
-            <VerticalStackLayout x:Name="Hallway"> <!--Vertical stack used to position area name above the grouping of devices-->
-                <Label Text="Hallway"
+            <VerticalStackLayout x:Name="Hallway"> Vertical stack used to position area name above the grouping of devices-->
+        <!--  <Label Text="Hallway"
                        FontSize="Body"
                        FontAttributes="Bold"
                        HorizontalOptions="CenterAndExpand" />
@@ -369,6 +372,48 @@
                     </Border>
                 </FlexLayout>
             </VerticalStackLayout>
-        </FlexLayout> <!--End of page column flexlayout-->
-    </ScrollView>
+        </FlexLayout> End of page column flexlayout-->
+
+        <CollectionView ItemsSource="{Binding Devices}"
+                        SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Device">
+                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                            StrokeThickness="0.4"
+                            Padding="0,0,5,0"
+                            StyleClass="Elevation1">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedLight"
+                                                  NumberOfTapsRequired="1" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*"
+                              RowDefinitions="*,*,*"
+                              Margin="10">
+
+                            <Image Source="deviceplaceholder.png"
+                                   Grid.Row="0"
+                                   Grid.Column="0"
+                                   Grid.RowSpan="3" />
+
+                            <Label Text="{Binding name}"
+                                   Grid.Column="1"
+                                   Grid.Row="0" />
+
+                            <Label Text="{Binding location}"
+                                   Grid.Column="1"
+                                   Grid.Row="1" />
+
+                            <Label Text="{Binding description}"
+                                   Grid.Column="1"
+                                   Grid.Row="2" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+    </ScrollView> 
 </ContentPage>

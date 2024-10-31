@@ -56,6 +56,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.92" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.92" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
@@ -106,16 +107,11 @@
 	  <None Remove="Resources\Images\Security.png" />
 	  <None Remove="Resources\Images\securitycamera.svg" />
 	  <None Remove="Resources\Images\videofeed_icon.png" />
+	  <None Remove="Resources\Raw\UserDevices.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <None Include="C:\Users\tighe\Desktop\SleepSure\SleepSure\.editorconfig" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Model\" />
-	  <Folder Include="Services\" />
-	  <Folder Include="ViewModel\" />
 	</ItemGroup>
 
 </Project>
