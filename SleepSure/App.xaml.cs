@@ -8,8 +8,8 @@ namespace SleepSure
         {
             InitializeComponent();
 
-            MainPage = new AppShell();
-            //MainPage = new NavigationPage(new Login());
+            //MainPage = new AppShell();
+            MainPage = new NavigationPage(new Login());
         }
     }
 }

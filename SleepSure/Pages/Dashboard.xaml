@@ -7,7 +7,7 @@
              x:DataType="viewmodel:DeviceViewModel"
              xmlns:Uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
-             Title="{Binding PageTitle}">
+             Title="Dashboard">
     <ContentPage.ToolbarItems> <!--Code retrieced from https://blog.ewers-peters.de/customize-the-title-bar-of-a-maui-app-with-these-simple-steps#heading-background-color-->
         <ToolbarItem x:Name="btnAddDevice">
             <ToolbarItem.IconImageSource>
@@ -380,7 +380,7 @@
                 <DataTemplate x:DataType="model:Device">
                     <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                             StrokeThickness="0.4"
-                            Padding="0,0,5,0"
+                            Margin="10"
                             StyleClass="Elevation1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5" />
@@ -396,7 +396,8 @@
                             <Image Source="deviceplaceholder.png"
                                    Grid.Row="0"
                                    Grid.Column="0"
-                                   Grid.RowSpan="3" />
+                                   Grid.RowSpan="3"
+                                   Margin="0,0,10,0"/>
 
                             <Label Text="{Binding name}"
                                    Grid.Column="1"
@@ -413,7 +414,14 @@
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-
+            <CollectionView.EmptyView>
+                <StackLayout Orientation="Vertical">
+                    <Label Text="No devices Registered" 
+                           FontSize="Title"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
+                </StackLayout>
+            </CollectionView.EmptyView>
         </CollectionView>
     </ScrollView> 
 </ContentPage>
