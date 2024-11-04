@@ -6,6 +6,7 @@ namespace SleepSure.Services
     public class DeviceService
     {
         public List<Model.Device> _deviceList = new List<Model.Device>();
+        public List<Model.DeviceLocation> _locationList = new List<Model.DeviceLocation>();
         public DeviceService() 
         {
             
@@ -27,6 +28,21 @@ namespace SleepSure.Services
 
             //Return the list of devices
             return _deviceList;
+        }
+
+        public async Task<List<Model.DeviceLocation>> GetDeviceLocationsFileAsync()
+        {
+            if (_locationList.Count > 0)
+                return _locationList;
+
+            //Load the json data from the file
+            using var stream = await FileSystem.OpenAppPackageFileAsync("DeviceLocations.json");
+            using var streamreader = new StreamReader(stream);
+            var contents = await streamreader.ReadToEndAsync();
+            _locationList = JsonSerializer.Deserialize<List<Model.DeviceLocation>>(contents);
+
+            //Return the list of devices
+            return _locationList;
         }
     }
 }

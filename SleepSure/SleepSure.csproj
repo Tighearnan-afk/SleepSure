@@ -107,6 +107,7 @@
 	  <None Remove="Resources\Images\Security.png" />
 	  <None Remove="Resources\Images\securitycamera.svg" />
 	  <None Remove="Resources\Images\videofeed_icon.png" />
+	  <None Remove="Resources\Raw\DeviceLocations.json" />
 	  <None Remove="Resources\Raw\UserDevices.json" />
 	</ItemGroup>
 

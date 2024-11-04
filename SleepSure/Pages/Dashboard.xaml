@@ -8,12 +8,13 @@
              xmlns:Uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              Title="Dashboard">
-    <ContentPage.ToolbarItems> <!--Code retrieced from https://blog.ewers-peters.de/customize-the-title-bar-of-a-maui-app-with-these-simple-steps#heading-background-color-->
+    <ContentPage.ToolbarItems>
+        <!--Code retrieced from https://blog.ewers-peters.de/customize-the-title-bar-of-a-maui-app-with-these-simple-steps#heading-background-color-->
         <ToolbarItem x:Name="btnAddDevice">
             <ToolbarItem.IconImageSource>
                 <FontImageSource FontFamily="MaterialRounded"
                                  Glyph="{x:Static m:MaterialRounded.Edit_square}"
-                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"/>
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}" />
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
@@ -23,7 +24,7 @@
                     Wrap="Wrap"
                     Padding="10">  Root column flexlayout that flows down the page-->
         <!-- <VerticalStackLayout x:Name="LivingRoom">Vertical stack used to position area name above the grouping of devices-->
-              <!--  <Label Text="Living Room"
+        <!--  <Label Text="Living Room"
                        FontSize="Body"
                        FontAttributes="Bold"
                        HorizontalOptions="CenterAndExpand" />
@@ -94,7 +95,7 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout x:Name="Garden"> Vertical stack used to position area name above the grouping of devices-->
-               <!-- <Label Text="Garden"
+        <!-- <Label Text="Garden"
                        FontSize="Body"
                        FontAttributes="Bold"
                        HorizontalOptions="CenterAndExpand" />
@@ -193,7 +194,7 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout x:Name="Basement"> Vertical stack used to position area name above the grouping of devices-->
-               <!-- <Label Text="Basement"
+        <!-- <Label Text="Basement"
                        FontSize="Body"
                        FontAttributes="Bold"
                        HorizontalOptions="CenterAndExpand" />
@@ -374,54 +375,109 @@
             </VerticalStackLayout>
         </FlexLayout> End of page column flexlayout-->
 
-        <CollectionView ItemsSource="{Binding Devices}"
-                        SelectionMode="Single">
+        <!--<CollectionView ItemsSource="{Binding Devices}"
+                    SelectionMode="Single">
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="model:Device">
+                <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                        StrokeThickness="0.4"
+                        Margin="10"
+                        StyleClass="Elevation1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5" />
+                    </Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedLight"
+                                                NumberOfTapsRequired="1" />
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,*"
+                            RowDefinitions="*,*,*"
+                            Margin="10">
+
+                        <Image Source="deviceplaceholder.png"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.RowSpan="3"
+                                Margin="0,0,10,0"/>
+
+                        <Label Text="{Binding Name}"
+                                Grid.Column="1"
+                                Grid.Row="0" />
+
+                        <Label Text="{Binding Location}"
+                                Grid.Column="1"
+                                Grid.Row="1" />
+
+                        <Label Text="{Binding Description}"
+                                Grid.Column="1"
+                                Grid.Row="2" />
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+        <CollectionView.EmptyView>
+            <StackLayout Orientation="Vertical">
+                <Label Text="No devices Registered" 
+                        FontSize="Title"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"/>
+            </StackLayout>
+        </CollectionView.EmptyView>
+    </CollectionView> -->
+
+        <CollectionView ItemsSource="{Binding Locations}">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Device">
-                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
-                            StrokeThickness="0.4"
-                            Margin="10"
-                            StyleClass="Elevation1">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5" />
-                        </Border.StrokeShape>
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedLight"
-                                                  NumberOfTapsRequired="1" />
-                        </Border.GestureRecognizers>
-                        <Grid ColumnDefinitions="Auto,*"
-                              RowDefinitions="*,*,*"
-                              Margin="10">
+                <DataTemplate x:DataType="model:DeviceLocation">
+                    <StackLayout Orientation="Vertical">
+                        <Label Text="{Binding Location}"
+                               FontSize="Title"
+                               FontAttributes="Bold"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand"
+                               Margin="10" />
+                        <CollectionView ItemsSource="{Binding DevicesInLocation}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="model:Device">
+                                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                                            StrokeThickness="0.4"
+                                            Margin="10"
+                                            StyleClass="Elevation1">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="5" />
+                                        </Border.StrokeShape>
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedLight"
+                                                                  NumberOfTapsRequired="1" />
+                                        </Border.GestureRecognizers>
+                                        <Grid ColumnDefinitions="Auto,*"
+                                              RowDefinitions="*,*,*"
+                                              Margin="10">
 
-                            <Image Source="deviceplaceholder.png"
-                                   Grid.Row="0"
-                                   Grid.Column="0"
-                                   Grid.RowSpan="3"
-                                   Margin="0,0,10,0"/>
+                                            <Image Source="deviceplaceholder.png"
+                                                   Grid.Row="0"
+                                                   Grid.Column="0"
+                                                   Grid.RowSpan="3"
+                                                   Margin="0,0,10,0" />
 
-                            <Label Text="{Binding name}"
-                                   Grid.Column="1"
-                                   Grid.Row="0" />
+                                            <Label Text="{Binding Name}"
+                                                   Grid.Column="1"
+                                                   Grid.Row="0" />
 
-                            <Label Text="{Binding location}"
-                                   Grid.Column="1"
-                                   Grid.Row="1" />
+                                            <Label Text="{Binding Location}"
+                                                   Grid.Column="1"
+                                                   Grid.Row="1" />
 
-                            <Label Text="{Binding description}"
-                                   Grid.Column="1"
-                                   Grid.Row="2" />
-                        </Grid>
-                    </Border>
+                                            <Label Text="{Binding Description}"
+                                                   Grid.Column="1"
+                                                   Grid.Row="2" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-            <CollectionView.EmptyView>
-                <StackLayout Orientation="Vertical">
-                    <Label Text="No devices Registered" 
-                           FontSize="Title"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Center"/>
-                </StackLayout>
-            </CollectionView.EmptyView>
         </CollectionView>
-    </ScrollView> 
+    </ScrollView>
 </ContentPage>
