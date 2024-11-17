@@ -4,13 +4,13 @@
              x:Class="SleepSure.Pages.Dashboard"
              xmlns:model="clr-namespace:SleepSure.Model"
              xmlns:viewmodel="clr-namespace:SleepSure.ViewModel"
-             x:DataType="viewmodel:DeviceViewModel"
+             x:DataType="viewmodel:DashboardViewModel"
              xmlns:Uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              Title="Dashboard">
     <ContentPage.ToolbarItems>
         <!--Code retrieced from https://blog.ewers-peters.de/customize-the-title-bar-of-a-maui-app-with-these-simple-steps#heading-background-color-->
-        <ToolbarItem x:Name="btnAddDevice">
+        <ToolbarItem x:Name="btnAddDevice" Command="{Binding AddDevicesCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource FontFamily="MaterialRounded"
                                  Glyph="{x:Static m:MaterialRounded.Edit_square}"
@@ -425,7 +425,7 @@
         </CollectionView.EmptyView>
     </CollectionView> -->
 
-        <CollectionView ItemsSource="{Binding Locations}">
+      <!--  <CollectionView ItemsSource="{Binding Locations}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:DeviceLocation">
                     <StackLayout Orientation="Vertical">
@@ -478,6 +478,49 @@
                      </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+        </CollectionView> -->
+        <StackLayout Orientation="Vertical">
+        <Button Text="GET" Command="{Binding GetDevicesCommand}"/>
+        <CollectionView ItemsSource="{Binding Devices}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Device">
+                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                            StrokeThickness="0.4"
+                            Margin="10"
+                            StyleClass="Elevation1">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedLight"
+                                                  NumberOfTapsRequired="1" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*"
+                              RowDefinitions="*,*,*"
+                              Margin="10">
+
+                            <Image Source="deviceplaceholder.png"
+                                   Grid.Row="0"
+                                   Grid.Column="0"
+                                   Grid.RowSpan="3"
+                                   Margin="0,0,10,0" />
+
+                            <Label Text="{Binding Name}"
+                                   Grid.Column="1"
+                                   Grid.Row="0" />
+
+                            <Label Text="{Binding Location}"
+                                   Grid.Column="1"
+                                   Grid.Row="1" />
+
+                            <Label Text="{Binding Description}"
+                                   Grid.Column="1"
+                                   Grid.Row="2" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
         </CollectionView>
+        </StackLayout>
     </ScrollView>
 </ContentPage>

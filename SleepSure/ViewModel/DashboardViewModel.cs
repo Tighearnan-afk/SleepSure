@@ -1,61 +1,49 @@
-﻿using SleepSure.Services;
+﻿using CommunityToolkit.Mvvm.Input;
+using SleepSure.Services;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SleepSure.ViewModel
 {
-    public class DeviceViewModel : BaseViewModel
+    public class DashboardViewModel : BaseViewModel
     {
         //A service that retrieves a list of devices from a local json file
-        readonly DeviceFileService _deviceService;
+        readonly IDeviceDataService _deviceService;
 
         //A collection that the devices are stored in
         public ObservableCollection<Model.Device> Devices { get; } = new ObservableCollection<Model.Device>();
-
-        public ObservableCollection<Model.DeviceLocation> Locations { get; } = new ObservableCollection<Model.DeviceLocation>();
-
-        //Create a GetDevices command that the view can use to retrieve the list of devices
-        public Command GetDevicesCommand { get; }
-
         //Constructor for the DeviceViewModel initialises the DeviceService and the GetDeviceCommand
-        public DeviceViewModel(DeviceFileService deviceService)
+        public DashboardViewModel(IDeviceDataService deviceService)
         {
             _deviceService = deviceService;
 
-            //Initialise the GetDevice command to tell it to call the GetDevice Task 
             GetDevicesCommand = new Command(async () => await GetDevicesAsync());
-        }
 
+            AddDevicesCommand = new Command(async () => await TestDB());
+        }
+        public Command GetDevicesCommand { get; }
+        public Command AddDevicesCommand { get; }
         //The GetDevicesAsync method retrieves a list of devices from the devices service and adds them to the Devices collection
         public async Task GetDevicesAsync()
-        { 
-            if(IsBusy) 
+        {
+            if (IsBusy)
                 return;
 
             try
             {
                 IsBusy = true;
-                var devices = await _deviceService.GetDevicesFileAsync();
-                if(devices.Count != 0)
+                var devices = await _deviceService.GetDevicesAsync();
+                if (devices.Count != 0)
                     Devices.Clear();
 
-                foreach(var device in devices)
+                foreach (var device in devices)
                 {
                     Devices.Add(device);
-                }
-
-                var locations = await _deviceService.GetDeviceLocationsFileAsync();
-                if (locations.Count != 0)
-                    Locations.Clear();
-
-                foreach (var location in locations)
-                {
-                    foreach(var device in devices)
-                    {
-                        if(device.Location == location.Location)
-                            location.DevicesInLocation.Add(device);
-                    }
-                    Locations.Add(location);
                 }
             }
             catch (Exception ex)
@@ -68,6 +56,12 @@ namespace SleepSure.ViewModel
             {
                 IsBusy = false;
             }
+        }
+
+        public async Task TestDB()
+        {
+            await _deviceService.AddDeviceAsync();
+            await _deviceService.AddDeviceAsync();
         }
     }
 }

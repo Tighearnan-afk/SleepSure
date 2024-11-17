@@ -4,24 +4,24 @@ namespace SleepSure.Pages;
 
 public partial class Dashboard : ContentPage
 {
-	public Dashboard(DeviceViewModel viewModel)
+	public Dashboard(DashboardViewModel viewModel)
 	{
 		InitializeComponent();
-        btnAddDevice.Clicked += OnBtnAddDevice_Clicked;
+        //btnAddDevice.Clicked += OnBtnAddDevice_Clicked;
 
         //Set the binding context to the view model
         BindingContext = viewModel;
     }
 
-    protected override void OnAppearing() //Code retrieved from ChatGPT with the prompt "how do i call an mvvm command when the page load with .net maui"
-    {                                     //This code overloads the OnAppearing() method found in the Page class and executes the GetDevicesCommand to retrieve
-        base.OnAppearing();               //the users devices before the page appears
+    //protected override void OnAppearing() //Code retrieved from ChatGPT with the prompt "how do i call an mvvm command when the page load with .net maui"
+    //{                                     //This code overloads the OnAppearing() method found in the Page class and executes the GetDevicesCommand to retrieve
+    //    base.OnAppearing();               //the users devices before the page appears
 
-        if (BindingContext is DeviceViewModel viewModel)
-        {
-            viewModel.GetDevicesCommand.Execute(null);
-        }
-    }
+    //    if (BindingContext is DeviceViewModel viewModel)
+    //    {
+    //        viewModel.GetDevicesCommand.Execute(null);
+    //    }
+    //}
 
     public async void OnBtnAddDevice_Clicked(object? sender, EventArgs e)
     {

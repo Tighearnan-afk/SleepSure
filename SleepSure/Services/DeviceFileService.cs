@@ -3,11 +3,11 @@ using System.Text.Json;
 
 namespace SleepSure.Services
 {
-    public class DeviceService
+    public class DeviceFileService : IDeviceDataService
     {
         public List<Model.Device> _deviceList = new List<Model.Device>();
         public List<Model.DeviceLocation> _locationList = new List<Model.DeviceLocation>();
-        public DeviceService() 
+        public DeviceFileService() 
         {
             
         }
@@ -43,6 +43,16 @@ namespace SleepSure.Services
 
             //Return the list of devices
             return _locationList;
+        }
+
+        public Task<List<Model.Device>> GetDevicesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddDeviceAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }
