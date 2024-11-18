@@ -31,28 +31,20 @@
             <GradientStop Color="{StaticResource White}" Offset="0.7"/>
         </LinearGradientBrush>
     </Shell.FlyoutBackdrop>
-    
-    <FlyoutItem Title="Dashboard"
-    Icon="dashboard_icon.png">
+
+    <FlyoutItem Title="Home"
+                Icon="home.png">
 
         <Tab Title="Dashboard"
              Icon="dashboard_icon.png">
-            <!-- <FlyoutItem Title="Security"
-                        Icon="security.png"> -->
             <ShellContent ContentTemplate="{DataTemplate pages:Dashboard}" />
-            
-
-            <!--</FlyoutItem> -->
         </Tab>
         <Tab Title="Security"
-             FlyoutIcon="security.png">
+             Icon="security.png">
             <ShellContent ContentTemplate="{DataTemplate pages:Security}" />
         </Tab>
-        
 
     </FlyoutItem>
-
-    
 
     <FlyoutItem Title="Notifications"
                 Icon="notification_icon.png">
