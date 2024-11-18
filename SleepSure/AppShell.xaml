@@ -35,17 +35,24 @@
     <FlyoutItem Title="Dashboard"
     Icon="dashboard_icon.png">
 
-        <ShellContent
-        ContentTemplate="{DataTemplate pages:Dashboard}" />
+        <Tab Title="Dashboard"
+             Icon="dashboard_icon.png">
+            <!-- <FlyoutItem Title="Security"
+                        Icon="security.png"> -->
+            <ShellContent ContentTemplate="{DataTemplate pages:Dashboard}" />
+            
+
+            <!--</FlyoutItem> -->
+        </Tab>
+        <Tab Title="Security"
+             FlyoutIcon="security.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:Security}" />
+        </Tab>
+        
 
     </FlyoutItem>
 
-    <FlyoutItem Title="Security"
-                Icon="security.png">
-
-        <ShellContent ContentTemplate="{DataTemplate pages:Security}" />
-
-    </FlyoutItem>
+    
 
     <FlyoutItem Title="Notifications"
                 Icon="notification_icon.png">

@@ -173,25 +173,10 @@
                                Grid.ColumnSpan="2"
                                HorizontalOptions="CenterAndExpand" />
 
-                        <Button Text="On"
-                                StyleClass="FilledButton"
-                                IsEnabled="False"
+                        <Switch
+                                ThumbColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" 
                                 Grid.Column="1"
-                                Grid.Row="1"
-                                MaximumWidthRequest="100"
-                                MaximumHeightRequest="100"
-                                Margin="0,0,0,10" />
-
-                        <Button Text="Off"
-                                BackgroundColor="{StaticResource Warning}"
-                                TextColor="{StaticResource White}"
-                                StyleClass="FilledButton"
-                                IsEnabled="True"
-                                Grid.Column="2"
-                                Grid.Row="2"
-                                MaximumWidthRequest="100"
-                                MaximumHeightRequest="100"
-                                Margin="0,0,0,10" />
+                                Grid.Row="1"/>
                     </Grid>
                 </Border>
 
