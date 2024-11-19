@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using SleepSure.Model;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SleepSure.Services
 {
-    public class DeviceDBDataService : IDeviceDataService
+    public class SensorDBDataService : ISensorDataService
     {
         //SQLite connection
         SQLiteAsyncConnection _connection;
@@ -25,7 +26,7 @@ namespace SleepSure.Services
 
         public string StatusMessage;
 
-        public DeviceDBDataService(string dbPath)
+        public SensorDBDataService(string dbPath)
         {
             _dbPath = dbPath;
         }
@@ -43,36 +44,36 @@ namespace SleepSure.Services
             //Creates a connection using the database path and its flags
             _connection = new SQLiteAsyncConnection(_dbPath, _dbFLags);
             //Creates the device table
-            var result = await _connection.CreateTableAsync<Model.Device>();
+            var result = await _connection.CreateTableAsync<Sensor>();
         }
 
-        public async Task<List<Model.Device>> GetDevicesAsync()
+        public async Task<List<Sensor>> GetSensorsAsync()
         {
             try
             {
                 await Init();
-                return await _connection.Table<Model.Device>().ToListAsync();
+                return await _connection.Table<Sensor>().ToListAsync();
             }
             catch (Exception ex)
             {
                 StatusMessage = string.Format("Failed to get devices from database. Error{0}", ex.Message);
                 Debug.WriteLine(StatusMessage);
             }
-            return new List<Model.Device>();
+            return new List<Sensor>();
         }
 
-        public async Task AddDeviceAsync()
+        public async Task AddSensorAsync()
         {
             int result = 0;
             try
             {
                 await Init();
                 result = await _connection.InsertAsync(
-                    new Model.Device("Dummy Device", "Kitchen", "Dummy text"));
+                    new Sensor("Dummy Sensor", "Garden", "Dummy text",56));
             }
             catch (Exception ex)
             {
-                StatusMessage = string.Format("Failed to add device to the database. Error{0}", ex.Message);
+                StatusMessage = string.Format("Failed to add sensor to the database. Error{0}", ex.Message);
                 Debug.WriteLine(StatusMessage);
             }
 

@@ -10,7 +10,7 @@
              Title="Dashboard">
     <ContentPage.ToolbarItems>
         <!--Code retrieced from https://blog.ewers-peters.de/customize-the-title-bar-of-a-maui-app-with-these-simple-steps#heading-background-color-->
-        <ToolbarItem x:Name="btnAddDevice" Command="{Binding AddDevicesCommand}">
+        <ToolbarItem x:Name="btnAddDevice" Command="{Binding AddSensorCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource FontFamily="MaterialRounded"
                                  Glyph="{x:Static m:MaterialRounded.Edit_square}"
@@ -480,10 +480,10 @@
             </CollectionView.ItemTemplate>
         </CollectionView> -->
         <StackLayout Orientation="Vertical">
-        <Button Text="GET" Command="{Binding GetDevicesCommand}"/>
-        <CollectionView ItemsSource="{Binding Devices}">
+        <Button Text="GET" Command="{Binding GetSensorsCommand}"/>
+        <CollectionView ItemsSource="{Binding Sensors}">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Device">
+                <DataTemplate x:DataType="model:Sensor">
                     <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                             StrokeThickness="0.4"
                             Margin="10"
@@ -496,7 +496,7 @@
                                                   NumberOfTapsRequired="1" />
                         </Border.GestureRecognizers>
                         <Grid ColumnDefinitions="Auto,*"
-                              RowDefinitions="*,*,*"
+                              RowDefinitions="*,*,*,*"
                               Margin="10">
 
                             <Image Source="deviceplaceholder.png"
@@ -516,6 +516,10 @@
                             <Label Text="{Binding Description}"
                                    Grid.Column="1"
                                    Grid.Row="2" />
+                            
+                            <Label Text="{Binding BatteryLife}"
+                                   Grid.Column="1"
+                                   Grid.Row="3" />
                         </Grid>
                     </Border>
                 </DataTemplate>

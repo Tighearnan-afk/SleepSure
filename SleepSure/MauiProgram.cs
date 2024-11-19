@@ -52,6 +52,9 @@ namespace SleepSure
             builder.Services.AddSingleton<IDeviceDataService, DeviceDBDataService>(
                 s => ActivatorUtilities.CreateInstance<DeviceDBDataService>(s, databasePath));
 
+            builder.Services.AddSingleton<ISensorDataService, SensorDBDataService>(
+                s => ActivatorUtilities.CreateInstance<SensorDBDataService>(s, databasePath));
+
             //Register the device service as a singleton with the Dependency Injection service
             builder.Services.AddSingleton<DeviceFileService>();
 
