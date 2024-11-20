@@ -1,4 +1,5 @@
 ﻿using SleepSure.Pages;
+using SleepSure.ViewModel;
 
 namespace SleepSure
 {
@@ -8,8 +9,7 @@ namespace SleepSure
         {
             InitializeComponent();
 
-            //MainPage = new AppShell();
-            MainPage = new NavigationPage(new Login());
+            MainPage = new AppShell();
         }
     }
 }

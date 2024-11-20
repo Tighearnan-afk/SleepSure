@@ -2,6 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SleepSure.Pages.Login"
+             xmlns:model="clr-namespace:SleepSure.Model"
+             xmlns:viewmodel="clr-namespace:SleepSure.ViewModel"
+             x:DataType="viewmodel:AuthenticationViewModel"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              Title="Login">
     <Grid>
@@ -66,12 +69,14 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Button x:Name="btnLogin"
+                            Command="{Binding LoginCommand}"
                             StyleClass="FilledButton"
                             TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}"
                             Text="Login"
                             Margin="10,0,0,0"/>
 
                     <Button x:Name="btnRegister"
+                            Command="{Binding GoToRegisterCommand}"
                             StyleClass="FilledButton"
                             TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}"
                             Text="Register"

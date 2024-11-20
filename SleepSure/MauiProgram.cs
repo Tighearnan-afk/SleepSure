@@ -48,12 +48,15 @@ namespace SleepSure
             //Get the filepath to the database for every OS
             string databasePath = System.IO.Path.Combine(FileSystem.AppDataDirectory, databaseName);
 
-            //Register the database
+            //Register the database tables
             builder.Services.AddSingleton<IDeviceDataService, DeviceDBDataService>(
                 s => ActivatorUtilities.CreateInstance<DeviceDBDataService>(s, databasePath));
 
             builder.Services.AddSingleton<ISensorDataService, SensorDBDataService>(
                 s => ActivatorUtilities.CreateInstance<SensorDBDataService>(s, databasePath));
+
+            builder.Services.AddSingleton<IUserDataService, UserDBDataService>(
+                s => ActivatorUtilities.CreateInstance<UserDBDataService>(s, databasePath));
 
             //Register the device service as a singleton with the Dependency Injection service
             builder.Services.AddSingleton<DeviceFileService>();
@@ -64,6 +67,12 @@ namespace SleepSure
             builder.Services.AddSingleton<Dashboard>();
 
             builder.Services.AddSingleton<DashboardViewModel>();
+
+            builder.Services.AddSingleton<AuthenticationViewModel>();
+
+            builder.Services.AddSingleton<Login>();
+
+            builder.Services.AddSingleton<Register>();
 
             return builder.Build();
         }

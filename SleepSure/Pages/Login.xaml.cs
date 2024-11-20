@@ -1,24 +1,19 @@
+using SleepSure.ViewModel;
+
 namespace SleepSure.Pages;
 
 public partial class Login : ContentPage
 {
-	public Login()
+	public Login(AuthenticationViewModel viewModel)
 	{
 		InitializeComponent();
 
-        btnLogin.Clicked += OnbtnLogin_Clicked;
-        btnRegister.Clicked += OnbtnRegister_Clicked;
-
+        BindingContext = viewModel;
     }
 
-    private void OnbtnLogin_Clicked(object? sender, EventArgs e) //Object uses the null condition operator to verify that the sender object is not null before proceeding, prevents code CS8622 
+    protected override void OnAppearing()
     {
-        Application.Current.MainPage = new AppShell(); /* Retrieved from Stackoverflow "https://stackoverflow.com/questions/75935306/shell-navigation-in-net-maui"
-                                                          Replaces the current main page with the appshell, allowing for further navigation to be handled by that */
-    }
-
-    private async void OnbtnRegister_Clicked(object? sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new Register());
+        base.OnAppearing();
+        Shell.Current.FlyoutBehavior = FlyoutBehavior.Disabled;
     }
 }
