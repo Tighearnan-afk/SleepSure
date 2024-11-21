@@ -62,14 +62,14 @@ namespace SleepSure.Services
             return new List<User>();
         }
 
-        public async Task AddUserAsync()
+        public async Task AddUserAsync(string email, string password)
         {
             int result = 0;
             try
             {
                 await Init();
                 result = await _connection.InsertAsync(
-                    new User("john@gmail.com", "password"));
+                    new User(email, password));
             }
             catch (Exception ex)
             {

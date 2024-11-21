@@ -40,10 +40,12 @@
                        FontAttributes="Bold" />
 
                 <uranium:TextField Title="Email"
+                                   Text="{Binding Email}"
                                    Margin="10"/>
 
                 <uranium:TextField Title="Password"
-                                    Margin="10"/>
+                                   Text="{Binding Password}"
+                                   Margin="10"/>
 
                 <StackLayout Orientation="Horizontal" 
                              Margin="10,40">

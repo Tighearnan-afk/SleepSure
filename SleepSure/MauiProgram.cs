@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CommunityToolkit.Maui;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SleepSure.Pages;
 using SleepSure.Services;
@@ -15,6 +16,7 @@ namespace SleepSure
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .UseUraniumUI()
                 .UseUraniumUIMaterial()
                 .ConfigureFonts(fonts =>
@@ -49,29 +51,21 @@ namespace SleepSure
             string databasePath = System.IO.Path.Combine(FileSystem.AppDataDirectory, databaseName);
 
             //Register the database tables
-            builder.Services.AddSingleton<IDeviceDataService, DeviceDBDataService>(
-                s => ActivatorUtilities.CreateInstance<DeviceDBDataService>(s, databasePath));
-
             builder.Services.AddSingleton<ISensorDataService, SensorDBDataService>(
                 s => ActivatorUtilities.CreateInstance<SensorDBDataService>(s, databasePath));
 
             builder.Services.AddSingleton<IUserDataService, UserDBDataService>(
                 s => ActivatorUtilities.CreateInstance<UserDBDataService>(s, databasePath));
 
-            //Register the device service as a singleton with the Dependency Injection service
-            builder.Services.AddSingleton<DeviceFileService>();
-
-            //Register the view model with the DI service
-            builder.Services.AddSingleton<DeviceViewModel>();
             //Register the dashboard page
             builder.Services.AddSingleton<Dashboard>();
-
+            //Register the dashboard viewmodel
             builder.Services.AddSingleton<DashboardViewModel>();
-
+            //Register the authentication viewmodel
             builder.Services.AddSingleton<AuthenticationViewModel>();
-
+            //Register the login page
             builder.Services.AddSingleton<Login>();
-
+            //Register the register page
             builder.Services.AddSingleton<Register>();
 
             return builder.Build();

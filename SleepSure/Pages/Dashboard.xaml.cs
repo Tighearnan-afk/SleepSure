@@ -7,7 +7,6 @@ public partial class Dashboard : ContentPage
 	public Dashboard(DashboardViewModel viewModel)
 	{
 		InitializeComponent();
-        //btnAddDevice.Clicked += OnBtnAddDevice_Clicked;
 
         //Set the binding context to the view model
         BindingContext = viewModel;
@@ -17,6 +16,10 @@ public partial class Dashboard : ContentPage
     {
         base.OnAppearing();
         Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
+        if (BindingContext is DashboardViewModel viewModel)
+        {
+            viewModel.GetSensorsCommand.Execute(null);
+        }
     }
 
     //protected override void OnAppearing() //Code retrieved from ChatGPT with the prompt "how do i call an mvvm command when the page load with .net maui"

@@ -56,6 +56,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
@@ -114,8 +115,6 @@
 	  <None Remove="Resources\Images\Security.png" />
 	  <None Remove="Resources\Images\securitycamera.svg" />
 	  <None Remove="Resources\Images\videofeed_icon.png" />
-	  <None Remove="Resources\Raw\DeviceLocations.json" />
-	  <None Remove="Resources\Raw\UserDevices.json" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -43,19 +43,16 @@
                 <uranium:TextField Title="Name"
                                    Margin="10,5" />
 
-                <uranium:TextField Title="Address"
-                                   Margin="10,5" />
-
-                <uranium:TextField Title="Phone Number"
-                                   Margin="10,5" />
-
                 <uranium:TextField Title="Email"
+                                   Text="{Binding Email}"
                                    Margin="10,5" />
 
                 <uranium:TextField Title="Password"
+                                   Text="{Binding Password}"
                                    Margin="10,5" />
 
                 <uranium:TextField Title="Re-enter Password"
+                                   Text="{Binding ReenteredPassword}"
                                    Margin="10,5" />
 
                 <Grid>
