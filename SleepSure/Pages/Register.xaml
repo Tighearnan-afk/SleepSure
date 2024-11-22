@@ -6,6 +6,8 @@
              xmlns:viewmodel="clr-namespace:SleepSure.ViewModel"
              x:DataType="viewmodel:AuthenticationViewModel"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+             xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
              Title="Register">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -39,38 +41,55 @@
                        FontSize="Large"
                        FontAttributes="Bold">
                     Welcome to Sleepsure!</Label>
+                <input:FormView SubmitCommand="{Binding RegisterCommand}">
+                    <uranium:TextField Title="Name"
+                                       Margin="10,5" />
 
-                <uranium:TextField Title="Name"
-                                   Margin="10,5" />
+                    <uranium:TextField Title="Email"
+                                       Text="{Binding Email}"
+                                       Margin="10,5">
+                        <validation:RequiredValidation />
+                        <validation:RegexValidation Pattern="{x:Static input:AdvancedEntry.REGEX_EMAIL}"
+                                                    Message="Invalid email address" />
+                    </uranium:TextField>
 
-                <uranium:TextField Title="Email"
-                                   Text="{Binding Email}"
-                                   Margin="10,5" />
+                    <uranium:TextField Title="Password"
+                                       Text="{Binding Password}"
+                                       Margin="10,5">
+                        <uranium:TextField.Attachments>
+                            <uranium:TextFieldPasswordShowHideAttachment />
+                        </uranium:TextField.Attachments>
+                        <validation:RequiredValidation />
+                        <validation:MinLengthValidation MinLength="8"/>
+                    </uranium:TextField>
 
-                <uranium:TextField Title="Password"
-                                   Text="{Binding Password}"
-                                   Margin="10,5" />
+                    <uranium:TextField Title="Re-enter Password"
+                                       Text="{Binding ReenteredPassword}"
+                                       Margin="10,5">
+                        <uranium:TextField.Attachments>
+                            <uranium:TextFieldPasswordShowHideAttachment />
+                        </uranium:TextField.Attachments>
+                        <validation:RequiredValidation />
+                        <validation:MinLengthValidation MinLength="8"/>
+                    </uranium:TextField>
 
-                <uranium:TextField Title="Re-enter Password"
-                                   Text="{Binding ReenteredPassword}"
-                                   Margin="10,5" />
-
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="115" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="100" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="95" />
-                    </Grid.RowDefinitions>
-                    <Button x:Name="btnRegister"
-                            Command="{Binding RegisterCommand}"
-                            StyleClass="FilledButton"
-                            TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}"
-                            Text="Register"
-                            Margin="10,0,0,0" />
-                </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="115" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="95" />
+                        </Grid.RowDefinitions>
+                        <Button x:Name="btnRegister"
+                                input:FormView.IsSubmitButton="True"
+                                StyleClass="FilledButton"
+                                TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}"
+                                Text="Register"
+                                Margin="10,0,0,0" />
+                    </Grid>
+                </input:FormView>
             </VerticalStackLayout>
         </Border>
     </Grid>

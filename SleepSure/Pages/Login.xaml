@@ -6,6 +6,8 @@
              xmlns:viewmodel="clr-namespace:SleepSure.ViewModel"
              x:DataType="viewmodel:AuthenticationViewModel"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+             xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
              Title="Login">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -16,7 +18,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="360" />
+            <RowDefinition Height="390" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -38,53 +40,66 @@
                        Padding="0,5,0,5"
                        FontSize="Large"
                        FontAttributes="Bold" />
+                <input:FormView SubmitCommand="{Binding LoginCommand}">
+                    <uranium:TextField Title="Email"
+                                       Text="{Binding Email}"
+                                       AllowClear="True"
+                                       Margin="10">
+                        <validation:RequiredValidation />
+                        <validation:RegexValidation Pattern="{x:Static input:AdvancedEntry.REGEX_EMAIL}"
+                                                    Message="Invalid email address" />
+                    </uranium:TextField>
+                    <uranium:TextField Title="Password"
+                                       Text="{Binding Password}"
+                                       AllowClear="True"
+                                       IsPassword="True"
+                                       Margin="10">
+                        <uranium:TextField.Attachments>
+                            <uranium:TextFieldPasswordShowHideAttachment />
+                        </uranium:TextField.Attachments>
+                        <validation:RequiredValidation />
+                        <validation:MinLengthValidation MinLength="8" />
+                    </uranium:TextField>
+                
+                    <StackLayout Orientation="Horizontal" 
+                                 Margin="10,40">
+                        <uranium:CheckBox x:Name="stayLoggedInCheck"
+                                          Padding="0,-5,-15,0"/>
+                        <Label Text="Stay Logged In?"
+                               FontSize="Caption" />
 
-                <uranium:TextField Title="Email"
-                                   Text="{Binding Email}"
-                                   Margin="10"/>
+                        <Label Text="Forgot Password?"
+                               TextColor="#3366CC"
+                               FontSize="Caption"
+                               HorizontalOptions="EndAndExpand" />
 
-                <uranium:TextField Title="Password"
-                                   Text="{Binding Password}"
-                                   Margin="10"/>
+                    </StackLayout>
 
-                <StackLayout Orientation="Horizontal" 
-                             Margin="10,40">
-                    <uranium:CheckBox x:Name="stayLoggedInCheck"
-                                      Padding="0,-5,-15,0"/>
-                    <Label Text="Stay Logged In?"
-                           FontSize="Caption" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="115"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Button x:Name="btnLogin"
+                                input:FormView.IsSubmitButton="True"
+                                StyleClass="FilledButton"
+                                TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}"
+                                Text="Login"
+                                Margin="10,0,0,0"/>
 
-                    <Label Text="Forgot Password?"
-                           TextColor="#3366CC"
-                           FontSize="Caption"
-                           HorizontalOptions="EndAndExpand" />
-
-                </StackLayout>
-
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="115"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Button x:Name="btnLogin"
-                            Command="{Binding LoginCommand}"
-                            StyleClass="FilledButton"
-                            TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}"
-                            Text="Login"
-                            Margin="10,0,0,0"/>
-
-                    <Button x:Name="btnRegister"
-                            Command="{Binding GoToRegisterCommand}"
-                            StyleClass="FilledButton"
-                            TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}"
-                            Text="Register"
-                            Margin="0,0,10,0"
-                            Grid.Column="2" />
-                </Grid>
+                        <Button x:Name="btnRegister"
+                                Command="{Binding GoToRegisterCommand}"
+                                StyleClass="FilledButton"
+                                TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}"
+                                Text="Register"
+                                Margin="0,0,10,0"
+                                Grid.Column="2" />
+                    </Grid>
+                </input:FormView>    
             </VerticalStackLayout>
         </Border>
     </Grid>

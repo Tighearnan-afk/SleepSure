@@ -59,6 +59,12 @@ namespace SleepSure.ViewModel
                 return;
             }
 
+            if(!Password.Equals(ReenteredPassword))
+            {
+                await Shell.Current.DisplayAlert("Non-matching passwords", "Passwords must match", "OK");
+                return;
+            }
+
             await RegisterUserAsync(Email,Password);
             await Shell.Current.GoToAsync("..");
         }
