@@ -1,15 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SQLite;
 
 namespace SleepSure.Model
 {
+    [Table("devicelocation")]
     public class DeviceLocation
     {
-        public int Id { get; set; }
-        public string Location { get; set; }
-        public List<Device> DevicesInLocation { get; set; } = new List<Device>();
+        [PrimaryKey,AutoIncrement]
+        public int? Id { get; set; }
+        public string LocationName { get; set; }
+        public string LocationDescription { get; set; }
+        public DeviceLocation() { }
+        
+        public DeviceLocation(string name, string description)
+        {
+            LocationName = name;
+            LocationDescription = description;
+        }
     }
 }
