@@ -484,7 +484,7 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView> -->
-        <CollectionView ItemsSource="{Binding Sensors}">
+        <!--<CollectionView ItemsSource="{Binding Sensors}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Sensor">
                     <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
@@ -527,6 +527,48 @@
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+        </CollectionView> -->
+
+        <CollectionView ItemsSource="{Binding Cameras}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Camera">
+                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                            StrokeThickness="0.4"
+                            Margin="10"
+                            StyleClass="Elevation1">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedLight"
+                                                  NumberOfTapsRequired="1" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*"
+                              RowDefinitions="*,*,*"
+                              Margin="10">
+
+                            <Image Source="deviceplaceholder.png"
+                                   Grid.Row="0"
+                                   Grid.Column="0"
+                                   Grid.RowSpan="3"
+                                   Margin="0,0,10,0" />
+
+                            <Label Text="{Binding Name}"
+                                   Grid.Column="1"
+                                   Grid.Row="0" />
+
+                            <Label Text="{Binding Location}"
+                                   Grid.Column="1"
+                                   Grid.Row="1" />
+
+                            <Label Text="{Binding Description}"
+                                   Grid.Column="1"
+                                   Grid.Row="2" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
         </CollectionView>
+        
     </ScrollView>
 </ContentPage>

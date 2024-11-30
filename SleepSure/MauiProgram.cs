@@ -50,6 +50,9 @@ namespace SleepSure
             //Get the filepath to the database for every OS
             string databasePath = System.IO.Path.Combine(FileSystem.AppDataDirectory, databaseName);
 
+            //Register the REST service
+            builder.Services.AddSingleton<ICameraRESTService, CameraRESTService>();
+
             //Register the database tables
             builder.Services.AddSingleton<ISensorDataService, SensorDBDataService>(
                 s => ActivatorUtilities.CreateInstance<SensorDBDataService>(s, databasePath));

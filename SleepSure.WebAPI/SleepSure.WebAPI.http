@@ -1,0 +1,6 @@
+@SleepSure.WebAPI_HostAddress = http://localhost:5012
+
+GET {{SleepSure.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

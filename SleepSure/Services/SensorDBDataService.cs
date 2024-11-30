@@ -69,7 +69,7 @@ namespace SleepSure.Services
             {
                 await Init();
                 result = await _connection.InsertAsync(
-                    new Sensor("Dummy Sensor", "Garden", "Dummy text",56));
+                    new Sensor("Dummy Sensor", "Garden", "Dummy text",56,"72 C"));
             }
             catch (Exception ex)
             {
