@@ -11,6 +11,10 @@ namespace SleepSure.Services
 {
     public class UserDBDataService : IUserDataService
     {
+        //REST API service for users
+        IUserRESTService _userRESTService;
+        //List of users retrieved from the REST API
+        public List<User> Users { get; private set; } = [];
         //SQLite connection
         SQLiteAsyncConnection _connection;
 
@@ -26,9 +30,10 @@ namespace SleepSure.Services
 
         public string StatusMessage;
 
-        public UserDBDataService(string dbPath)
+        public UserDBDataService(string dbPath, IUserRESTService userRESTService)
         {
             _dbPath = dbPath;
+            _userRESTService = userRESTService;
         }
 
         /// <summary>
@@ -45,6 +50,18 @@ namespace SleepSure.Services
             _connection = new SQLiteAsyncConnection(_dbPath, _dbFLags);
             //Creates the device table
             var result = await _connection.CreateTableAsync<User>();
+
+            //Checks if any rows exist in the database
+            var tableData = await _connection.Table<User>().CountAsync();
+            //If no rows exist seeds the SQLite database with data fetched from the REST API
+            if (tableData == 0)
+            {
+                Users = await _userRESTService.RefreshUsersAsync();
+                foreach (var user in Users)
+                {
+                    await _connection.InsertAsync(user);
+                }
+            }
         }
 
         public async Task<List<User>> GetUsersAsync()

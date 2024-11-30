@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using SleepSure.Model;
+﻿using SleepSure.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace SleepSure.Services
 {
-    public class CameraRESTService : ICameraRESTService
+    public class UserRESTService : IUserRESTService
     {
         HttpClient _client;
         JsonSerializerOptions _serializerOptions;
 
-        public List<Camera> Cameras { get; private set; }
+        public List<User> Users { get; private set; }
 
-        public CameraRESTService()
+        public UserRESTService()
         {
             _client = new HttpClient();
             _serializerOptions = new JsonSerializerOptions
@@ -27,19 +26,19 @@ namespace SleepSure.Services
             };
         }
 
-        public async Task<List<Camera>> RefreshCamerasAsync()
+        public async Task<List<User>> RefreshUsersAsync()
         {
-            Cameras = [];
-            string cameraEndPoint = string.Concat(Constants.RestUrl,$"cameras/{{0}}");
+            Users = [];
+            string usersEndPoint = string.Concat(Constants.RestUrl, $"users/{{0}}");
 
-            Uri uri = new Uri(string.Format(cameraEndPoint, string.Empty));
+            Uri uri = new Uri(string.Format(usersEndPoint, string.Empty));
             try
             {
                 HttpResponseMessage response = await _client.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    Cameras = JsonSerializer.Deserialize<List<Camera>>(content, _serializerOptions);
+                    Users = JsonSerializer.Deserialize<List<User>>(content, _serializerOptions);
                 }
             }
             catch (Exception ex)
@@ -47,15 +46,15 @@ namespace SleepSure.Services
                 Debug.WriteLine(ex);
             }
 
-            return Cameras;
+            return Users;
         }
 
-        public Task SaveCameraAsync(Camera camera, bool isNewCamera)
+        public Task SaveUserAsync(User user, bool isNewUser)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteCameraAsync(int id)
+        public Task DeleteUserAsync(int id)
         {
             throw new NotImplementedException();
         }
