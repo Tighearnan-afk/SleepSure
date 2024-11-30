@@ -60,6 +60,9 @@ namespace SleepSure
             builder.Services.AddSingleton<IUserDataService, UserDBDataService>(
                 s => ActivatorUtilities.CreateInstance<UserDBDataService>(s, databasePath));
 
+            builder.Services.AddSingleton<ICameraDataService, CameraDBDataService>(
+                s => ActivatorUtilities.CreateInstance<CameraDBDataService>(s, databasePath));
+
             //Register the dashboard page
             builder.Services.AddSingleton<Dashboard>();
             //Register the dashboard viewmodel

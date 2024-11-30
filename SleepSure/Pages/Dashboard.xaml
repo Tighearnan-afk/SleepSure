@@ -569,6 +569,6 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        
+
     </ScrollView>
 </ContentPage>

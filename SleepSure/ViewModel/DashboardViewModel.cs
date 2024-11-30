@@ -10,19 +10,17 @@ namespace SleepSure.ViewModel
     {
         //A service that retrieves or adds a list of sensors from/to a local sqlite database
         readonly ISensorDataService _sensorDataService;
-
-        //A service that retrieves a list of cameras from a REST API
-        readonly ICameraRESTService _cameraRESTService;
+        readonly ICameraDataService _cameraDataService;
 
         //A collection that the sensors are stored in
         public ObservableCollection<Sensor> Sensors { get; } = [];
 
         public ObservableCollection<Camera> Cameras { get; } = [];
         //Constructor for the DashboardVIewModel initialises the SensorService
-        public DashboardViewModel(ISensorDataService sensorDataService, ICameraRESTService cameraRESTService)
+        public DashboardViewModel(ISensorDataService sensorDataService, ICameraDataService cameraDataService)
         {
             _sensorDataService = sensorDataService;
-            _cameraRESTService = cameraRESTService;
+            _cameraDataService = cameraDataService;
         }
 
         /* [RelayCommand]
@@ -41,7 +39,7 @@ namespace SleepSure.ViewModel
             try
             {
                 IsBusy = true;
-                var cameras = await _cameraRESTService.RefreshCamerasAsync();
+                var cameras = await _cameraDataService.GetCamerasAsync();
                 if (cameras.Count != 0)
                     Cameras.Clear();
 
