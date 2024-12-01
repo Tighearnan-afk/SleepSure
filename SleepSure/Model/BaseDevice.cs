@@ -13,16 +13,16 @@ namespace SleepSure.Model
         public string Location { get; set; }
         [MaxLength(150)]
         public string Description { get; set; }
-        public int LocationId { get; set; }
+        public int DeviceLocationId { get; set; }
 
         public BaseDevice() { }
 
-        public BaseDevice(string name, string location, string description, int locationId)
+        public BaseDevice(string name, string location, string description, int deviceLocationId)
         {
             Name = name;
             Location = location;
             Description = description;
-            LocationId = locationId;
+            DeviceLocationId = deviceLocationId;
         }
     }
 }

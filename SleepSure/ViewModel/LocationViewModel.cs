@@ -41,7 +41,7 @@ namespace SleepSure.ViewModel
 
                 foreach (var camera in cameras)
                 {
-                    if(camera.LocationId.Equals(Location.Id))
+                    if(camera.DeviceLocationId.Equals(Location.Id))
                         Cameras.Add(camera);
                 }
             }
