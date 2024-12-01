@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SleepSure.Pages;
 using SleepSure.Services;
+using SleepSure.Services.DB_Services;
+using SleepSure.Services.REST_Services;
 using SleepSure.ViewModel;
 using System.Reflection;
 using UraniumUI;
@@ -51,12 +53,13 @@ namespace SleepSure
             string databasePath = System.IO.Path.Combine(FileSystem.AppDataDirectory, databaseName);
 
             //Register the REST services
+            builder.Services.AddSingleton<IDeviceLocationRESTService, DeviceLocationRESTService>();
             builder.Services.AddSingleton<ICameraRESTService, CameraRESTService>();
             builder.Services.AddSingleton<IUserRESTService, UserRESTService>();
 
             //Register the database tables
-            builder.Services.AddSingleton<ISensorDataService, SensorDBDataService>(
-                s => ActivatorUtilities.CreateInstance<SensorDBDataService>(s, databasePath));
+            builder.Services.AddSingleton<IDeviceLocationDataService, DeviceLocationDBService>(
+                s => ActivatorUtilities.CreateInstance<DeviceLocationDBService>(s, databasePath));
 
             builder.Services.AddSingleton<IUserDataService, UserDBDataService>(
                 s => ActivatorUtilities.CreateInstance<UserDBDataService>(s, databasePath));
@@ -64,16 +67,20 @@ namespace SleepSure
             builder.Services.AddSingleton<ICameraDataService, CameraDBDataService>(
                 s => ActivatorUtilities.CreateInstance<CameraDBDataService>(s, databasePath));
 
-            //Register the dashboard page
-            builder.Services.AddSingleton<Dashboard>();
-            //Register the dashboard viewmodel
-            builder.Services.AddSingleton<DashboardViewModel>();
-            //Register the authentication viewmodel
-            builder.Services.AddSingleton<AuthenticationViewModel>();
             //Register the login page
             builder.Services.AddSingleton<Login>();
             //Register the register page
             builder.Services.AddSingleton<Register>();
+            //Register the authentication viewmodel
+            builder.Services.AddSingleton<AuthenticationViewModel>();
+            //Register the dashboard page
+            builder.Services.AddSingleton<Dashboard>();
+            //Register the dashboard viewmodel
+            builder.Services.AddSingleton<DashboardViewModel>();
+            //Register the location page
+            builder.Services.AddTransient<LocationPage>();
+            //Register the location viewmodel
+            builder.Services.AddTransient<LocationViewModel>();
 
             return builder.Build();
         }

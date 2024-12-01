@@ -80,6 +80,9 @@
 	  <MauiXaml Update="Pages\DeviceDetails.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\LocationPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\Login.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -125,6 +128,12 @@
 
 	<ItemGroup>
 	  <None Include="C:\Users\tighe\Desktop\SleepSure\SleepSure\.editorconfig" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Pages\LocationPage.xaml.cs">
+	    <DependentUpon>LocationPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>

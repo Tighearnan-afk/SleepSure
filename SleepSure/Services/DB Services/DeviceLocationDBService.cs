@@ -1,15 +1,21 @@
 ﻿using SleepSure.Model;
+using SleepSure.Services.REST_Services;
 using SQLite;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SleepSure.Services
+namespace SleepSure.Services.DB_Services
 {
-    public class CameraDBDataService : ICameraDataService
+    public class DeviceLocationDBService : IDeviceLocationDataService
     {
         //REST API service for cameras
-        ICameraRESTService _cameraRESTService;
+        IDeviceLocationRESTService _locationRESTService;
         //List of cameras retrieved from the REST API
-        public List<Camera> Cameras { get; private set; } = [];
+        public List<DeviceLocation> Locations { get; private set; } = [];
         //SQLite connection
         SQLiteAsyncConnection _connection;
 
@@ -26,10 +32,10 @@ namespace SleepSure.Services
 
         public string StatusMessage;
 
-        public CameraDBDataService(string dbPath, ICameraRESTService cameraRESTService)
+        public DeviceLocationDBService(string dbPath, IDeviceLocationRESTService locationRESTService)
         {
             _dbPath = dbPath;
-            _cameraRESTService = cameraRESTService;
+            _locationRESTService = locationRESTService;
         }
 
         /// <summary>
@@ -45,40 +51,39 @@ namespace SleepSure.Services
             //Creates a connection using the database path and its flags
             _connection = new SQLiteAsyncConnection(_dbPath, _dbFLags);
             //Creates the device table
-            var result = await _connection.CreateTableAsync<Camera>();
+            var result = await _connection.CreateTableAsync<DeviceLocation>();
             //Checks if any rows exist in the database
-            var tableData = await _connection.Table<Camera>().CountAsync();
+            var tableData = await _connection.Table<DeviceLocation>().CountAsync();
             //If no rows exist seeds the SQLite database with data fetched from the REST API
-            if(tableData == 0)
+            if (tableData == 0)
             {
-                Cameras = await _cameraRESTService.RefreshCamerasAsync();
-                foreach(var camera in Cameras)
+                Locations = await _locationRESTService.RefreshLocationsAsync();
+                foreach (var locations in Locations)
                 {
-                    await _connection.InsertAsync(camera);
+                    await _connection.InsertAsync(locations);
                 }
             }
         }
 
 
-        public async Task AddCameraAsync()
+        public async Task AddLocationAsync(DeviceLocation location)
         {
-            await Init();
-            return;
+            throw new NotImplementedException();
         }
 
-        public async Task<List<Camera>> GetCamerasAsync()
+        public async Task<List<DeviceLocation>> GetLocationsAsync()
         {
             try
             {
                 await Init();
-                return await _connection.Table<Camera>().ToListAsync();
+                return await _connection.Table<DeviceLocation>().ToListAsync();
             }
             catch (Exception ex)
             {
-                StatusMessage = string.Format("Failed to get devices from database. Error{0}", ex.Message);
+                StatusMessage = string.Format("Failed to get locations from database. Error{0}", ex.Message);
                 Debug.WriteLine(StatusMessage);
             }
-            return new List<Camera>();
+            return new List<DeviceLocation>();
         }
     }
 }

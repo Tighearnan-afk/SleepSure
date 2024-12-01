@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SleepSure.Model
 {
     [Table("sensor")]
-    public class Sensor : Device
+    public class Sensor : BaseDevice
     {
         public int BatteryLife { get; set; }
         public string Temperature { get; set; }

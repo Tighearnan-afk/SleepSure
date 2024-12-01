@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SleepSure.WebAPI.DataAccess;
 using SleepSure.WebAPI.Models;
 
 namespace SleepSure.WebAPI.Controllers
@@ -13,9 +14,9 @@ namespace SleepSure.WebAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly SleepSureContext _context;
+        private readonly AppDBContext _context;
 
-        public UsersController(SleepSureContext context)
+        public UsersController(AppDBContext context)
         {
             _context = context;
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SleepSure.Model
 {
-    public class Camera : Device
+    public class Camera : BaseDevice
     {
 
     }

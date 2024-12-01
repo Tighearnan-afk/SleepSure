@@ -1,6 +1,8 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SleepSure.Model;
-using SleepSure.Services;
+using SleepSure.Pages;
+using SleepSure.Services.DB_Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -8,30 +10,20 @@ namespace SleepSure.ViewModel
 {
     public partial class DashboardViewModel : BaseViewModel
     {
-        //A service that retrieves or adds a list of sensors from/to a local sqlite database
-        readonly ISensorDataService _sensorDataService;
-        readonly ICameraDataService _cameraDataService;
+        //A service that retrieves a list of locations from a local SQLite database
+        readonly IDeviceLocationDataService _locationDataService;
 
         //A collection that the sensors are stored in
-        public ObservableCollection<Sensor> Sensors { get; } = [];
+        public ObservableCollection<DeviceLocation> Locations { get; } = [];
 
-        public ObservableCollection<Camera> Cameras { get; } = [];
         //Constructor for the DashboardVIewModel initialises the SensorService
-        public DashboardViewModel(ISensorDataService sensorDataService, ICameraDataService cameraDataService)
+        public DashboardViewModel(IDeviceLocationDataService locationDataService)
         {
-            _sensorDataService = sensorDataService;
-            _cameraDataService = cameraDataService;
+            _locationDataService = locationDataService;
         }
 
-        /* [RelayCommand]
-        public async Task Appearing()
-        {
-            await GetSensorsAsync();
-        }  Doesnt work wooooooooo */
-        //The GetDevicesAsync method retrieves a list of devices from the devices service and adds them to the Devices collection
-
         [RelayCommand]
-        public async Task GetCamerasAsync()
+        public async Task GetLocationsAsync()
         {
             if (IsBusy)
                 return;
@@ -39,20 +31,20 @@ namespace SleepSure.ViewModel
             try
             {
                 IsBusy = true;
-                var cameras = await _cameraDataService.GetCamerasAsync();
-                if (cameras.Count != 0)
-                    Cameras.Clear();
+                var locations = await _locationDataService.GetLocationsAsync();
+                if (locations.Count != 0)
+                    Locations.Clear();
 
-                foreach (var camera in cameras)
+                foreach (var location in locations)
                 {
-                    Cameras.Add(camera);
+                    Locations.Add(location);
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
                 //Display an alert if an exception occurs
-                await Shell.Current.DisplayAlert("Error", "Unable to retrieve cameras", "OK");
+                await Shell.Current.DisplayAlert("Error", "Unable to retrieve locations", "OK");
             }
             finally
             {
@@ -61,39 +53,78 @@ namespace SleepSure.ViewModel
         }
 
         [RelayCommand]
-        public async Task GetSensorsAsync()
+        public async Task GoToLocationAsync(DeviceLocation location)
         {
-            if (IsBusy)
+            if (location is null)
                 return;
-
-            try
-            {
-                IsBusy = true;
-                var sensors = await _sensorDataService.GetSensorsAsync();
-                if (sensors.Count != 0)
-                    Sensors.Clear();
-
-                foreach (var sensor in sensors)
-                {
-                    Sensors.Add(sensor);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                //Display an alert if an exception occurs
-                await Shell.Current.DisplayAlert("Error", "Unable to retrieve sensors", "OK");
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            //Navigate to the location room passing the selected location object within a dictionary and a true value for animate
+            await Shell.Current.GoToAsync($"{nameof(LocationPage)}",true,
+                new Dictionary<string, object> { { "Location", location} });
         }
-        [RelayCommand]
-        public async Task TestSensorAdd()
-        {
-            await _sensorDataService.AddSensorAsync();
-            await GetSensorsAsync();
-        }
+        //[RelayCommand]
+        //public async Task GetCamerasAsync()
+        //{
+        //    if (IsBusy)
+        //        return;
+
+        //    try
+        //    {
+        //        IsBusy = true;
+        //        var cameras = await _cameraDataService.GetCamerasAsync();
+        //        if (cameras.Count != 0)
+        //            Cameras.Clear();
+
+        //        foreach (var camera in cameras)
+        //        {
+        //            Cameras.Add(camera);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine(ex);
+        //        //Display an alert if an exception occurs
+        //        await Shell.Current.DisplayAlert("Error", "Unable to retrieve cameras", "OK");
+        //    }
+        //    finally
+        //    {
+        //        IsBusy = false;
+        //    }
+        //}
+
+        //[RelayCommand]
+        //public async Task GetSensorsAsync()
+        //{
+        //    if (IsBusy)
+        //        return;
+
+        //    try
+        //    {
+        //        IsBusy = true;
+        //        var sensors = await _sensorDataService.GetSensorsAsync();
+        //        if (sensors.Count != 0)
+        //            Sensors.Clear();
+
+        //        foreach (var sensor in sensors)
+        //        {
+        //            Sensors.Add(sensor);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine(ex);
+        //        //Display an alert if an exception occurs
+        //        await Shell.Current.DisplayAlert("Error", "Unable to retrieve sensors", "OK");
+        //    }
+        //    finally
+        //    {
+        //        IsBusy = false;
+        //    }
+        //}
+        //[RelayCommand]
+        //public async Task TestSensorAdd()
+        //{
+        //    await _sensorDataService.AddSensorAsync();
+        //    await GetSensorsAsync();
+        //}
     }
 }

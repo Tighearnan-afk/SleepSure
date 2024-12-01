@@ -15,7 +15,7 @@
     </ContentPage.Behaviors>
     <ContentPage.ToolbarItems>
         <!--Code retrieced from https://blog.ewers-peters.de/customize-the-title-bar-of-a-maui-app-with-these-simple-steps#heading-background-color-->
-        <ToolbarItem x:Name="btnAddDevice" Command="{Binding TestSensorAddCommand}">
+        <ToolbarItem x:Name="btnAddDevice">
             <ToolbarItem.IconImageSource>
                 <FontImageSource FontFamily="MaterialRounded"
                                  Glyph="{x:Static m:MaterialRounded.Edit_square}"
@@ -529,7 +529,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView> -->
 
-        <CollectionView ItemsSource="{Binding Cameras}">
+        <!-- <CollectionView ItemsSource="{Binding Cameras}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Camera">
                     <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
@@ -568,7 +568,41 @@
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-        </CollectionView>
+        </CollectionView> -->
 
+        <CollectionView ItemsSource="{Binding Locations}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:DeviceLocation">
+                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                            StrokeThickness="0.4"
+                            Margin="10"
+                            StyleClass="Elevation1">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DashboardViewModel}},
+                                                            Path=GoToLocationCommand}"
+                                                  NumberOfTapsRequired="1" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto,*"
+                              RowDefinitions="*,*"
+                              Margin="10">
+
+                            <Image Source="deviceplaceholder.png"
+                                   Grid.Row="0"
+                                   Grid.Column="0"
+                                   Grid.RowSpan="2"
+                                   Margin="0,0,10,0" />
+
+                            <Label Text="{Binding LocationName}"
+                                   Grid.Column="1"
+                                   Grid.Row="0" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </ScrollView>
 </ContentPage>

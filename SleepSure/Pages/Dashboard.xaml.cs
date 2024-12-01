@@ -18,7 +18,7 @@ public partial class Dashboard : ContentPage
         Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
         if (BindingContext is DashboardViewModel viewModel)
         {
-            viewModel.GetCamerasCommand.Execute(null);
+            viewModel.GetLocationsCommand.Execute(null);
         }
     }
 

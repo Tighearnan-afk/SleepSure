@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-using SleepSure.WebAPI.Models;
+using SleepSure.WebAPI.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<SleepSureContext>(opt => opt.UseInMemoryDatabase("SleepSure"));
+builder.Services.AddDbContext<AppDBContext>(opt => opt.UseInMemoryDatabase("SleepSure"));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
@@ -16,7 +16,7 @@ var app = builder.Build();
 //Code retrieved from ChatGPT
 using(var scope = app.Services.CreateScope())
 {
-    var context = scope.ServiceProvider.GetRequiredService<SleepSureContext>();
+    var context = scope.ServiceProvider.GetRequiredService<AppDBContext>();
     context.Database.EnsureCreated();
 }
 

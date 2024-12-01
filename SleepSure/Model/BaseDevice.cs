@@ -3,7 +3,7 @@
 namespace SleepSure.Model
 {
     [Table("device")]
-    public class Device
+    public class BaseDevice
     {
         [PrimaryKey, AutoIncrement]
         public int? Id { get; set; }
@@ -13,14 +13,16 @@ namespace SleepSure.Model
         public string Location { get; set; }
         [MaxLength(150)]
         public string Description { get; set; }
+        public int LocationId { get; set; }
 
-        public Device() { }
+        public BaseDevice() { }
 
-        public Device(string name, string location, string description)
+        public BaseDevice(string name, string location, string description, int locationId)
         {
             Name = name;
             Location = location;
             Description = description;
+            LocationId = locationId;
         }
     }
 }
