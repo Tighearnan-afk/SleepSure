@@ -1,14 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SleepSure.Pages;
 using SleepSure.Services.DB_Services;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SleepSure.ViewModel
 {
@@ -34,6 +26,7 @@ namespace SleepSure.ViewModel
 
             await _locationDataService.AddLocationAsync(NewLocation);
 
+            await Shell.Current.GoToAsync("..");
         }
     }
 }

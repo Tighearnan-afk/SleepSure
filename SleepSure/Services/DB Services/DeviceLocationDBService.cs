@@ -1,4 +1,5 @@
-﻿using SleepSure.Model;
+﻿using CommunityToolkit.Mvvm.Input;
+using SleepSure.Model;
 using SleepSure.Services.REST_Services;
 using SQLite;
 using System;
@@ -16,6 +17,8 @@ namespace SleepSure.Services.DB_Services
         IDeviceLocationRESTService _locationRESTService;
         //List of cameras retrieved from the REST API
         public List<DeviceLocation> Locations { get; private set; } = [];
+        //List of cameras in the local SQLite database
+        public List<DeviceLocation> LocalLocations = [];
         //SQLite connection
         SQLiteAsyncConnection _connection;
 
@@ -28,7 +31,6 @@ namespace SleepSure.Services.DB_Services
             SQLite.SQLiteOpenFlags.SharedCache;
 
         readonly string _dbPath;
-
 
         public string StatusMessage;
 
@@ -73,9 +75,6 @@ namespace SleepSure.Services.DB_Services
             {
                 await Init();
                 result = await _connection.InsertAsync(new DeviceLocation(locationName));
-
-                await _locationRESTService.SaveLocationAsync(new DeviceLocation(locationName), true);
-
             }
             catch (Exception ex)
             {
@@ -97,6 +96,35 @@ namespace SleepSure.Services.DB_Services
                 Debug.WriteLine(StatusMessage);
             }
             return new List<DeviceLocation>();
+        }
+        //Method to sync devices present on the SQLite database with the REST API
+        public async Task SyncLocationsAsync()
+        {
+            try
+            {
+                //Intialises the database if it isn't already
+                await Init();
+                //Refreshes the devices present in the Locations list
+                Locations = await _locationRESTService.RefreshLocationsAsync();
+                //Refreshes the devices present in the LocalLocations list
+                LocalLocations = await GetLocationsAsync();
+                //Iterates through the LocalLocation list
+                foreach(var localLocation in LocalLocations)
+                {
+                    //Checks if any location present in the SQLite database is present in the REST API in memory database
+                    if(!Locations.Any(l => l.Id == localLocation.Id && l.LocationName == localLocation.LocationName))
+                    {
+                        //If the device is not present calls the LocationRESTServices SaveLocationAsync method which will post the location to the REST API
+                        await _locationRESTService.SaveLocationAsync(localLocation, true);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Unable to sync locations. Error{0}", ex.Message);
+                Debug.WriteLine(StatusMessage);
+            }
         }
     }
 }

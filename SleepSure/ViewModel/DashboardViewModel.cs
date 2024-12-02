@@ -5,6 +5,7 @@ using SleepSure.Pages;
 using SleepSure.Services.DB_Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Timers;
 
 namespace SleepSure.ViewModel
 {
@@ -13,14 +14,29 @@ namespace SleepSure.ViewModel
         //A service that retrieves a list of locations from a local SQLite database
         readonly IDeviceLocationDataService _locationDataService;
 
-        //A collection that the sensors are stored in
+        //A collection that the locations are stored in
         public ObservableCollection<DeviceLocation> Locations { get; } = [];
+
+        //A timer that is used to periodically sync the locations present in the SQLite database with the REST API
+        System.Timers.Timer _timer;
 
         //Constructor for the DashboardVIewModel initialises the SensorService
         public DashboardViewModel(IDeviceLocationDataService locationDataService)
         {
             _locationDataService = locationDataService;
+            //_timer = new System.Timers.Timer(2000);
+            //_timer.Elapsed += onTimerElapsed;
+            //_timer.AutoReset = true;
+            //_timer.Start();
         }
+
+        //private void onTimerElapsed(object? sender, ElapsedEventArgs e)
+        //{
+        //    _timer.Stop();
+        //    SyncLocationsAsync();
+        //    _timer.Start();
+        //    _timer.AutoReset = true;
+        //}
 
         [RelayCommand]
         public async Task GetLocationsAsync()
@@ -51,6 +67,16 @@ namespace SleepSure.ViewModel
                 IsBusy = false;
             }
         }
+        [RelayCommand]
+        public async Task SyncLocationsAsync()
+        {
+            if (IsBusy)
+                return;
+            else
+            {
+                await _locationDataService.SyncLocationsAsync();
+            }
+        }
 
         [RelayCommand]
         public async Task GoToLocationAsync(DeviceLocation location)
@@ -67,70 +93,5 @@ namespace SleepSure.ViewModel
         {
             await Shell.Current.GoToAsync(nameof(AddLocation),true);
         }
-        //[RelayCommand]
-        //public async Task GetCamerasAsync()
-        //{
-        //    if (IsBusy)
-        //        return;
-
-        //    try
-        //    {
-        //        IsBusy = true;
-        //        var cameras = await _cameraDataService.GetCamerasAsync();
-        //        if (cameras.Count != 0)
-        //            Cameras.Clear();
-
-        //        foreach (var camera in cameras)
-        //        {
-        //            Cameras.Add(camera);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine(ex);
-        //        //Display an alert if an exception occurs
-        //        await Shell.Current.DisplayAlert("Error", "Unable to retrieve cameras", "OK");
-        //    }
-        //    finally
-        //    {
-        //        IsBusy = false;
-        //    }
-        //}
-
-        //[RelayCommand]
-        //public async Task GetSensorsAsync()
-        //{
-        //    if (IsBusy)
-        //        return;
-
-        //    try
-        //    {
-        //        IsBusy = true;
-        //        var sensors = await _sensorDataService.GetSensorsAsync();
-        //        if (sensors.Count != 0)
-        //            Sensors.Clear();
-
-        //        foreach (var sensor in sensors)
-        //        {
-        //            Sensors.Add(sensor);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine(ex);
-        //        //Display an alert if an exception occurs
-        //        await Shell.Current.DisplayAlert("Error", "Unable to retrieve sensors", "OK");
-        //    }
-        //    finally
-        //    {
-        //        IsBusy = false;
-        //    }
-        //}
-        //[RelayCommand]
-        //public async Task TestSensorAdd()
-        //{
-        //    await _sensorDataService.AddSensorAsync();
-        //    await GetSensorsAsync();
-        //}
     }
 }

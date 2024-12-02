@@ -14,7 +14,7 @@ namespace SleepSure.Services.REST_Services
     {
         HttpClient _client;
         JsonSerializerOptions _serializerOptions;
-
+        //List of locations retrieved from the REST API
         public List<DeviceLocation> Locations { get; private set; }
 
         public DeviceLocationRESTService()
@@ -52,9 +52,9 @@ namespace SleepSure.Services.REST_Services
 
         public async Task SaveLocationAsync(DeviceLocation location, bool isNewLocation)
         {
-            string cameraEndPoint = string.Concat(Constants.RestUrl, $"devicelocations/{{0}}");
+            string locationEndPoint = string.Concat(Constants.RestUrl, $"devicelocations/{{0}}");
 
-            Uri uri = new Uri(string.Format(cameraEndPoint, string.Empty));
+            Uri uri = new Uri(string.Format(locationEndPoint, string.Empty));
 
             try
             {

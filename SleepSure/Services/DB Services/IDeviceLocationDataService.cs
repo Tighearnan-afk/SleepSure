@@ -11,5 +11,6 @@ namespace SleepSure.Services.DB_Services
     {
         public Task<List<DeviceLocation>> GetLocationsAsync();
         public Task AddLocationAsync(string location);
+        public Task SyncLocationsAsync();
     }
 }
