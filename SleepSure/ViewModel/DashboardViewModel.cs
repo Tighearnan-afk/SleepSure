@@ -61,6 +61,12 @@ namespace SleepSure.ViewModel
             await Shell.Current.GoToAsync($"{nameof(LocationPage)}",true,
                 new Dictionary<string, object> { { "Location", location} });
         }
+
+        [RelayCommand]
+        public async Task GoToAddLocationAsync()
+        {
+            await Shell.Current.GoToAsync(nameof(AddLocation),true);
+        }
         //[RelayCommand]
         //public async Task GetCamerasAsync()
         //{

@@ -15,7 +15,7 @@
     </ContentPage.Behaviors>
     <ContentPage.ToolbarItems>
         <!--Code retrieced from https://blog.ewers-peters.de/customize-the-title-bar-of-a-maui-app-with-these-simple-steps#heading-background-color-->
-        <ToolbarItem x:Name="btnAddDevice">
+        <ToolbarItem Command="{Binding GoToAddLocationCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource FontFamily="MaterialRounded"
                                  Glyph="{x:Static m:MaterialRounded.Edit_square}"

@@ -81,6 +81,8 @@ namespace SleepSure
             builder.Services.AddTransient<LocationPage>();
             //Register the location viewmodel
             builder.Services.AddTransient<LocationViewModel>();
+            //Register the add location page
+            builder.Services.AddSingleton<AddLocation>();
 
             return builder.Build();
         }

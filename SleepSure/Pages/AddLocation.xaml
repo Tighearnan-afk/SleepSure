@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SleepSure.Pages.AddLocation"
+             xmlns:model="clr-namespace:SleepSure.Model"
+             xmlns:viewmodel="clr-namespace:SleepSure.ViewModel"
+             x:DataType="viewmodel:DashboardViewModel"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+             xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
+             Title="Create location">
+    <StackLayout Orientation="Vertical">
+        <input:FormView VerticalOptions="FillAndExpand">
+            <uranium:TextField Title="Location Name"
+                                VerticalOptions="CenterAndExpand"/>
+
+            <Button Text="Create"
+                    input:FormView.IsSubmitButton="True"
+                    VerticalOptions="EndAndExpand"
+                    StyleClass="FilledButton"
+                    TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}" />
+        </input:FormView>
+    </StackLayout>
+</ContentPage>
