@@ -26,6 +26,5 @@ namespace SleepSure.WebAPI.DataAccess
             modelBuilder.Entity<User>().HasData(
                 new User { Id = 1, Email = "admin@gmail.com", Password = "password" });
         }
-        public DbSet<DeviceLocation> DeviceLocation { get; set; } = default!;
     }
 }

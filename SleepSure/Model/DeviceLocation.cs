@@ -10,7 +10,7 @@ namespace SleepSure.Model
         public string LocationName { get; set; }
         public DeviceLocation() { }
         
-        public DeviceLocation(string name, string description)
+        public DeviceLocation(string name)
         {
             LocationName = name;
         }

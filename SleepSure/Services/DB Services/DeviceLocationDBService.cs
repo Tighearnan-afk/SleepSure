@@ -66,9 +66,22 @@ namespace SleepSure.Services.DB_Services
         }
 
 
-        public async Task AddLocationAsync(DeviceLocation location)
+        public async Task AddLocationAsync(string locationName)
         {
-            throw new NotImplementedException();
+            int result = 0;
+            try
+            {
+                await Init();
+                result = await _connection.InsertAsync(new DeviceLocation(locationName));
+
+                await _locationRESTService.SaveLocationAsync(new DeviceLocation(locationName), true);
+
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to add location. Error: {0}", ex.Message);
+                Debug.WriteLine(StatusMessage);
+            }
         }
 
         public async Task<List<DeviceLocation>> GetLocationsAsync()

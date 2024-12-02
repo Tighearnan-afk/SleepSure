@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace SleepSure.Services.REST_Services
 {
@@ -49,9 +50,30 @@ namespace SleepSure.Services.REST_Services
             return Locations;
         }
 
-        public Task SaveLocationAsync(DeviceLocation location, bool isNewLocation)
+        public async Task SaveLocationAsync(DeviceLocation location, bool isNewLocation)
         {
-            throw new NotImplementedException();
+            string cameraEndPoint = string.Concat(Constants.RestUrl, $"devicelocations/{{0}}");
+
+            Uri uri = new Uri(string.Format(cameraEndPoint, string.Empty));
+
+            try
+            {
+                string json = JsonSerializer.Serialize(location, _serializerOptions);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = null;
+                if (isNewLocation)
+                    response = await _client.PostAsync(uri, content);
+                else
+                    response = await _client.PutAsync(uri, content);
+
+                if (response.IsSuccessStatusCode)
+                    Debug.WriteLine(@"\tLocation successfully saved.");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         public Task DeleteLocationAsync(int id)

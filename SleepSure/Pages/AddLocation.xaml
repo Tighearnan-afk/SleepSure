@@ -4,19 +4,19 @@
              x:Class="SleepSure.Pages.AddLocation"
              xmlns:model="clr-namespace:SleepSure.Model"
              xmlns:viewmodel="clr-namespace:SleepSure.ViewModel"
-             x:DataType="viewmodel:DashboardViewModel"
+             x:DataType="viewmodel:AddLocationViewModel"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
              xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
              Title="Create location">
     <StackLayout Orientation="Vertical">
-        <input:FormView VerticalOptions="FillAndExpand">
+        <input:FormView SubmitCommand="{Binding AddLocationCommand}">
             <uranium:TextField Title="Location Name"
-                                VerticalOptions="CenterAndExpand"/>
+                               Text="{Binding NewLocation}"
+                               VerticalOptions="CenterAndExpand"/>
 
             <Button Text="Create"
                     input:FormView.IsSubmitButton="True"
-                    VerticalOptions="EndAndExpand"
                     StyleClass="FilledButton"
                     TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}" />
         </input:FormView>

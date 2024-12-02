@@ -10,6 +10,6 @@ namespace SleepSure.Services.DB_Services
     public interface IDeviceLocationDataService
     {
         public Task<List<DeviceLocation>> GetLocationsAsync();
-        public Task AddLocationAsync(DeviceLocation location);
+        public Task AddLocationAsync(string location);
     }
 }

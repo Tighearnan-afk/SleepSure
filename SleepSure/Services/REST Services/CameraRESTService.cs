@@ -50,9 +50,30 @@ namespace SleepSure.Services
             return Cameras;
         }
 
-        public Task SaveCameraAsync(Camera camera, bool isNewCamera)
+        public async Task SaveCameraAsync(Camera camera, bool isNewCamera)
         {
-            throw new NotImplementedException();
+            string cameraEndPoint = string.Concat(Constants.RestUrl, $"cameras/{{0}}");
+
+            Uri uri = new Uri(string.Format(cameraEndPoint, string.Empty));
+
+            try
+            {
+                string json = JsonSerializer.Serialize(camera, _serializerOptions);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = null;
+                if(isNewCamera)
+                    response = await _client.PostAsync(uri, content);
+                else
+                    response = await _client.PutAsync(uri, content);
+
+                if(response.IsSuccessStatusCode)
+                    Debug.WriteLine(@"\tCamera successfully saved.");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         public Task DeleteCameraAsync(int id)
