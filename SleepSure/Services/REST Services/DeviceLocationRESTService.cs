@@ -1,4 +1,5 @@
-﻿using SleepSure.Model;
+﻿using Microsoft.Maui.Devices.Sensors;
+using SleepSure.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -76,9 +77,26 @@ namespace SleepSure.Services.REST_Services
             }
         }
 
-        public Task DeleteLocationAsync(int id)
+        public async Task DeleteLocationAsync(int id)
         {
-            throw new NotImplementedException();
+            string locationEndPoint = string.Concat(Constants.RestUrl, $"devicelocations/{{0}}");
+
+            Uri uri = new Uri(string.Format(locationEndPoint, id));
+
+            try
+            {
+
+                HttpResponseMessage response = null;
+                
+                response = await _client.DeleteAsync(uri);
+
+                if (response.IsSuccessStatusCode)
+                    Debug.WriteLine(@"\tLocation successfully saved.");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
     }
 }

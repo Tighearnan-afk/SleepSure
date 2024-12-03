@@ -564,7 +564,7 @@
             </CollectionView.ItemTemplate>
             <CollectionView.EmptyView>
                 <StackLayout Orientation="Vertical">
-                    <Label Text="No rooms registered"
+                    <Label Text="No locations registered"
                            FontSize="Title"
                            VerticalOptions="Center"
                            HorizontalOptions="Center" />

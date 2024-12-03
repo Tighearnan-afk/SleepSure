@@ -1,4 +1,5 @@
-﻿using SleepSure.Model;
+﻿using Microsoft.Maui.Devices.Sensors;
+using SleepSure.Model;
 using SleepSure.Services.REST_Services;
 using SQLite;
 using System.Diagnostics;
@@ -168,6 +169,8 @@ namespace SleepSure.Services.DB_Services
                 }
 
                 result = await _connection.DeleteAsync(location);
+                //Requires a cast to int as the model has a nullable id to allow sqlite to increment it correctly
+                await _locationRESTService.DeleteLocationAsync((int)location.Id);
             }
             catch(Exception ex)
             {
