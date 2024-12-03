@@ -14,13 +14,27 @@ namespace SleepSure.Services.REST_Services
     public class DeviceLocationRESTService : IDeviceLocationRESTService
     {
         HttpClient _client;
+
         JsonSerializerOptions _serializerOptions;
         //List of locations retrieved from the REST API
         public List<DeviceLocation> Locations { get; private set; }
 
         public DeviceLocationRESTService()
         {
-            _client = new HttpClient();
+            //Retrieved from "https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/local-web-services?view=net-maui-9.0&viewFallbackFrom=net-maui-7.0"
+            //Needed to allow the android emulator to connect to the REST API over HTTPS
+            var handler = new HttpClientHandler();
+
+#if DEBUG
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) =>
+            {
+                if (cert != null && cert.Issuer.Equals("CN=localhost"))
+                    return true;
+                return errors == System.Net.Security.SslPolicyErrors.None;
+            };
+#endif
+
+            _client = new HttpClient(handler);
             _serializerOptions = new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
