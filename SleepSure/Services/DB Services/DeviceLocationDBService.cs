@@ -1,13 +1,8 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using SleepSure.Model;
+﻿using SleepSure.Model;
 using SleepSure.Services.REST_Services;
 using SQLite;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace SleepSure.Services.DB_Services
 {
@@ -15,6 +10,8 @@ namespace SleepSure.Services.DB_Services
     {
         //REST API service for cameras
         IDeviceLocationRESTService _locationRESTService;
+
+        ICameraDataService _cameraDataService;
         //List of cameras retrieved from the REST API
         public List<DeviceLocation> Locations { get; private set; } = [];
         //List of cameras in the local SQLite database
@@ -34,10 +31,11 @@ namespace SleepSure.Services.DB_Services
 
         public string StatusMessage;
 
-        public DeviceLocationDBService(string dbPath, IDeviceLocationRESTService locationRESTService)
+        public DeviceLocationDBService(string dbPath, IDeviceLocationRESTService locationRESTService, ICameraDataService cameraDataService)
         {
             _dbPath = dbPath;
             _locationRESTService = locationRESTService;
+            _cameraDataService = cameraDataService;
         }
 
         /// <summary>
@@ -121,6 +119,39 @@ namespace SleepSure.Services.DB_Services
 
             }
             catch (Exception ex)
+            {
+                StatusMessage = string.Format("Unable to sync locations. Error{0}", ex.Message);
+                Debug.WriteLine(StatusMessage);
+            }
+        }
+
+        public async Task RemoveLocationAsync(DeviceLocation location)
+        {
+            int result = 0;
+            try
+            {
+                await Init();
+
+                List<Camera> TempCameras = [];
+                List<Camera> AssociatedCameras = [];
+                TempCameras = await _cameraDataService.GetCamerasAsync();
+
+                foreach (var camera in TempCameras)
+                {
+                    if (camera.DeviceLocationId == location.Id)
+                    {
+                        AssociatedCameras.Add(camera);
+                    }
+                }
+                
+                foreach (var camera in AssociatedCameras)
+                {
+                    await _cameraDataService.DeleteCameraAsync(camera);
+                }
+
+                result = await _connection.DeleteAsync(location);
+            }
+            catch(Exception ex)
             {
                 StatusMessage = string.Format("Unable to sync locations. Error{0}", ex.Message);
                 Debug.WriteLine(StatusMessage);

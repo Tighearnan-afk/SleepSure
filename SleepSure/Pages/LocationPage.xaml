@@ -8,6 +8,17 @@
              xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              x:Class="SleepSure.Pages.LocationPage"
              Title="{Binding Location.LocationName}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding DeleteLocationCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="MaterialRounded"
+                                 Glyph="{x:Static m:MaterialRounded.Delete}"
+                                 Color="{StaticResource Warning}" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
     <ScrollView>
         <CollectionView ItemsSource="{Binding Cameras}">
             <CollectionView.ItemTemplate>

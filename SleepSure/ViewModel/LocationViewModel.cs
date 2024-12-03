@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using SleepSure.Model;
 using SleepSure.Services;
+using SleepSure.Services.DB_Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -14,6 +15,8 @@ namespace SleepSure.ViewModel
         //A service that retrieves a list of cameras from a local SQLite database
         readonly ICameraDataService _cameraDataService;
 
+        //A service that allows operations to be performed on locations
+        readonly IDeviceLocationDataService _deviceLocationDataService;
         //A collection that the cameras are stored in
         public ObservableCollection<Camera> Cameras { get; } = [];
 
@@ -21,9 +24,10 @@ namespace SleepSure.ViewModel
         DeviceLocation location;
 
         //Constructor for the LocationViewModel initialises the various device services
-        public LocationViewModel(ICameraDataService cameraDataService)
+        public LocationViewModel(ICameraDataService cameraDataService, IDeviceLocationDataService deviceLocationDataService)
         {
             _cameraDataService = cameraDataService;
+            _deviceLocationDataService = deviceLocationDataService;
         }
 
         [RelayCommand]
@@ -50,6 +54,28 @@ namespace SleepSure.ViewModel
                 Debug.WriteLine(ex);
                 //Display an alert if an exception occurs
                 await Shell.Current.DisplayAlert("Error", "Unable to retrieve cameras", "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        [RelayCommand]
+        public async Task DeleteLocationAsync()
+        {
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+                await _deviceLocationDataService.RemoveLocationAsync(Location);
+
+                await Shell.Current.GoToAsync("..");
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e);
             }
             finally
             {

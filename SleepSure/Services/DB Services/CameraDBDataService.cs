@@ -79,5 +79,19 @@ namespace SleepSure.Services
             }
             return new List<Camera>();
         }
+
+        public async Task DeleteCameraAsync(Camera camera)
+        {
+            try
+            {
+                await Init();
+                await _connection.DeleteAsync(camera);
+            }
+            catch(Exception ex)
+            {
+                StatusMessage = string.Format("Failed to get devices from database. Error{0}", ex.Message);
+                Debug.WriteLine(StatusMessage);
+            }
+        }
     }
 }

@@ -6,5 +6,6 @@ namespace SleepSure.Services
     {
         public Task<List<Camera>> GetCamerasAsync();
         public Task AddCameraAsync();
+        public Task DeleteCameraAsync(Camera camera);
     }
 }

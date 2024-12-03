@@ -562,6 +562,14 @@
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <StackLayout Orientation="Vertical">
+                    <Label Text="No rooms registered"
+                           FontSize="Title"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" />
+                </StackLayout>
+            </CollectionView.EmptyView>
         </CollectionView>
     </ScrollView>
 </ContentPage>
