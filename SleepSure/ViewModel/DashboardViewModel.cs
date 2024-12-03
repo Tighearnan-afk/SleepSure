@@ -57,8 +57,8 @@ namespace SleepSure.ViewModel
             {
                 IsBusy = true;
                 var locations = await _locationDataService.GetLocationsAsync(_isInDemoMode);
-                if (locations.Count != 0)
-                    Locations.Clear();
+                //if (locations.Count != 0)
+                Locations.Clear();
 
                 foreach (var location in locations)
                 {
