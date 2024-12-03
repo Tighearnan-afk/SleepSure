@@ -26,6 +26,8 @@ namespace SleepSure.ViewModel
 
             await _locationDataService.AddLocationAsync(NewLocation);
 
+            await _locationDataService.SyncLocationsAsync();
+
             await Shell.Current.GoToAsync("..");
         }
     }

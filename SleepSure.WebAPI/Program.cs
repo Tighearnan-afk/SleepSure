@@ -13,13 +13,6 @@ builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
-//Code retrieved from ChatGPT
-using(var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<AppDBContext>();
-    context.Database.EnsureCreated();
-}
-
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{

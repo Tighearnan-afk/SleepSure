@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Configuration;
 using SleepSure.Model;
 using SleepSure.Services;
 using System.Collections.ObjectModel;
@@ -11,22 +13,20 @@ namespace SleepSure.ViewModel
     {
         readonly IUserDataService _userDataService;
 
+        readonly IConfiguration _appConfig;
+
+        private bool _isInDemoMode;
+
         public ObservableCollection<User> Users { get; } = [];
 
-        public AuthenticationViewModel(IUserDataService userDataService)
+        public AuthenticationViewModel(IUserDataService userDataService, IConfiguration AppConfig)
         {
             _userDataService = userDataService;
+            _appConfig = AppConfig;
 
-            RegisterUserCommand = new Command(async () => await Register());
-
-            LoginCommand = new Command(async () => await Login());
-            GoToRegisterCommand = new Command(async () => await GoToRegister());
-            RegisterCommand = new Command(async () => await Register());
+            Settings appSettings = _appConfig.GetRequiredSection("Settings").Get<Settings>();
+            _isInDemoMode = appSettings.DemoMode;
         }
-        public Command RegisterUserCommand { get; }
-        public Command LoginCommand { get; }
-        public Command GoToRegisterCommand { get; }
-        public Command RegisterCommand { get; }
 
         [ObservableProperty]
         public string _email;
@@ -34,9 +34,12 @@ namespace SleepSure.ViewModel
         public string _password;
         [ObservableProperty]
         public string _reenteredPassword;
+
+        [RelayCommand]
         private async Task Login()
         {
             await GetUsersAsync();
+
             if (Email is null || Password is null)
                 return;
             if (Users.Any(x => x.Email.Equals(Email)) && Users.Any(x => x.Password.Equals(Password)))
@@ -46,11 +49,13 @@ namespace SleepSure.ViewModel
 
         }
 
+        [RelayCommand]
         private async Task GoToRegister()
         {
             await Shell.Current.GoToAsync("register");
         }
 
+        [RelayCommand]
         private async Task Register()
         {
             if(Email is null || Password is null || ReenteredPassword is null)
@@ -69,6 +74,7 @@ namespace SleepSure.ViewModel
             await Shell.Current.GoToAsync("..");
         }
 
+        [RelayCommand]
         public async Task GetUsersAsync()
         {
             if (IsBusy)
@@ -76,7 +82,7 @@ namespace SleepSure.ViewModel
             try
             {
                 IsBusy = true;
-                var users = await _userDataService.GetUsersAsync();
+                var users = await _userDataService.GetUsersAsync(_isInDemoMode);
                 if (users.Count != 0)
                     Users.Clear();
 

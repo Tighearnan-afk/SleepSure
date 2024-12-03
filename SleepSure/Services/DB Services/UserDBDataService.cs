@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SleepSure.Services
@@ -13,8 +14,10 @@ namespace SleepSure.Services
     {
         //REST API service for users
         IUserRESTService _userRESTService;
-        //List of users retrieved from the REST API
+        //List of users retrieved from the SQLite database
         public List<User> Users { get; private set; } = [];
+        //List of users retrieved from a local JSON file
+        public List<User> JSONUsers { get; private set; } = [];
         //SQLite connection
         SQLiteAsyncConnection _connection;
 
@@ -30,6 +33,7 @@ namespace SleepSure.Services
 
         public string StatusMessage;
 
+        private bool _isInDemoMode;
         public UserDBDataService(string dbPath, IUserRESTService userRESTService)
         {
             _dbPath = dbPath;
@@ -54,20 +58,22 @@ namespace SleepSure.Services
             //Checks if any rows exist in the database
             var tableData = await _connection.Table<User>().CountAsync();
             //If no rows exist seeds the SQLite database with data fetched from the REST API
-            if (tableData == 0)
+            if (tableData == 0 && _isInDemoMode)
             {
-                Users = await _userRESTService.RefreshUsersAsync();
-                foreach (var user in Users)
+                await GetJSONUsersAsync();
+
+                foreach (var user in JSONUsers)
                 {
                     await _connection.InsertAsync(user);
                 }
             }
         }
 
-        public async Task<List<User>> GetUsersAsync()
+        public async Task<List<User>> GetUsersAsync(bool isInDemoMode)
         {
             try
             {
+                _isInDemoMode = isInDemoMode;
                 await Init();
                 return await _connection.Table<User>().ToListAsync();
             }
@@ -77,6 +83,18 @@ namespace SleepSure.Services
                 Debug.WriteLine(StatusMessage);
             }
             return new List<User>();
+        }
+
+        public async Task GetJSONUsersAsync()
+        {
+            if (JSONUsers.Count > 0)
+                return;
+
+            //Load JSON data from file
+            using var stream = await FileSystem.OpenAppPackageFileAsync("Demo/DemoUsers.json");
+            using var reader = new StreamReader(stream);
+            var content = await reader.ReadToEndAsync();
+            JSONUsers = JsonSerializer.Deserialize<List<User>>(content);
         }
 
         public async Task AddUserAsync(string email, string password)

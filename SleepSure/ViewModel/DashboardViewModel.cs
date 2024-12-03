@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Configuration;
 using SleepSure.Model;
 using SleepSure.Pages;
 using SleepSure.Services.DB_Services;
@@ -13,17 +14,25 @@ namespace SleepSure.ViewModel
     {
         //A service that retrieves a list of locations from a local SQLite database
         readonly IDeviceLocationDataService _locationDataService;
-
+        //Allows configuration files to be utilised by the view model
+        readonly IConfiguration _appConfig;
         //A collection that the locations are stored in
         public ObservableCollection<DeviceLocation> Locations { get; } = [];
 
         //A timer that is used to periodically sync the locations present in the SQLite database with the REST API
         System.Timers.Timer _timer;
 
+        //An boolean property that determines whether or not the application is in demo mode
+        private bool _isInDemoMode;
+
         //Constructor for the DashboardVIewModel initialises the SensorService
-        public DashboardViewModel(IDeviceLocationDataService locationDataService)
+        public DashboardViewModel(IDeviceLocationDataService locationDataService, IConfiguration AppConfig)
         {
             _locationDataService = locationDataService;
+            _appConfig = AppConfig;
+
+            Settings appSettings = _appConfig.GetRequiredSection("Settings").Get<Settings>();
+            _isInDemoMode = appSettings.DemoMode;
             //_timer = new System.Timers.Timer(2000);
             //_timer.Elapsed += onTimerElapsed;
             //_timer.AutoReset = true;
@@ -47,7 +56,7 @@ namespace SleepSure.ViewModel
             try
             {
                 IsBusy = true;
-                var locations = await _locationDataService.GetLocationsAsync();
+                var locations = await _locationDataService.GetLocationsAsync(_isInDemoMode);
                 if (locations.Count != 0)
                     Locations.Clear();
 

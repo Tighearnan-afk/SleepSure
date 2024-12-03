@@ -9,7 +9,7 @@ namespace SleepSure.Services
 {
     public interface IUserDataService
     {
-        public Task<List<User>> GetUsersAsync();
+        public Task<List<User>> GetUsersAsync(bool isInDemoMode);
         public Task AddUserAsync(string email, string password);
     }
 }

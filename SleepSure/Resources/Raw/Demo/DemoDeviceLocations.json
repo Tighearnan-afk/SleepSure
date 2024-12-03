@@ -1,0 +1,22 @@
+﻿[
+  {
+    "Id": 1,
+    "LocationName": "Living Room"
+  },
+  {
+    "Id": 2,
+    "LocationName": "Kitchen"
+  },
+  {
+    "Id": 3,
+    "LocationName": "Hallway"
+  },
+  {
+    "Id": 4,
+    "LocationName": "Garden"
+  },
+  {
+    "Id": 5,
+    "LocationName": "Basement"
+  }
+]
