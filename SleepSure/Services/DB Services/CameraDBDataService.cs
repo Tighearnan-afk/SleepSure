@@ -1,6 +1,7 @@
 ﻿using SleepSure.Model;
 using SQLite;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace SleepSure.Services
 {
@@ -10,6 +11,8 @@ namespace SleepSure.Services
         ICameraRESTService _cameraRESTService;
         //List of cameras retrieved from the REST API
         public List<Camera> Cameras { get; private set; } = [];
+        //List of locations retrieved from a local JSON file
+        public List<Camera> JSONCameras { get; private set; } = [];
         //SQLite connection
         SQLiteAsyncConnection _connection;
 
@@ -23,8 +26,9 @@ namespace SleepSure.Services
 
         readonly string _dbPath;
 
-
         public string StatusMessage;
+
+        private bool _isInDemoMode;
 
         public CameraDBDataService(string dbPath, ICameraRESTService cameraRESTService)
         {
@@ -49,10 +53,10 @@ namespace SleepSure.Services
             //Checks if any rows exist in the database
             var tableData = await _connection.Table<Camera>().CountAsync();
             //If no rows exist seeds the SQLite database with data fetched from the REST API
-            if(tableData == 0)
+            if(tableData == 0 && _isInDemoMode)
             {
-                Cameras = await _cameraRESTService.RefreshCamerasAsync();
-                foreach(var camera in Cameras)
+                await GetJSONCamerasAsync();
+                foreach (var camera in JSONCameras)
                 {
                     await _connection.InsertAsync(camera);
                 }
@@ -65,10 +69,11 @@ namespace SleepSure.Services
             throw new NotImplementedException();
         }
 
-        public async Task<List<Camera>> GetCamerasAsync()
+        public async Task<List<Camera>> GetCamerasAsync(bool isInDemoMode)
         {
             try
             {
+                _isInDemoMode = isInDemoMode;
                 await Init();
                 return await _connection.Table<Camera>().ToListAsync();
             }
@@ -78,6 +83,18 @@ namespace SleepSure.Services
                 Debug.WriteLine(StatusMessage);
             }
             return new List<Camera>();
+        }
+
+        public async Task GetJSONCamerasAsync()
+        {
+            if (JSONCameras.Count > 0)
+                return;
+
+            //Load JSON data from file
+            using var stream = await FileSystem.OpenAppPackageFileAsync("Demo/DemoCameras.json");
+            using var reader = new StreamReader(stream);
+            var content = await reader.ReadToEndAsync();
+            JSONCameras = JsonSerializer.Deserialize<List<Camera>>(content);
         }
 
         public async Task DeleteCameraAsync(Camera camera)

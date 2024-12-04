@@ -3,6 +3,6 @@
     "Id": 1,
     "Name": "Living Room",
     "Description": "The living room camera is located in the corner of the room, facing the sofa and TV.",
-    "LocationId": 1"
+    "DeviceLocationId": 1
   }
 ]

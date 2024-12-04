@@ -162,7 +162,7 @@ namespace SleepSure.Services.DB_Services
 
                 List<Camera> TempCameras = [];
                 List<Camera> AssociatedCameras = [];
-                TempCameras = await _cameraDataService.GetCamerasAsync();
+                TempCameras = await _cameraDataService.GetCamerasAsync(_isInDemoMode);
 
                 foreach (var camera in TempCameras)
                 {
@@ -171,11 +171,12 @@ namespace SleepSure.Services.DB_Services
                         AssociatedCameras.Add(camera);
                     }
                 }
-                
+
                 foreach (var camera in AssociatedCameras)
                 {
                     await _cameraDataService.DeleteCameraAsync(camera);
                 }
+
 
                 result = await _connection.DeleteAsync(location);
                 //Requires a cast to int as the model has a nullable id to allow sqlite to increment it correctly
