@@ -48,10 +48,6 @@
                                    Grid.Column="1"
                                    Grid.Row="0" />
 
-                            <Label Text="{Binding Location}"
-                                   Grid.Column="1"
-                                   Grid.Row="1" />
-
                             <Label Text="{Binding Description}"
                                    Grid.Column="1"
                                    Grid.Row="2" />

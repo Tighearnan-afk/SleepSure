@@ -114,7 +114,7 @@ namespace SleepSure.Services.DB_Services
             JSONLocations = JsonSerializer.Deserialize<List<DeviceLocation>>(content);
         }
 
-        //Method to sync devices present on the SQLite database with the REST API
+        //Method to sync locations between the SQLite database and the REST API
         public async Task SyncLocationsAsync()
         {
             try
@@ -125,7 +125,7 @@ namespace SleepSure.Services.DB_Services
                 RESTLocations = await _locationRESTService.RefreshLocationsAsync();
                 //Refreshes the devices present in the LocalLocations list
                 LocalLocations = await GetLocationsAsync(_isInDemoMode);
-                //Iterates through the LocalLocation list
+                //Iterates through the LocalLocations list
                 foreach(var localLocation in LocalLocations)
                 {
                     //Checks if any location present in the SQLite database is present in the REST API in memory database
@@ -133,6 +133,15 @@ namespace SleepSure.Services.DB_Services
                     {
                         //If the device is not present calls the LocationRESTServices SaveLocationAsync method which will post the location to the REST API
                         await _locationRESTService.SaveLocationAsync(localLocation, true);
+                    }
+                }
+                //Iterates through the RESTLocations list
+                foreach(var restLocation in RESTLocations)
+                {
+                    //Checks if any location present in the REST API in memory database is not present in the SQLite database and inserts it
+                    if(!LocalLocations.Any(l => l.Id == restLocation.Id && l.LocationName == restLocation.LocationName))
+                    {
+                        await _connection.InsertAsync(restLocation);
                     }
                 }
 

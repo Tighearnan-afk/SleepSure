@@ -23,8 +23,7 @@
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
-    <ScrollView>
-        <!--<FlexLayout Direction="Column"
+    <!--<FlexLayout Direction="Column"
                     JustifyContent="SpaceBetween"
                     Wrap="Wrap"
                     Padding="10">  Root column flexlayout that flows down the page-->
@@ -528,7 +527,8 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView> -->
-
+    <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                 Command="{Binding SyncLocationsCommand}">
         <CollectionView ItemsSource="{Binding Locations}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:DeviceLocation">
@@ -571,5 +571,5 @@
                 </StackLayout>
             </CollectionView.EmptyView>
         </CollectionView>
-    </ScrollView>
+    </RefreshView>
 </ContentPage>

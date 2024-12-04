@@ -25,6 +25,9 @@ namespace SleepSure.ViewModel
         //An boolean property that determines whether or not the application is in demo mode
         private bool _isInDemoMode;
 
+        [ObservableProperty]
+        public bool _isRefreshing;
+
         //Constructor for the DashboardVIewModel initialises the SensorService
         public DashboardViewModel(IDeviceLocationDataService locationDataService, IConfiguration AppConfig)
         {
@@ -79,11 +82,23 @@ namespace SleepSure.ViewModel
         [RelayCommand]
         public async Task SyncLocationsAsync()
         {
-            if (IsBusy)
-                return;
-            else
+            try
             {
-                await _locationDataService.SyncLocationsAsync();
+                if (IsBusy)
+                    return;
+                else
+                {
+                    await _locationDataService.SyncLocationsAsync();
+                    await GetLocationsAsync();
+                }
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                IsRefreshing = false;
             }
         }
 

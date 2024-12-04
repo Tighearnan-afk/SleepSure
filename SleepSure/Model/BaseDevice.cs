@@ -9,8 +9,6 @@ namespace SleepSure.Model
         public int? Id { get; set; }
         [MaxLength(30)]
         public string Name { get; set; }
-        [MaxLength(30)]
-        public string Location { get; set; }
         [MaxLength(150)]
         public string Description { get; set; }
         public int DeviceLocationId { get; set; }
@@ -20,7 +18,6 @@ namespace SleepSure.Model
         public BaseDevice(string name, string location, string description, int deviceLocationId)
         {
             Name = name;
-            Location = location;
             Description = description;
             DeviceLocationId = deviceLocationId;
         }
