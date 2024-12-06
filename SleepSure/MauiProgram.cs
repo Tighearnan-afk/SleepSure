@@ -3,8 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SleepSure.Pages;
 using SleepSure.Services;
-using SleepSure.Services.DB_Services;
-using SleepSure.Services.REST_Services;
 using SleepSure.ViewModel;
 using System.Reflection;
 using UraniumUI;
@@ -67,6 +65,9 @@ namespace SleepSure
             builder.Services.AddSingleton<ICameraDataService, CameraDBDataService>(
                 s => ActivatorUtilities.CreateInstance<CameraDBDataService>(s, databasePath));
 
+            //Register the devicetype file service
+            builder.Services.AddSingleton<IDeviceTypeService, DeviceTypeFileService>();
+
             //Register the login page
             builder.Services.AddSingleton<Login>();
             //Register the register page
@@ -85,6 +86,10 @@ namespace SleepSure
             builder.Services.AddSingleton<AddLocation>();
             //Register the add location viewmodel
             builder.Services.AddSingleton<AddLocationViewModel>();
+            //Register the add device page
+            builder.Services.AddTransient<AddDevice>();
+            //Register the add device viewmodel
+            builder.Services.AddTransient<AddDeviceViewModel>();
 
             return builder.Build();
         }

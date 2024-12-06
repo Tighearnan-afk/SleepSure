@@ -16,5 +16,10 @@ public partial class AddLocation : ContentPage
         base.OnAppearing();
 
         Shell.SetTabBarIsVisible(Shell.Current.CurrentPage,false);
+
+        if (BindingContext is DashboardViewModel viewModel)
+        {
+            viewModel.GetLocationsCommand.Execute(null);
+        }
     }
 }

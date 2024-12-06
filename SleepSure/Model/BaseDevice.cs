@@ -15,7 +15,7 @@ namespace SleepSure.Model
 
         public BaseDevice() { }
 
-        public BaseDevice(string name, string location, string description, int deviceLocationId)
+        public BaseDevice(string name, string description, int deviceLocationId)
         {
             Name = name;
             Description = description;

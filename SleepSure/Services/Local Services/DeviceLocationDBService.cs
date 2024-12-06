@@ -1,12 +1,12 @@
 ﻿using Microsoft.Maui.Devices.Sensors;
 using SleepSure.Model;
-using SleepSure.Services.REST_Services;
+using SleepSure.Services;
 using SQLite;
 using System.Diagnostics;
 using System.Text.Json;
 
 
-namespace SleepSure.Services.DB_Services
+namespace SleepSure.Services
 {
     public class DeviceLocationDBService : IDeviceLocationDataService
     {

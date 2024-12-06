@@ -1,6 +1,6 @@
 ﻿using SleepSure.Model;
 
-namespace SleepSure.Services.REST_Services
+namespace SleepSure.Services
 {
     public interface IDeviceLocationRESTService
     {

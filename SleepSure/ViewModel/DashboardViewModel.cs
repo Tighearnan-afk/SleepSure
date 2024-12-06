@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using SleepSure.Model;
 using SleepSure.Pages;
-using SleepSure.Services.DB_Services;
+using SleepSure.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Timers;
@@ -14,13 +14,12 @@ namespace SleepSure.ViewModel
     {
         //A service that retrieves a list of locations from a local SQLite database
         readonly IDeviceLocationDataService _locationDataService;
+
+        readonly ICameraDataService _cameraDataService;
         //Allows configuration files to be utilised by the view model
         readonly IConfiguration _appConfig;
         //A collection that the locations are stored in
         public ObservableCollection<DeviceLocation> Locations { get; } = [];
-
-        //A timer that is used to periodically sync the locations present in the SQLite database with the REST API
-        System.Timers.Timer _timer;
 
         //An boolean property that determines whether or not the application is in demo mode
         private bool _isInDemoMode;
@@ -29,26 +28,15 @@ namespace SleepSure.ViewModel
         public bool _isRefreshing;
 
         //Constructor for the DashboardVIewModel initialises the SensorService
-        public DashboardViewModel(IDeviceLocationDataService locationDataService, IConfiguration AppConfig)
+        public DashboardViewModel(IDeviceLocationDataService locationDataService, IConfiguration AppConfig, ICameraDataService cameraDataService)
         {
             _locationDataService = locationDataService;
             _appConfig = AppConfig;
+            _cameraDataService = cameraDataService;
 
             Settings appSettings = _appConfig.GetRequiredSection("Settings").Get<Settings>();
             _isInDemoMode = appSettings.DemoMode;
-            //_timer = new System.Timers.Timer(2000);
-            //_timer.Elapsed += onTimerElapsed;
-            //_timer.AutoReset = true;
-            //_timer.Start();
         }
-
-        //private void onTimerElapsed(object? sender, ElapsedEventArgs e)
-        //{
-        //    _timer.Stop();
-        //    SyncLocationsAsync();
-        //    _timer.Start();
-        //    _timer.AutoReset = true;
-        //}
 
         [RelayCommand]
         public async Task GetLocationsAsync()
@@ -80,7 +68,7 @@ namespace SleepSure.ViewModel
             }
         }
         [RelayCommand]
-        public async Task SyncLocationsAsync()
+        public async Task SyncWithAPI()
         {
             try
             {
@@ -90,6 +78,7 @@ namespace SleepSure.ViewModel
                 {
                     await _locationDataService.SyncLocationsAsync();
                     await GetLocationsAsync();
+                    await _cameraDataService.SyncCamerasAsync();
                 }
             }
             catch(Exception ex)

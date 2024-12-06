@@ -2,6 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SleepSure.Pages.AddDevice"
+             xmlns:model="clr-namespace:SleepSure.Model"
+             xmlns:viewmodel="clr-namespace:SleepSure.ViewModel"
+             x:DataType="viewmodel:AddDeviceViewModel"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              Title="Add Device">
@@ -16,6 +19,7 @@
             <StackLayout Orientation="Vertical" Spacing="10">
                 <StackLayout Orientation="Horizontal">
                 <uranium:TextField Title="Device Name"
+                                   Text="{Binding NewDeviceName}"
                                    HorizontalOptions="CenterAndExpand"
                                    WidthRequest="350" 
                                    Padding="0,10,0,0"/>
@@ -27,49 +31,31 @@
                     <Picker Title="Choose device type"
                             HorizontalOptions="CenterAndExpand"
                             WidthRequest="350"
-                            MaximumWidthRequest="350">  
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>Light</x:String>
-                                <x:String>Thermostat</x:String>
-                                <x:String>Camera</x:String>
-                                <x:String>Motion Sensor</x:String>
-                                <x:String>Leak Sensor</x:String>
-                                <x:String>Humidity Sensor</x:String>
-                                <x:String>Door Sensor</x:String>
-                                <x:String>Window Sensor</x:String>
-                                <x:String>Vibration Sensor</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
+                            MaximumWidthRequest="350" 
+                            ItemsSource ="{Binding DeviceTypes}"
+                            ItemDisplayBinding="{Binding Type}"
+                            SelectedItem="{Binding NewDeviceType}"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal">
-                    <Picker Title="Choose location"
-                            HorizontalOptions="CenterAndExpand"
-                            WidthRequest="350"
-                            MaximumWidthRequest="350">
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>Living Room</x:String>
-                                <x:String>Garden</x:String>
-                                <x:String>Basement</x:String>
-                                <x:String>Kitchen</x:String>
-                                <x:String>Hallway</x:String>
-                                <x:String>Add Location +</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
+                    <Label Text="{Binding Location.LocationName}"
+                                       HorizontalOptions="CenterAndExpand"
+                                       WidthRequest="350"
+                                       MaximumWidthRequest="350">
+                    </Label>
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal">
                     <uranium:EditorField Title="Description"
+                                         Text="{Binding NewDeviceDescription}"
                                          Icon="{FontImageSource FontFamily=MaterialRounded, Glyph={x:Static m:MaterialRounded.Edit}}"
-                                        HorizontalOptions="CenterAndExpand"
-                                        WidthRequest="350" />
+                                         MaxLength="150"
+                                         HorizontalOptions="CenterAndExpand"
+                                         WidthRequest="350" />
                 </StackLayout>
 
-                <Button Text="Create"
+                <Button Command="{Binding AddDeviceCommand}"
+                        Text="Create"
                         StyleClass="FilledButton"
                         VerticalOptions="EndAndExpand"
                         HorizontalOptions="EndAndExpand" 

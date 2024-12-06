@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SleepSure.Services.DB_Services
+namespace SleepSure.Services
 {
     public interface IDeviceLocationDataService
     {

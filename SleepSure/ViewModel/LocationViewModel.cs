@@ -2,8 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using SleepSure.Model;
+using SleepSure.Pages;
 using SleepSure.Services;
-using SleepSure.Services.DB_Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -69,6 +69,25 @@ namespace SleepSure.ViewModel
                 IsBusy = false;
             }
         }
+
+        [RelayCommand]
+        public async Task GoToCreatePageAsync()
+        {
+            if (IsBusy)
+                return;
+            try
+            {
+                IsBusy = true;
+                //Navigate to the add device page passing the selected location object within a dictionary and a true value for animate
+                await Shell.Current.GoToAsync($"{nameof(AddDevice)}", true,
+                    new Dictionary<string, object> { { "Location", Location } });
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
         [RelayCommand]
         public async Task DeleteLocationAsync()
         {

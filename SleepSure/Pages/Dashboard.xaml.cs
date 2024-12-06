@@ -19,7 +19,6 @@ public partial class Dashboard : ContentPage
         if (BindingContext is DashboardViewModel viewModel)
         {
             viewModel.GetLocationsCommand.Execute(null);
-            //viewModel.SyncLocationsCommand.Execute(null);
         }
     }
 

@@ -10,9 +10,11 @@ namespace SleepSure.Services
         //REST API service for cameras
         ICameraRESTService _cameraRESTService;
         //List of cameras retrieved from the REST API
-        public List<Camera> Cameras { get; private set; } = [];
+        public List<Camera> RESTCameras { get; private set; } = [];
         //List of locations retrieved from a local JSON file
         public List<Camera> JSONCameras { get; private set; } = [];
+        //List of cameras in the local SQLite database
+        public List<Camera> LocalCameras { get; private set; } = [];
         //SQLite connection
         SQLiteAsyncConnection _connection;
 
@@ -64,9 +66,19 @@ namespace SleepSure.Services
         }
 
 
-        public async Task AddCameraAsync()
+        public async Task AddCameraAsync(string name, string description, int deviceLocationId)
         {
-            throw new NotImplementedException();
+            int result = 0;
+            try
+            {
+                await Init();
+                result = await _connection.InsertAsync(new Camera(name, description, deviceLocationId));
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to add location. Error: {0}", ex.Message);
+                Debug.WriteLine(StatusMessage);
+            }
         }
 
         public async Task<List<Camera>> GetCamerasAsync(bool isInDemoMode)
@@ -95,6 +107,45 @@ namespace SleepSure.Services
             using var reader = new StreamReader(stream);
             var content = await reader.ReadToEndAsync();
             JSONCameras = JsonSerializer.Deserialize<List<Camera>>(content);
+        }
+
+        //Method to sync cameras between the SQLite database and the REST API
+        public async Task SyncCamerasAsync()
+        {
+            try
+            {
+                //Intialises the database if it isn't already
+                await Init();
+                //Refreshes the devices present in the Locations list
+                RESTCameras = await _cameraRESTService.RefreshCamerasAsync();
+                //Refreshes the devices present in the LocalLocations list
+                LocalCameras = await GetCamerasAsync(_isInDemoMode);
+                //Iterates through the LocalLocations list
+                foreach (var localCamera in LocalCameras)
+                {
+                    //Checks if any location present in the SQLite database is present in the REST API in memory database
+                    if (!RESTCameras.Any(l => l.Id == localCamera.Id))
+                    {
+                        //If the device is not present calls the LocationRESTServices SaveLocationAsync method which will post the location to the REST API
+                        await _cameraRESTService.SaveCameraAsync(localCamera, true);
+                    }
+                }
+                //Iterates through the RESTLocations list
+                foreach (var restCamera in RESTCameras)
+                {
+                    //Checks if any location present in the REST API in memory database is not present in the SQLite database and inserts it
+                    if (!LocalCameras.Any(l => l.Id == restCamera.Id))
+                    {
+                        await _connection.InsertAsync(restCamera);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Unable to sync locations. Error{0}", ex.Message);
+                Debug.WriteLine(StatusMessage);
+            }
         }
 
         public async Task DeleteCameraAsync(Camera camera)
