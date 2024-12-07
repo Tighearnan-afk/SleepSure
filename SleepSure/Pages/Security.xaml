@@ -2,10 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SleepSure.Pages.Security"
+             xmlns:model="clr-namespace:SleepSure.Model"
+             xmlns:viewmodel="clr-namespace:SleepSure.ViewModel"
+             x:DataType="viewmodel:SecurityViewModel"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              Title="Security">
-    <ScrollView>
+    <RefreshView>
         <StackLayout Orientation="Vertical"
                      WidthRequest="385"
                      HeightRequest="650">
@@ -80,178 +83,67 @@
             <StackLayout Orientation="Vertical"
                          Margin="10"
                          Spacing="10">
-                <Label Text="Devices"
+                <Label Text="Cameras"
                        FontSize="Medium"
                        FontAttributes="Bold"
                        HorizontalOptions="CenterAndExpand"
-                       Padding="10"/>
-                <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
-                        StrokeThickness="0.4"
-                        Padding="0,0,5,0"
-                        StyleClass="Elevation1">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="5" />
-                    </Border.StrokeShape>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
+                       Padding="10" />
 
-                        <Image x:Name="BackDoorCamera"
-                               Source="placeholdervideo.png"
-                               Grid.RowSpan="2">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedBackDoorCamera"
-                                                      NumberOfTapsRequired="1" />
-                            </Image.GestureRecognizers>
-                        </Image>
+                <CollectionView ItemsSource="{Binding Cameras}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Camera">
+                            <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                                    StrokeThickness="0.4"
+                                    Padding="0,0,5,0"
+                                    StyleClass="Elevation1">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
 
-                        <Label Text="Back Door Camera" 
-                               FontSize="Body"
-                               Grid.Column="1"
-                               Grid.ColumnSpan="2"
-                               HorizontalOptions="CenterAndExpand"/>
+                                    <Image x:Name="BackWallCamera"
+                                           Source="placeholdervideo.png"
+                                           Grid.RowSpan="2">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SecurityViewModel}},
+                                                                            Path=GoToVideoFeedCommand}"
+                                                                  NumberOfTapsRequired="1" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
 
-                        <Button Text="On"
-                                StyleClass="FilledButton" 
-                                IsEnabled="False"
-                                Grid.Column="1"
-                                Grid.Row="1"
-                                MaximumWidthRequest="100"
-                                MaximumHeightRequest="100"
-                                Margin="0,0,0,10"/>
+                                    <Label Text="{Binding Name}"
+                                           FontSize="Body"
+                                           Grid.Column="1"
+                                           Grid.ColumnSpan="2"
+                                           HorizontalOptions="CenterAndExpand" />
 
-                        <Button Text="Off"
-                                BackgroundColor="{StaticResource Warning}"
-                                TextColor="{StaticResource White}"
-                                StyleClass="FilledButton"
-                                IsEnabled="True"
-                                Grid.Column="2"
-                                Grid.Row="2"
-                                MaximumWidthRequest="100"
-                                MaximumHeightRequest="100"
-                                Margin="0,0,0,10" />
-                    </Grid>
-                </Border>
-
-                <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
-                        StrokeThickness="0.4"
-                        Padding="0,0,5,0"
-                        StyleClass="Elevation1">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="5" />
-                    </Border.StrokeShape>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-
-                        <Image x:Name="BackWallCamera"
-                               Source="placeholdervideo.png"
-                               Grid.RowSpan="2">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedBackWallCamera"
-                                                      NumberOfTapsRequired="1" />
-                            </Image.GestureRecognizers>
-                        </Image>
-
-                        <Label Text="Back Wall Camera"
-                               FontSize="Body"
-                               Grid.Column="1"
-                               Grid.ColumnSpan="2"
-                               HorizontalOptions="CenterAndExpand" />
-
-                        <Switch
-                                ThumbColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" 
-                                Grid.Column="1"
-                                Grid.Row="1"/>
-                    </Grid>
-                </Border>
-
-                <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
-                        StrokeThickness="0.4"
-                        Padding="0,0,5,0"
-                        StyleClass="Elevation1">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="5" />
-                    </Border.StrokeShape>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-
-                        <Image x:Name="BackDoorMotioSensor"
-                               Grid.RowSpan="3"
-                               MaximumWidthRequest="90"
-                               MaximumHeightRequest="90">
-                            <Image.Source>
-                                <FontImageSource FontFamily="MaterialRounded"
-                                                 Glyph="{x:Static m:MaterialRounded.Motion_sensor_active}"
-                                                 Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
-                                                 Size="65"/>
-                            </Image.Source>
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnTapGestureRecogniserTappedBackDoorMotionSensor"
-                                                      NumberOfTapsRequired="1" />
-                            </Image.GestureRecognizers>
-                        </Image>
-
-                        <Label Text="Back Door Motion Sensor"
-                               FontSize="Body"
-                               Grid.Column="1"
-                               Grid.ColumnSpan="2"
-                               HorizontalOptions="CenterAndExpand" />
-
-                        <Label Text="Status: No Motion"
-                               FontSize="Body"
-                               Grid.Column="1"
-                               Grid.Row="1"
-                               Grid.ColumnSpan="2"
-                               HorizontalOptions="Center"
-                               Margin="0,0,0,10"/>
-
-                        <Button Text="On"
-                                StyleClass="FilledButton"
-                                IsEnabled="False"
-                                Grid.Column="1"
-                                Grid.Row="2"
-                                MaximumWidthRequest="100"
-                                MaximumHeightRequest="100"
-                                Margin="0,0,0,20" />
-
-                        <Button Text="Off"
-                                BackgroundColor="{StaticResource Warning}"
-                                TextColor="{StaticResource White}"
-                                StyleClass="FilledButton"
-                                IsEnabled="True"
-                                Grid.Column="2"
-                                Grid.Row="2"
-                                MaximumWidthRequest="100"
-                                MaximumHeightRequest="100"
-                                Margin="0,0,0,20" />
-                    </Grid>
-                </Border>
-
+                                    <Switch ThumbColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                            Grid.Column="1"
+                                            Grid.Row="1" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <StackLayout Orientation="Vertical">
+                            <Label Text="No cameras registered"
+                                   FontSize="Title"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center" />
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+                </CollectionView>
             </StackLayout>
         </StackLayout>
-    </ScrollView>
+    </RefreshView>
 </ContentPage>

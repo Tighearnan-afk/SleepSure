@@ -1,26 +1,24 @@
 
+using SleepSure.ViewModel;
+
 namespace SleepSure.Pages;
 
 public partial class Security : ContentPage
 {
-	public Security()
+	public Security(SecurityViewModel viewmodel)
 	{
 		InitializeComponent();
+
+        BindingContext = viewmodel;
 	}
 
-    private async void OnTapGestureRecogniserTappedBackDoorCamera(object? sender, EventArgs e)
+    protected override void OnAppearing()
     {
-        await Shell.Current.GoToAsync("videofeed");
+        base.OnAppearing();
+        Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
+        if (BindingContext is SecurityViewModel viewModel)
+        {
+            viewModel.GetCamerasCommand.Execute(null);
+        }
     }
-
-    private async void OnTapGestureRecogniserTappedBackWallCamera(object? sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync("videofeed");
-    }
-
-    public async void OnTapGestureRecogniserTappedBackDoorMotionSensor(object? sender, TappedEventArgs args)
-    {
-        await Shell.Current.GoToAsync("devicedetails");
-    }
-
 }

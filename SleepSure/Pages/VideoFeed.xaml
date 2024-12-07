@@ -2,8 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SleepSure.Pages.VideoFeed"
+             xmlns:model="clr-namespace:SleepSure.Model"
+             xmlns:viewmodel="clr-namespace:SleepSure.ViewModel"
+             x:DataType="viewmodel:VideoFeedViewModel"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="Video Feed">
+    
     <Border Stroke="Black"
             StrokeThickness="0.4"
             HorizontalOptions="CenterAndExpand">
@@ -11,19 +16,24 @@
         
             <StackLayout Orientation="Horizontal"
                          Padding="10"
-                         WidthRequest="600">
+                         WidthRequest="625">
 
-                <Image Source="placeholdervideo.png"
-                       Aspect="AspectFit"
-                       HorizontalOptions="CenterAndExpand"
-                       VerticalOptions="Start" />
+                <toolkit:MediaElement Source="{OnPlatform WinUI=embed://motion_detected.mp4, Android=rtsp://rtspstream:4df0a9f80e31539d4408952ab4d4e18a@zephyr.rtsp.stream/pattern}"
+                    ShouldShowPlaybackControls="True"
+                    ShouldAutoPlay="True"
+                    MaximumWidthRequest="{OnIdiom Default=600,Phone=600}"
+                    MaximumHeightRequest="{OnIdiom Default=400,Phone=200}"
+                    Aspect="AspectFill">
+                </toolkit:MediaElement>
 
             </StackLayout>
-            <Button Text="View Archive" 
+            <Button Text="View Archive"
+                    Command="{Binding GoToVideoArchiveCommand}"
                     StyleClass="FilledButton"
                     WidthRequest="150"
                     HorizontalOptions="Start"
                     Margin="10,0,0,0"/>
+
         </StackLayout>
     </Border>    
 </ContentPage>

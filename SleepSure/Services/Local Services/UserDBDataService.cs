@@ -43,8 +43,7 @@ namespace SleepSure.Services
         /// <summary>
         /// Initialise the connection to the database
         /// </summary>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
+
         public async Task Init()
         {
             //If the database has already been created this method does nothing
@@ -57,7 +56,7 @@ namespace SleepSure.Services
 
             //Checks if any rows exist in the database
             var tableData = await _connection.Table<User>().CountAsync();
-            //If no rows exist seeds the SQLite database with data fetched from the REST API
+
             if (tableData == 0 && _isInDemoMode)
             {
                 await GetJSONUsersAsync();

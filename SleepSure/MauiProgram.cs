@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SleepSure.Pages;
 using SleepSure.Services;
+using SleepSure.Services.Local_Services;
 using SleepSure.ViewModel;
 using System.Reflection;
 using UraniumUI;
@@ -17,6 +18,7 @@ namespace SleepSure
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .UseMauiCommunityToolkitMediaElement()
                 .UseUraniumUI()
                 .UseUraniumUIMaterial()
                 .ConfigureFonts(fonts =>
@@ -65,6 +67,9 @@ namespace SleepSure
             builder.Services.AddSingleton<ICameraDataService, CameraDBDataService>(
                 s => ActivatorUtilities.CreateInstance<CameraDBDataService>(s, databasePath));
 
+            builder.Services.AddSingleton<IVideoDataService, VideoDBDataService>(
+                s => ActivatorUtilities.CreateInstance<VideoDBDataService>(s, databasePath));
+
             //Register the devicetype file service
             builder.Services.AddSingleton<IDeviceTypeService, DeviceTypeFileService>();
 
@@ -92,6 +97,18 @@ namespace SleepSure
             builder.Services.AddTransient<AddDevice>();
             //Register the add device viewmodel
             builder.Services.AddTransient<AddDeviceViewModel>();
+            //Register the security page
+            builder.Services.AddSingleton<Pages.Security>();
+            //Register the security view model
+            builder.Services.AddSingleton<SecurityViewModel>();
+            //Register the video feed page
+            builder.Services.AddTransient<VideoFeed>();
+            //Register the video feed view model
+            builder.Services.AddTransient<VideoFeedViewModel>();
+            //Register the video archive page 
+            builder.Services.AddTransient<VideoArchive>();
+            //Register the video archive view model
+            builder.Services.AddTransient<VideoArchiveViewModel>();
 
             return builder.Build();
         }

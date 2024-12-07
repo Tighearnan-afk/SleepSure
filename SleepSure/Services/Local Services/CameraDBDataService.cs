@@ -7,8 +7,12 @@ namespace SleepSure.Services
 {
     public class CameraDBDataService : ICameraDataService
     {
+        //Network access variable that will be used to determine if the device has an internet connection
+        NetworkAccess _internet;
         //REST API service for cameras
         ICameraRESTService _cameraRESTService;
+        //A service that allows videos to be created and associated with the current camera
+        IVideoDataService _videoDataService;
         //List of cameras retrieved from the REST API
         public List<Camera> RESTCameras { get; private set; } = [];
         //List of locations retrieved from a local JSON file
@@ -32,17 +36,18 @@ namespace SleepSure.Services
 
         private bool _isInDemoMode;
 
-        public CameraDBDataService(string dbPath, ICameraRESTService cameraRESTService)
+        public CameraDBDataService(string dbPath, ICameraRESTService cameraRESTService, IVideoDataService videoDataService)
         {
             _dbPath = dbPath;
             _cameraRESTService = cameraRESTService;
+            _internet =  Connectivity.Current.NetworkAccess;
+            _videoDataService = videoDataService;
         }
 
         /// <summary>
         /// Initialise the connection to the database
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
+        /// </summary> 
+        /// 
         public async Task Init()
         {
             //If the database has already been created this method does nothing
@@ -54,17 +59,21 @@ namespace SleepSure.Services
             var result = await _connection.CreateTableAsync<Camera>();
             //Checks if any rows exist in the database
             var tableData = await _connection.Table<Camera>().CountAsync();
-            //If no rows exist seeds the SQLite database with data fetched from the REST API
-            if(tableData == 0 && _isInDemoMode)
+            //If no rows exist and the application is in demo mode seed the database with a list of default cameras stored in a local json file
+            if (tableData == 0 && _isInDemoMode)
             {
+                //Fetches a list of default cameras from a local JSON file
                 await GetJSONCamerasAsync();
+                //Iterates through the list of default cameras
                 foreach (var camera in JSONCameras)
                 {
+                    //Inserts the default camera into the SQLite database
                     await _connection.InsertAsync(camera);
                 }
+                //Uses the GetVideosAsyc method to create the default videos associated with the demo cameras
+                await _videoDataService.GetVideosAsync(_isInDemoMode);
             }
         }
-
 
         public async Task AddCameraAsync(string name, string description, int deviceLocationId)
         {
@@ -72,7 +81,9 @@ namespace SleepSure.Services
             try
             {
                 await Init();
-                result = await _connection.InsertAsync(new Camera(name, description, deviceLocationId));
+                Camera newCamera = new Camera(name,description, deviceLocationId);
+                result = await _connection.InsertAsync(newCamera);
+                await _videoDataService.AddVideoAsync((int)newCamera.Id);
             }
             catch (Exception ex)
             {
@@ -109,33 +120,41 @@ namespace SleepSure.Services
             JSONCameras = JsonSerializer.Deserialize<List<Camera>>(content);
         }
 
-        //Method to sync cameras between the SQLite database and the REST API
+        /// <summary>
+        /// The SyncCamerasAsync method synchronises the cameras between the local SQLite database and the REST API
+        /// </summary>
+        
         public async Task SyncCamerasAsync()
         {
+            //Checks if the device has an internet connection
+            if (_internet != NetworkAccess.Internet)
+                return;
+
             try
             {
                 //Intialises the database if it isn't already
                 await Init();
-                //Refreshes the devices present in the Locations list
+                //Refreshes the cameras present in the REST cameras list
                 RESTCameras = await _cameraRESTService.RefreshCamerasAsync();
-                //Refreshes the devices present in the LocalLocations list
+                //Refreshes the cameras present in the local cameras list
                 LocalCameras = await GetCamerasAsync(_isInDemoMode);
-                //Iterates through the LocalLocations list
+                //Iterates through the LocalCameras list
                 foreach (var localCamera in LocalCameras)
                 {
-                    //Checks if any location present in the SQLite database is present in the REST API in memory database
+                    //Checks if any camera present in the SQLite database is present in the REST API in memory database
                     if (!RESTCameras.Any(l => l.Id == localCamera.Id))
                     {
-                        //If the device is not present calls the LocationRESTServices SaveLocationAsync method which will post the location to the REST API
+                        //If the camera is not present calls the CameraRESTServices SaveCameraAsync method which will post the location to the REST API
                         await _cameraRESTService.SaveCameraAsync(localCamera, true);
                     }
                 }
-                //Iterates through the RESTLocations list
+                //Iterates through the RESTCameras list
                 foreach (var restCamera in RESTCameras)
                 {
-                    //Checks if any location present in the REST API in memory database is not present in the SQLite database and inserts it
+                    //Checks if any camera present in the REST API in memory database is not present in the SQLite database
                     if (!LocalCameras.Any(l => l.Id == restCamera.Id))
                     {
+                        //If the camera is not present it is inserted into the local SQLite database
                         await _connection.InsertAsync(restCamera);
                     }
                 }
