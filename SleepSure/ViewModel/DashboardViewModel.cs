@@ -14,8 +14,6 @@ namespace SleepSure.ViewModel
     {
         //A service that retrieves a list of locations from a local SQLite database
         readonly IDeviceLocationDataService _locationDataService;
-
-        readonly ICameraDataService _cameraDataService;
         //Allows configuration files to be utilised by the view model
         readonly IConfiguration _appConfig;
         //A collection that the locations are stored in
@@ -28,11 +26,10 @@ namespace SleepSure.ViewModel
         public bool _isRefreshing;
 
         //Constructor for the DashboardVIewModel initialises the SensorService
-        public DashboardViewModel(IDeviceLocationDataService locationDataService, IConfiguration AppConfig, ICameraDataService cameraDataService)
+        public DashboardViewModel(IDeviceLocationDataService locationDataService, IConfiguration AppConfig)
         {
             _locationDataService = locationDataService;
             _appConfig = AppConfig;
-            _cameraDataService = cameraDataService;
 
             Settings appSettings = _appConfig.GetRequiredSection("Settings").Get<Settings>();
             _isInDemoMode = appSettings.DemoMode;
@@ -68,7 +65,7 @@ namespace SleepSure.ViewModel
             }
         }
         [RelayCommand]
-        public async Task SyncWithAPI()
+        public async Task SyncLocationsAsync()
         {
             try
             {
@@ -78,7 +75,6 @@ namespace SleepSure.ViewModel
                 {
                     await _locationDataService.SyncLocationsAsync();
                     await GetLocationsAsync();
-                    await _cameraDataService.SyncCamerasAsync();
                 }
             }
             catch(Exception ex)

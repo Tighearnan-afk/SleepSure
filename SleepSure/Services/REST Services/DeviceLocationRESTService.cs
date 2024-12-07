@@ -10,10 +10,13 @@ namespace SleepSure.Services
         HttpClient _client;
 
         JsonSerializerOptions _serializerOptions;
+
+        ICameraRESTService _cameraRESTService;
         //List of locations retrieved from the REST API
         public List<DeviceLocation> Locations { get; private set; }
-
-        public DeviceLocationRESTService()
+        //A list of cameras associated with the location retrieved from the REST API
+        public List<Camera> Cameras { get; private set; }
+        public DeviceLocationRESTService(ICameraRESTService cameraDataService)
         {
             //Retrieved from "https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/local-web-services?view=net-maui-9.0&viewFallbackFrom=net-maui-7.0"
             //Needed to allow the android emulator to connect to the REST API over HTTPS
@@ -34,6 +37,7 @@ namespace SleepSure.Services
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 WriteIndented = true
             };
+            _cameraRESTService = cameraDataService;
         }
 
         public async Task<List<DeviceLocation>> RefreshLocationsAsync()
@@ -93,13 +97,20 @@ namespace SleepSure.Services
 
             try
             {
+                Cameras = await _cameraRESTService.RefreshCamerasAsync();
+
+                foreach(var camera in Cameras)
+                {
+                    if (camera.DeviceLocationId == id)
+                        await _cameraRESTService.DeleteCameraAsync((int)camera.Id);
+                }
 
                 HttpResponseMessage response = null;
                 
                 response = await _client.DeleteAsync(uri);
 
                 if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"\tLocation successfully saved.");
+                    Debug.WriteLine(@"Location deleted saved.");
             }
             catch (Exception ex)
             {

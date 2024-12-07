@@ -88,9 +88,26 @@ namespace SleepSure.Services
             }
         }
 
-        public Task DeleteCameraAsync(int id)
+        public async Task DeleteCameraAsync(int id)
         {
-            throw new NotImplementedException();
+            string locationEndPoint = string.Concat(Constants.RestUrl, $"cameras/{{0}}");
+
+            Uri uri = new Uri(string.Format(locationEndPoint, id));
+
+            try
+            {
+
+                HttpResponseMessage response = null;
+
+                response = await _client.DeleteAsync(uri);
+
+                if (response.IsSuccessStatusCode)
+                    Debug.WriteLine(@"\Camera deleted saved.");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
     }
 }

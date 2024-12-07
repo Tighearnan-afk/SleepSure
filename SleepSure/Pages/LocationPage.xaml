@@ -26,7 +26,8 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <ScrollView>
+    <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                 Command="{Binding SyncDevicesCommand}">
         <CollectionView ItemsSource="{Binding Cameras}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Camera">
@@ -71,5 +72,5 @@
                 </StackLayout>
             </CollectionView.EmptyView>
         </CollectionView>
-    </ScrollView>
+    </RefreshView>
 </ContentPage>

@@ -28,6 +28,9 @@ namespace SleepSure.ViewModel
         [ObservableProperty]
         DeviceLocation location;
 
+        [ObservableProperty]
+        public bool _isRefreshing;
+
         //Constructor for the LocationViewModel initialises the various device services
         public LocationViewModel(ICameraDataService cameraDataService, IDeviceLocationDataService deviceLocationDataService, IConfiguration AppConfig)
         {
@@ -85,6 +88,28 @@ namespace SleepSure.ViewModel
             finally
             {
                 IsBusy = false;
+            }
+        }
+        [RelayCommand]
+        public async Task SyncDevicesAsync()
+        {
+            try
+            {
+                if (IsBusy)
+                    return;
+                else
+                {
+                    await _cameraDataService.SyncCamerasAsync();
+                    await GetLocationDevices();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                IsRefreshing = false;
             }
         }
 

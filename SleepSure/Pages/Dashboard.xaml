@@ -528,7 +528,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView> -->
     <RefreshView IsRefreshing="{Binding IsRefreshing}"
-                 Command="{Binding SyncWithAPICommand}">
+                 Command="{Binding SyncLocationsCommand}">
         <CollectionView ItemsSource="{Binding Locations}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:DeviceLocation">
