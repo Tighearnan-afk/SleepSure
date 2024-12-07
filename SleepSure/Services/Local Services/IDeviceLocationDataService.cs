@@ -13,5 +13,6 @@ namespace SleepSure.Services
         public Task AddLocationAsync(string location);
         public Task RemoveLocationAsync(DeviceLocation location);
         public Task SyncLocationsAsync();
+        public Task UpdateLocationAsync(DeviceLocation location);
     }
 }

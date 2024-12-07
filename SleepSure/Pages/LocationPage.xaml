@@ -10,10 +10,17 @@
              Title="{Binding Location.LocationName}">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding GoToCreatePageCommand}">
+        <ToolbarItem Command="{Binding GoToUpdatePageCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource FontFamily="MaterialRounded"
                                  Glyph="{x:Static m:MaterialRounded.Edit_square}"
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+        <ToolbarItem Command="{Binding GoToCreatePageCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="MaterialRounded"
+                                 Glyph="{x:Static m:MaterialRounded.Add_circle}"
                                  Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}" />
             </ToolbarItem.IconImageSource>
         </ToolbarItem>

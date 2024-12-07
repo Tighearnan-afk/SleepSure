@@ -13,6 +13,7 @@ namespace SleepSure
             Routing.RegisterRoute("dashboard", typeof(Dashboard));
             Routing.RegisterRoute(nameof(LocationPage), typeof(LocationPage));
             Routing.RegisterRoute(nameof(AddLocation), typeof(AddLocation));
+            Routing.RegisterRoute(nameof(UpdateLocation), typeof(UpdateLocation));
             Routing.RegisterRoute("devicedetails", typeof(DeviceDetails));
             Routing.RegisterRoute(nameof(AddDevice), typeof(AddDevice));
             Routing.RegisterRoute("videofeed", typeof(VideoFeed));

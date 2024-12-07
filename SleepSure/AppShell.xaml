@@ -32,9 +32,9 @@
         </LinearGradientBrush>
     </Shell.FlyoutBackdrop>
 
-    <FlyoutItem FlyoutItemIsVisible="False">
+    <!--<FlyoutItem FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate pages:Login}"/>
-    </FlyoutItem>
+    </FlyoutItem> -->
     
     <FlyoutItem Title="Home"
                 Icon="home.png"

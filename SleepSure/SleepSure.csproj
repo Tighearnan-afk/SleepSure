@@ -101,6 +101,9 @@
 	  <MauiXaml Update="Pages\Security.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\UpdateLocation.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\VideoFeed.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -29,6 +29,9 @@ namespace SleepSure.ViewModel
         DeviceLocation location;
 
         [ObservableProperty]
+        public string _updatedlocation;
+
+        [ObservableProperty]
         public bool _isRefreshing;
 
         //Constructor for the LocationViewModel initialises the various device services
@@ -90,6 +93,25 @@ namespace SleepSure.ViewModel
                 IsBusy = false;
             }
         }
+
+        [RelayCommand]
+        public async Task GoToUpdatePageAsync()
+        {
+            if (IsBusy)
+                return;
+            try
+            {
+                IsBusy = true;
+                
+                await Shell.Current.GoToAsync($"{nameof(UpdateLocation)}", true,
+                    new Dictionary<string, object> { { "Location", Location } });
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
         [RelayCommand]
         public async Task SyncDevicesAsync()
         {
@@ -110,6 +132,31 @@ namespace SleepSure.ViewModel
             finally
             {
                 IsRefreshing = false;
+            }
+        }
+
+        [RelayCommand]
+        public async Task UpdateLocationAsync()
+        {
+            if (IsBusy)
+                return;
+
+            try
+            {
+                IsBusy = true;
+
+                Location.LocationName = Updatedlocation;
+                await _deviceLocationDataService.UpdateLocationAsync(Location);
+
+                await Shell.Current.GoToAsync("../..");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 

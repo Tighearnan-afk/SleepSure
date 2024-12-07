@@ -188,5 +188,41 @@ namespace SleepSure.Services
                 Debug.WriteLine(StatusMessage);
             }
         }
+
+        public async Task UpdateLocationAsync(DeviceLocation location)
+        {
+            int result = 0;
+            try
+            {
+                await Init();
+
+                //List<Camera> TempCameras = [];
+                //List<Camera> AssociatedCameras = [];
+                //TempCameras = await _cameraDataService.GetCamerasAsync(_isInDemoMode);
+
+                //foreach (var camera in TempCameras)
+                //{
+                //    if (camera.DeviceLocationId == location.Id)
+                //    {
+                //        AssociatedCameras.Add(camera);
+                //    }
+                //}
+
+                //foreach (var camera in AssociatedCameras)
+                //{
+                //    await _cameraDataService.DeleteCameraAsync(camera);
+                //}
+
+
+                result = await _connection.UpdateAsync(location);
+                //Requires a cast to int as the model has a nullable id to allow sqlite to increment it correctly
+                //await _locationRESTService.DeleteLocationAsync((int)location.Id);
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Unable to sync locations. Error{0}", ex.Message);
+                Debug.WriteLine(StatusMessage);
+            }
+        }
     }
 }

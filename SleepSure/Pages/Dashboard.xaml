@@ -18,7 +18,7 @@
         <ToolbarItem Command="{Binding GoToAddLocationCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource FontFamily="MaterialRounded"
-                                 Glyph="{x:Static m:MaterialRounded.Edit_square}"
+                                 Glyph="{x:Static m:MaterialRounded.Add_circle}"
                                  Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}" />
             </ToolbarItem.IconImageSource>
         </ToolbarItem>

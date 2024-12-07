@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SleepSure.Pages.UpdateLocation"
+             xmlns:model="clr-namespace:SleepSure.Model"
+             xmlns:viewmodel="clr-namespace:SleepSure.ViewModel"
+             x:DataType="viewmodel:LocationViewModel"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+             xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
+             Title="UpdateLocation">
+    <StackLayout Orientation="Vertical">
+        <input:FormView SubmitCommand="{Binding UpdateLocationCommand}"
+                        VerticalOptions="CenterAndExpand">
+            <Grid ColumnDefinitions="*,2*,*"
+                  RowDefinitions="*,*">
+                <uranium:TextField Title="Location Name"
+                                   Text="{Binding Updatedlocation}"
+                                   Grid.Column="1"
+                                   Grid.Row="0" />
+
+                <Button Text="Update"
+                        input:FormView.IsSubmitButton="True"
+                        StyleClass="FilledButton"
+                        TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}"
+                        Grid.Column="1"
+                        Grid.Row="1" />
+            </Grid>
+        </input:FormView>
+    </StackLayout>
+</ContentPage>
