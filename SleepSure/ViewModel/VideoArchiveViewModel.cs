@@ -1,16 +1,13 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Converters;
+using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Maui.Devices.Sensors;
 using SleepSure.Model;
 using SleepSure.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace SleepSure.ViewModel
 {
@@ -61,19 +58,28 @@ namespace SleepSure.ViewModel
                 var videos = await _videoDataService.GetVideosAsync(_isInDemoMode);
                 //Clears the observable collection
                 Videos.Clear();
+
+                MediaSource mediaSource;
                 //Iterates through the list of videos
                 foreach (var video in videos)
                 {
+                    //The video path must be converted to a Media Source for use with the MAUI Media element view
+                    mediaSource = MediaSource.FromResource(video.VideoPath);
                     //Checks if the video is associated with the current camera and if it is adds it to the observable collection
-                    if(video.CameraId == Camera.Id)
+                    if (video.CameraId == Camera.Id)
+                    {
+                        //Video has a MediaSource field that is ignored by SQLite but is populated here to allow the collection view to dynamically retrieve videos rather than hardcode it
+                        video.MediaSource = mediaSource;
+                        //Adds the video to the Videos observable collection
                         Videos.Add(video);
+                    }
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
                 //Display an alert if an exception occurs
-                await Shell.Current.DisplayAlert("Error", "Unable to retrieve locations", "OK");
+                await Shell.Current.DisplayAlert("Error", "Unable to retrieve videos", "OK");
             }
             finally
             {

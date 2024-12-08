@@ -52,7 +52,7 @@ namespace SleepSure.ViewModel
         [RelayCommand]
         private async Task GoToRegister()
         {
-            await Shell.Current.GoToAsync("register");
+            await Shell.Current.GoToAsync(nameof(Register));
         }
 
         [RelayCommand]

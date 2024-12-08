@@ -1,17 +1,17 @@
 ﻿[
   {
     "Id": 1,
-    "VideoPath": "embed://motion_detected.mp4",
+    "VideoPath": "motion_detected.mp4",
     "CameraId": 1
   },
   {
     "Id": 2,
-    "VideoPath": "embed://motion_detected.mp4",
+    "VideoPath": "motion_detected.mp4",
     "CameraId": 1
   },
   {
     "Id": 3,
-    "VideoPath": "embed://motion_detected.mp4",
+    "VideoPath": "motion_detected.mp4",
     "CameraId": 1
   }
 ]

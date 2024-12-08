@@ -25,26 +25,33 @@
                                                     Path=GoToLocationCommand}"
                                                   NumberOfTapsRequired="1" />
                         </Border.GestureRecognizers>-->
-                        <Grid ColumnDefinitions="Auto,*"
-                              RowDefinitions="*,*"
+                        <Grid ColumnDefinitions="*,*,*"
+                              RowDefinitions="4*,*,*"
                               Margin="10">
 
-                            <Image Source="deviceplaceholder.png"
-                                   Grid.Row="0"
-                                   Grid.Column="0"
-                                   Grid.RowSpan="2"
-                                   Margin="0,0,10,0" />
-
-                            <toolkit:MediaElement Source="{Binding VideoPath}"
-                                   Grid.Column="1"
-                                   Grid.Row="0" />
+                            <toolkit:MediaElement Source="{Binding MediaSource}"
+                                                  ShouldShowPlaybackControls="True"
+                                                  ShouldAutoPlay="False"
+                                                  HorizontalOptions="CenterAndExpand"
+                                                  MaximumWidthRequest="{OnIdiom Default=600,Phone=380}"
+                                                  MaximumHeightRequest="{OnIdiom Default=400,Phone=200}"
+                                                  Aspect="AspectFill"
+                                                  Grid.ColumnSpan="3">
+                            </toolkit:MediaElement>
+                            
+                            
+                            
+                            <Button Text="Delete"
+                                    StyleClass="FilledButton"
+                                    BackgroundColor="{StaticResource Warning}"
+                                    Grid.Row="2"/>
                         </Grid>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
             <CollectionView.EmptyView>
                 <StackLayout Orientation="Vertical">
-                    <Label Text="No locations registered"
+                    <Label Text="No videos found"
                            FontSize="Title"
                            VerticalOptions="Center"
                            HorizontalOptions="Center" />

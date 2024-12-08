@@ -19,9 +19,11 @@
                          WidthRequest="625">
 
                 <toolkit:MediaElement Source="{OnPlatform WinUI=embed://motion_detected.mp4, Android=rtsp://rtspstream:4df0a9f80e31539d4408952ab4d4e18a@zephyr.rtsp.stream/pattern}"
-                    ShouldShowPlaybackControls="True"
                     ShouldAutoPlay="True"
-                    MaximumWidthRequest="{OnIdiom Default=600,Phone=600}"
+                    ShouldShowPlaybackControls="False"
+                    ShouldLoopPlayback="True"                  
+                    HorizontalOptions="CenterAndExpand"
+                    MaximumWidthRequest="{OnIdiom Default=600,Phone=380}"
                     MaximumHeightRequest="{OnIdiom Default=400,Phone=200}"
                     Aspect="AspectFill">
                 </toolkit:MediaElement>
