@@ -125,5 +125,25 @@ namespace SleepSure.Services.Local_Services
             //Deserialises the contents of the demo locations JSON file into the JSON locations list
             JSONVideos = JsonSerializer.Deserialize<List<Video>>(content);
         }
+
+        /// <summary>
+        /// The DeleteVideoAsync method deletes a specified video from the local SQLite database
+        /// </summary>
+        /// <param name="video"></param>
+        public async Task DeleteVideoAsync(Video video)
+        {
+            try
+            {
+                //Ensure a connection to the database is created
+                await Init();
+                //Delete the specified video
+                await _connection.DeleteAsync(video);
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to delete video from database. Error{0}", ex.Message);
+                Debug.WriteLine(StatusMessage);
+            }
+        }
     }
 }

@@ -18,7 +18,8 @@
                          Padding="10"
                          WidthRequest="625">
 
-                <toolkit:MediaElement Source="{OnPlatform WinUI=embed://motion_detected.mp4, Android=rtsp://rtspstream:4df0a9f80e31539d4408952ab4d4e18a@zephyr.rtsp.stream/pattern}"
+                <toolkit:MediaElement x:Name="Stream"
+                    Source="{OnPlatform WinUI=embed://motion_detected.mp4, Android=rtsp://rtspstream:4df0a9f80e31539d4408952ab4d4e18a@zephyr.rtsp.stream/pattern}"
                     ShouldAutoPlay="True"
                     ShouldShowPlaybackControls="False"
                     ShouldLoopPlayback="True"                  
@@ -29,12 +30,29 @@
                 </toolkit:MediaElement>
 
             </StackLayout>
+
+            <StackLayout Orientation="Vertical">
+                <ActivityIndicator IsVisible="{Binding IsBusy}"
+                                   IsRunning="{Binding IsBusy}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+            </StackLayout>
+            
+            <StackLayout Orientation="Horizontal"
+                         Margin="10,0,0,0">
             <Button Text="View Archive"
                     Command="{Binding GoToVideoArchiveCommand}"
                     StyleClass="FilledButton"
                     WidthRequest="150"
                     HorizontalOptions="Start"
-                    Margin="10,0,0,0"/>
+                    />
+
+            <Button Text="Record"
+                    Command="{Binding RecordVideoCommand}"
+                    StyleClass="FilledButton"
+                    WidthRequest="150"
+                    HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
 
         </StackLayout>
     </Border>    

@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using SleepSure.Model;
@@ -113,6 +114,36 @@ namespace SleepSure.ViewModel
         }
 
         [RelayCommand]
+        public async Task GoToDeviceDetailsAsync(object selectedObject)
+        {
+            //Ensure the application is not performing another I/O operation
+            if (IsBusy)
+                return;
+            try
+            {
+                //Sets the IsBusy flag to true
+                IsBusy = true;
+
+                switch (selectedObject)
+                {
+                    case Camera camera:
+                        await Shell.Current.GoToAsync($"{nameof(CameraDetails)}", true,
+                            new Dictionary<string, object> { { "Camera", selectedObject } });
+                    break;
+
+                    default:
+                        await Shell.Current.DisplayAlert("Invalid","Invalid device","OK");
+                        break;
+                }
+            }
+            finally
+            {
+                //Sets the IsBusy flag to false
+                IsBusy = false;
+            }
+        }
+
+        [RelayCommand]
         public async Task SyncDevicesAsync()
         {
             try
@@ -159,18 +190,24 @@ namespace SleepSure.ViewModel
                 IsBusy = false;
             }
         }
-
+        /// <summary>
+        /// The DeleteLocationAsync method removes a location from the local SQLite database
+        /// </summary>
+        
         [RelayCommand]
         public async Task DeleteLocationAsync()
         {
+            //Ensures the application is not performing another I/O operation
             if (IsBusy)
                 return;
 
             try
             {
+                //Set the IsBusy flag to true
                 IsBusy = true;
+                //Remove the location from the local database
                 await _deviceLocationDataService.RemoveLocationAsync(Location);
-
+                //Return to the dashboard
                 await Shell.Current.GoToAsync("..");
             }
             catch(Exception e)
@@ -179,6 +216,7 @@ namespace SleepSure.ViewModel
             }
             finally
             {
+                //Set the IsBusy flag to false
                 IsBusy = false;
             }
         }

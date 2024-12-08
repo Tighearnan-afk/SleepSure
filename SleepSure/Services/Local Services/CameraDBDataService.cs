@@ -19,6 +19,8 @@ namespace SleepSure.Services
         public List<Camera> JSONCameras { get; private set; } = [];
         //List of cameras in the local SQLite database
         public List<Camera> LocalCameras { get; private set; } = [];
+        //List of videos associated with a camera     
+        public List<Video> Videos { get; private set; } = [];
         //SQLite connection
         SQLiteAsyncConnection _connection;
 
@@ -155,28 +157,84 @@ namespace SleepSure.Services
                     if (!LocalCameras.Any(l => l.Id == restCamera.Id))
                     {
                         //If the camera is not present it is inserted into the local SQLite database
-                        await _connection.InsertAsync(restCamera);
+                        await AddCameraAsync(restCamera.Name, restCamera.Description, restCamera.DeviceLocationId);
                     }
                 }
 
             }
             catch (Exception ex)
             {
-                StatusMessage = string.Format("Unable to sync locations. Error{0}", ex.Message);
+                StatusMessage = string.Format("Unable to sync cameras. Error{0}", ex.Message);
                 Debug.WriteLine(StatusMessage);
             }
         }
 
+        /// <summary>
+        /// The DeleteCameraAsync method deletes a specified camera from the local SQLite database
+        /// </summary>
+        /// <param name="camera"></param>
         public async Task DeleteCameraAsync(Camera camera)
         {
             try
             {
+                //Ensure a connection to the database is created
                 await Init();
+
+                var videos = await _videoDataService.GetVideosAsync(false);
+
+                foreach (var video in videos)
+                {
+                    if(video.CameraId == camera.Id)
+                        Videos.Add(video);
+                }
+                
+                foreach (var video in Videos)
+                    await _videoDataService.DeleteVideoAsync(video);
+
+
+                //Delete the specified camera
                 await _connection.DeleteAsync(camera);
+
+                //Checks if the device has an internet connection
+                if (_internet != NetworkAccess.Internet)
+                    return;
+
+                //Delete the camera from REST API
+                await _cameraRESTService.DeleteCameraAsync((int)camera.Id);
             }
             catch(Exception ex)
             {
-                StatusMessage = string.Format("Failed to get devices from database. Error{0}", ex.Message);
+                StatusMessage = string.Format("Failed to delete video from database. Error{0}", ex.Message);
+                Debug.WriteLine(StatusMessage);
+            }
+        }
+
+        /// <summary>
+        /// The UpdateCamerAsync method updates the details of the camera
+        /// </summary>
+        /// <param name="camera"></param>
+        public async Task UpdateCameraAsync(Camera camera)
+        {
+            //Records the result of the SQLite operation
+            int result = 0;
+            try
+            {
+                //Ensures the connection to the SQLite database is created
+                await Init();
+
+                //Updates the camera details and records the result
+                result = await _connection.UpdateAsync(camera);
+
+                //Checks if the device has an internet connection
+                if (_internet != NetworkAccess.Internet)
+                    return;
+
+                //Update the camera in the REST API by calling the SaveCameraAsync method and providing a isNewCamera value of false
+                await _cameraRESTService.SaveCameraAsync(camera, false);
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Unable to update camera. Error{0}", ex.Message);
                 Debug.WriteLine(StatusMessage);
             }
         }

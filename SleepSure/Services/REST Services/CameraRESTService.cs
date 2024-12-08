@@ -66,7 +66,11 @@ namespace SleepSure.Services
         {
             string cameraEndPoint = string.Concat(Constants.RestUrl, $"cameras/{{0}}");
 
-            Uri uri = new Uri(string.Format(cameraEndPoint, string.Empty));
+            Uri uri;
+            if (isNewCamera)
+                uri = new Uri(string.Format(cameraEndPoint, string.Empty));
+            else
+                uri = new Uri(string.Format(cameraEndPoint, camera.Id));
 
             try
             {

@@ -21,7 +21,7 @@ namespace SleepSure.ViewModel
 
         //An boolean property that determines whether or not the application is in demo mode
         private bool _isInDemoMode;
-
+        //A boolean property that determines if the page is refreshing
         [ObservableProperty]
         public bool _isRefreshing;
 
@@ -64,18 +64,24 @@ namespace SleepSure.ViewModel
                 IsBusy = false;
             }
         }
+        /// <summary>
+        /// The SyncLocationsAsync method syncs the devicelocations between the local SQLite database and the RESTAPI
+        /// </summary>
+        
         [RelayCommand]
         public async Task SyncLocationsAsync()
         {
+            //Ensure the application isn't performing another I/O operation
+            if (IsBusy)
+                return;
             try
             {
-                if (IsBusy)
-                    return;
-                else
-                {
-                    await _locationDataService.SyncLocationsAsync();
-                    await GetLocationsAsync();
-                }
+                //Set the IsBusy flag to true
+                IsBusy = true;
+                //Sync the locations between the database and REST API
+                await _locationDataService.SyncLocationsAsync();
+                //Refresh the Locations observable collection
+                await GetLocationsAsync();
             }
             catch(Exception ex)
             {
@@ -83,13 +89,21 @@ namespace SleepSure.ViewModel
             }
             finally
             {
+                //Set the IsBusy flag to false
+                IsBusy = false;
+                //Set the IsRefreshing flag to false
                 IsRefreshing = false;
             }
         }
+        /// <summary>
+        /// The GoToLocation method navigates to an individual room page passing a dictionary containing the devicelocation object
+        /// </summary>
+        /// <param name="location"></param>
 
         [RelayCommand]
         public async Task GoToLocationAsync(DeviceLocation location)
         {
+            //Ensure the location is not null
             if (location is null)
                 return;
             //Navigate to the location room passing the selected location object within a dictionary and a true value for animate
@@ -97,9 +111,14 @@ namespace SleepSure.ViewModel
                 new Dictionary<string, object> { { "Location", location} });
         }
 
+        /// <summary>
+        /// The GoToAddLocation method navigates to the AddLocation page
+        /// </summary>
+
         [RelayCommand]
         public async Task GoToAddLocationAsync()
         {
+            //Navigate to the AddLocation page passing a true value for animate
             await Shell.Current.GoToAsync(nameof(AddLocation),true);
         }
     }

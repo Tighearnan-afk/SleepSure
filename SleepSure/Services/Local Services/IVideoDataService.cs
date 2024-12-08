@@ -6,5 +6,6 @@ namespace SleepSure.Services
     {
         public Task<List<Video>> GetVideosAsync(bool isInDemoMode);
         public Task AddVideoAsync(int cameraId);
+        public Task DeleteVideoAsync(Video video);
     }
 }

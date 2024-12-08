@@ -110,6 +110,12 @@ namespace SleepSure
             //Register the video archive view model
             builder.Services.AddTransient<VideoArchiveViewModel>();
 
+            //Device Details
+            //Register the camera details page 
+            builder.Services.AddTransient<CameraDetails>();
+            //Register the camera details view model 
+            builder.Services.AddTransient<CameraDetailsViewModel>();
+
             return builder.Build();
         }
     }

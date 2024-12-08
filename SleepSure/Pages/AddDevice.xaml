@@ -24,10 +24,8 @@
                                    WidthRequest="350" 
                                    Padding="0,10,0,0"/>
                 </StackLayout>
-            
+
                 <StackLayout Orientation="Horizontal">
-                    <!--Picker Code retrieved from https://www.artesian.io/how-to-create-a-dropdown-list-in-net-maui/
-                        to allow me to illustrate the visual design im going for in regards to the dropdown-->
                     <Picker Title="Choose device type"
                             HorizontalOptions="CenterAndExpand"
                             WidthRequest="350"

@@ -81,5 +81,11 @@ namespace SleepSure.ViewModel
             await Shell.Current.GoToAsync($"{nameof(VideoFeed)}", true,
                 new Dictionary<string, object> { { "Camera", camera } });
         }
+
+        [RelayCommand]
+        public async Task ToggleCameraAsync(Camera camera)
+        {
+            await _cameraDataService.UpdateCameraAsync(camera);
+        }
     }
 }

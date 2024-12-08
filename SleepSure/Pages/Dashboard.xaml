@@ -532,10 +532,11 @@
         <CollectionView ItemsSource="{Binding Locations}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:DeviceLocation">
-                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                    <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
                             StrokeThickness="0.4"
+                            Padding="10"
                             Margin="10"
-                            StyleClass="Elevation1">
+                            BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
@@ -545,20 +546,10 @@
                                                             Path=GoToLocationCommand}"
                                                   NumberOfTapsRequired="1" />
                         </Border.GestureRecognizers>
-                        <Grid ColumnDefinitions="Auto,*"
-                              RowDefinitions="*,*"
-                              Margin="10">
-
-                            <Image Source="deviceplaceholder.png"
-                                   Grid.Row="0"
-                                   Grid.Column="0"
-                                   Grid.RowSpan="2"
-                                   Margin="0,0,10,0" />
-
-                            <Label Text="{Binding LocationName}"
-                                   Grid.Column="1"
-                                   Grid.Row="0" />
-                        </Grid>
+                        <Label Text="{Binding LocationName}"
+                               FontSize="Title"                               
+                               TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                               HorizontalOptions="Center"/>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

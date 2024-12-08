@@ -8,13 +8,18 @@ namespace SleepSure.Model
 {
     public class Camera : BaseDevice
     {
-        public Camera() { }
+        public bool PowerStatus { get; set; }
+
+        public Camera() 
+        { 
+        }
 
         public Camera(string name, string description, int deviceLocationId) 
         {
             Name = name;
             Description = description;
             DeviceLocationId = deviceLocationId;
+            PowerStatus = true;
         }
     }
 }

@@ -86,5 +86,37 @@ namespace SleepSure.ViewModel
                 IsBusy = false;
             }
         }
+
+        /// <summary>
+        /// The GetVideosAsync method retrieves a list of videos from the VideoDBDataservice, filters the returned list of videos and adds the videos associated witht the current camera
+        /// to the observable collection of videos
+        /// </summary>
+
+        [RelayCommand]
+        public async Task DeleteVideoAsync(Video video)
+        {
+            //Ensures the application is not performing another I/O operation
+            if (IsBusy)
+                return;
+
+            try
+            {
+                //Sets the busy flag to true
+                IsBusy = true;
+
+                await _videoDataService.DeleteVideoAsync(video);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                //Display an alert if an exception occurs
+                await Shell.Current.DisplayAlert("Error", "Unable to delete videos", "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+                await GetVideosAsync();
+            }
+        }
     }
 }

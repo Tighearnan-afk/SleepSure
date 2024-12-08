@@ -238,7 +238,6 @@ namespace SleepSure.Services
         /// The UpdateLocationsAsync method updates the name of a location
         /// </summary>
         /// <param name="location"></param>
-
         public async Task UpdateLocationAsync(DeviceLocation location)
         {
             //Records the result of the SQLite operation
@@ -247,23 +246,6 @@ namespace SleepSure.Services
             {
                 //Ensures the connection to the SQLite database is created
                 await Init();
-
-                //List<Camera> TempCameras = [];
-                //List<Camera> AssociatedCameras = [];
-                //TempCameras = await _cameraDataService.GetCamerasAsync(_isInDemoMode);
-
-                //foreach (var camera in TempCameras)
-                //{
-                //    if (camera.DeviceLocationId == location.Id)
-                //    {
-                //        AssociatedCameras.Add(camera);
-                //    }
-                //}
-
-                //foreach (var camera in AssociatedCameras)
-                //{
-                //    await _cameraDataService.DeleteCameraAsync(camera);
-                //}
 
                 //Updates the location name and records the result
                 result = await _connection.UpdateAsync(location);

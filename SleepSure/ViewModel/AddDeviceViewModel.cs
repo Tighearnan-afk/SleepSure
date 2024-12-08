@@ -18,7 +18,6 @@ namespace SleepSure.ViewModel
         //A list that stores the available device types
         public ObservableCollection<Model.DeviceType> DeviceTypes { get; } = [];
 
-        //Constructor for the AddDeviceViewModel initialises the Add
         public AddDeviceViewModel(IDeviceTypeService DeviceTypeService, ICameraDataService cameraDataService)
         {
             _deviceTypeService = DeviceTypeService;
@@ -50,7 +49,7 @@ namespace SleepSure.ViewModel
             }
             catch (Exception ex)
             {
-
+                Debug.WriteLine(ex);
             }
         }
 

@@ -7,7 +7,7 @@
              x:DataType="viewmodel:VideoArchiveViewModel"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="VideoArchive">
+             Title="Video Archive">
     <ScrollView>
         <CollectionView ItemsSource="{Binding Videos}">
             <CollectionView.ItemTemplate>
@@ -19,14 +19,8 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
-                        <!--<Border.GestureRecognizers>
-                            <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DashboardViewModel}},
-                                                    Path=GoToLocationCommand}"
-                                                  NumberOfTapsRequired="1" />
-                        </Border.GestureRecognizers>-->
                         <Grid ColumnDefinitions="*,*,*"
-                              RowDefinitions="4*,*,*"
+                              RowDefinitions="4*,*"
                               Margin="10">
 
                             <toolkit:MediaElement Source="{Binding MediaSource}"
@@ -38,13 +32,13 @@
                                                   Aspect="AspectFill"
                                                   Grid.ColumnSpan="3">
                             </toolkit:MediaElement>
-                            
-                            
-                            
                             <Button Text="Delete"
                                     StyleClass="FilledButton"
                                     BackgroundColor="{StaticResource Warning}"
-                                    Grid.Row="2"/>
+                                    Grid.Row="2"
+                                    CommandParameter="{Binding .}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:VideoArchiveViewModel}},
+                                                                            Path=DeleteVideoCommand}" />
                         </Grid>
                     </Border>
                 </DataTemplate>

@@ -8,5 +8,6 @@ namespace SleepSure.Services
         public Task AddCameraAsync(string name, string description, int deviceLocationId);
         public Task DeleteCameraAsync(Camera camera);
         public Task SyncCamerasAsync();
+        public Task UpdateCameraAsync(Camera camera);
     }
 }
