@@ -79,7 +79,7 @@ namespace SleepSure.Services
         /// <param name="batteryLife"></param>
         /// <param name="temperature"></param>
         /// <param name="deviceLocationId"></param>
-        public async Task AddMotionSensorAsync(string name, string description, int batteryLife, string temperature, int deviceLocationId)
+        public async Task AddMotionSensorAsync(string name, string description, int batteryLife, int temperature, int deviceLocationId)
         {
             int result = 0;
             try

@@ -11,15 +11,9 @@ namespace SleepSure.Model
         public string Name { get; set; }
         [MaxLength(150)]
         public string Description { get; set; }
+        public bool PowerStatus { get; set; }
         public int DeviceLocationId { get; set; }
 
         public BaseDevice() { }
-
-        public BaseDevice(string name, string description, int deviceLocationId)
-        {
-            Name = name;
-            Description = description;
-            DeviceLocationId = deviceLocationId;
-        }
     }
 }

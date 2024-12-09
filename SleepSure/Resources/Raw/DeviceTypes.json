@@ -1,5 +1,8 @@
 ﻿[
   {
     "Type": "Camera"
+  },
+  {
+    "Type": "MotionSensor"
   }
 ]

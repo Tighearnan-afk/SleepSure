@@ -4,7 +4,7 @@
     "Name": "Living Room Motion Sensor",
     "Description": "Motion sensor in the living room",
     "BatteryLife": 78,
-    "Temperature": "11 C",
+    "Temperature": 11,
     "DeviceLocationId": 1
   }
 ]

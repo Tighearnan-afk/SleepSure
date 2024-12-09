@@ -11,17 +11,8 @@ namespace SleepSure.Model
     public class Sensor : BaseDevice
     {
         public int BatteryLife { get; set; }
-        public string Temperature { get; set; }
+        public int Temperature { get; set; }
 
         public Sensor() { }
-
-        public Sensor (string name, string description,int batteryLife, string temperature, int deviceLocationId)
-        {
-            Name = name;
-            Description = description;
-            BatteryLife = batteryLife;
-            Temperature = temperature;
-            DeviceLocationId = deviceLocationId;
-        }
     }
 }

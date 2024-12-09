@@ -8,8 +8,6 @@ namespace SleepSure.Model
 {
     public class Camera : BaseDevice
     {
-        public bool PowerStatus { get; set; }
-
         public Camera() 
         { 
         }

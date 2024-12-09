@@ -7,13 +7,14 @@ namespace SleepSure.Model
 
         public MotionSensor() { }
 
-        public MotionSensor(string name, string description, int batteryLife, string temperature, int deviceLocationId) 
+        public MotionSensor(string name, string description, int batteryLife, int temperature, int deviceLocationId) 
         {
             Name = name;
             Description = description;
             BatteryLife = batteryLife;
             Temperature = temperature;
             DeviceLocationId = deviceLocationId;
+            PowerStatus = true;
             MotionDetected = false;
         }
     }
