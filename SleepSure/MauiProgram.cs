@@ -70,6 +70,9 @@ namespace SleepSure
             builder.Services.AddSingleton<IVideoDataService, VideoDBDataService>(
                 s => ActivatorUtilities.CreateInstance<VideoDBDataService>(s, databasePath));
 
+            builder.Services.AddSingleton<IMotionSensorDataService, MotionSensorDBDataService>(
+                s => ActivatorUtilities.CreateInstance<MotionSensorDBDataService>(s, databasePath));
+
             //Register the devicetype file service
             builder.Services.AddSingleton<IDeviceTypeService, DeviceTypeFileService>();
 

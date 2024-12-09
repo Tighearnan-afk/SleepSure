@@ -121,7 +121,6 @@ namespace SleepSure.Services
         /// <summary>
         /// The GetJSONLocationsAsync method deserialises a list of default locations into the JSONLocations list
         /// </summary>
-
         public async Task GetJSONLocationsAsync()
         {
             //Ensures the JSON locations list is empty

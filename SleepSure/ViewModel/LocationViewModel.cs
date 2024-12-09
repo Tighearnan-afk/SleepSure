@@ -20,8 +20,12 @@ namespace SleepSure.ViewModel
         readonly IConfiguration _appConfig;
         //A service that allows operations to be performed on locations
         readonly IDeviceLocationDataService _deviceLocationDataService;
+
+        readonly IMotionSensorDataService _motionSensorDataService;
         //A collection that the cameras are stored in
         public ObservableCollection<Camera> Cameras { get; } = [];
+        //A collection that the motion sensors are stored in
+        public ObservableCollection<MotionSensor> MotionSensors { get; } = [];
 
         //An boolean property that determines whether or not the application is in demo mode
         private bool _isInDemoMode;
@@ -36,7 +40,7 @@ namespace SleepSure.ViewModel
         public bool _isRefreshing;
 
         //Constructor for the LocationViewModel initialises the various device services
-        public LocationViewModel(ICameraDataService cameraDataService, IDeviceLocationDataService deviceLocationDataService, IConfiguration AppConfig)
+        public LocationViewModel(ICameraDataService cameraDataService, IDeviceLocationDataService deviceLocationDataService, IConfiguration AppConfig, IMotionSensorDataService motionSensorDataService)
         {
             _cameraDataService = cameraDataService;
             _deviceLocationDataService = deviceLocationDataService;
@@ -44,6 +48,7 @@ namespace SleepSure.ViewModel
 
             Settings appSettings = _appConfig.GetRequiredSection("Settings").Get<Settings>();
             _isInDemoMode = appSettings.DemoMode;
+            _motionSensorDataService = motionSensorDataService;
         }
 
         [RelayCommand]
@@ -56,20 +61,30 @@ namespace SleepSure.ViewModel
             {
                 IsBusy = true;
                 var cameras = await _cameraDataService.GetCamerasAsync(_isInDemoMode);
-                if (cameras.Count != 0)
-                    Cameras.Clear();
+
+                Cameras.Clear();
 
                 foreach (var camera in cameras)
                 {
                     if(camera.DeviceLocationId.Equals(Location.Id))
                         Cameras.Add(camera);
                 }
+
+                var motionSensors = await _motionSensorDataService.GetMotionSensorsAsync(_isInDemoMode);
+
+                MotionSensors.Clear();
+
+                foreach (var sensor in motionSensors)
+                {
+                    if (sensor.DeviceLocationId.Equals(Location.Id))
+                        MotionSensors.Add(sensor);
+                }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
                 //Display an alert if an exception occurs
-                await Shell.Current.DisplayAlert("Error", "Unable to retrieve cameras", "OK");
+                await Shell.Current.DisplayAlert("Error", "Unable to retrieve devices", "OK");
             }
             finally
             {

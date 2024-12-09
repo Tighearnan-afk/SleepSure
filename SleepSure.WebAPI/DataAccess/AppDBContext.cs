@@ -10,6 +10,7 @@ namespace SleepSure.WebAPI.DataAccess
 
         public DbSet<DeviceLocation> Locations { get; set; }
         public DbSet<Camera> Cameras { get; set; }
+        public DbSet<MotionSensor> MotionSensors { get; set; }
         public DbSet<User> Users { get; set; }
     }
 }

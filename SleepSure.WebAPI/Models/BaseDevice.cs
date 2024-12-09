@@ -6,6 +6,5 @@
         public string Name { get; set; }
         public string Description { get; set; }
         public int DeviceLocationId { get; set; }
-        //public DeviceLocation DeviceLocation { get; set; }
     }
 }

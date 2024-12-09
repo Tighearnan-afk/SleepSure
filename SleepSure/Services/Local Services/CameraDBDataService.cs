@@ -42,7 +42,7 @@ namespace SleepSure.Services
         {
             _dbPath = dbPath;
             _cameraRESTService = cameraRESTService;
-            _internet =  Connectivity.Current.NetworkAccess;
+            _internet = Connectivity.Current.NetworkAccess;
             _videoDataService = videoDataService;
         }
 
@@ -57,7 +57,7 @@ namespace SleepSure.Services
                 return;
             //Creates a connection using the database path and its flags
             _connection = new SQLiteAsyncConnection(_dbPath, _dbFLags);
-            //Creates the device table
+            //Creates the camera table
             var result = await _connection.CreateTableAsync<Camera>();
             //Checks if any rows exist in the database
             var tableData = await _connection.Table<Camera>().CountAsync();
@@ -83,7 +83,7 @@ namespace SleepSure.Services
             try
             {
                 await Init();
-                Camera newCamera = new Camera(name,description, deviceLocationId);
+                Camera newCamera = new Camera(name, description, deviceLocationId);
                 result = await _connection.InsertAsync(newCamera);
                 await _videoDataService.AddVideoAsync((int)newCamera.Id);
             }
@@ -125,7 +125,7 @@ namespace SleepSure.Services
         /// <summary>
         /// The SyncCamerasAsync method synchronises the cameras between the local SQLite database and the REST API
         /// </summary>
-        
+
         public async Task SyncCamerasAsync()
         {
             //Checks if the device has an internet connection
@@ -184,10 +184,10 @@ namespace SleepSure.Services
 
                 foreach (var video in videos)
                 {
-                    if(video.CameraId == camera.Id)
+                    if (video.CameraId == camera.Id)
                         Videos.Add(video);
                 }
-                
+
                 foreach (var video in Videos)
                     await _videoDataService.DeleteVideoAsync(video);
 
@@ -202,7 +202,7 @@ namespace SleepSure.Services
                 //Delete the camera from REST API
                 await _cameraRESTService.DeleteCameraAsync((int)camera.Id);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 StatusMessage = string.Format("Failed to delete video from database. Error{0}", ex.Message);
                 Debug.WriteLine(StatusMessage);
