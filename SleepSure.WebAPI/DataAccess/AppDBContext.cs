@@ -14,5 +14,6 @@ namespace SleepSure.WebAPI.DataAccess
         public DbSet<User> Users { get; set; }
         public DbSet<Light> Light { get; set; }
         public DbSet<WaterLeakSensor> WaterLeakSensors { get; set; }
+        public DbSet<DoorSensor> DoorSensors { get; set; }
     }
 }

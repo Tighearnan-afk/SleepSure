@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SleepSure.Pages;
 using SleepSure.Services;
+using SleepSure.Services.REST_Services;
 using SleepSure.ViewModel;
 using System.Reflection;
 using UraniumUI;
@@ -58,6 +59,7 @@ namespace SleepSure
             builder.Services.AddSingleton<IMotionSensorRESTService, MotionSensorRESTService>();
             builder.Services.AddSingleton<ILightRESTService, LightRESTService>();
             builder.Services.AddSingleton<IWaterLeakSensorRESTService, WaterLeakSensorRESTService>();
+            builder.Services.AddSingleton<IDoorSensorRESTService, DoorSensorRESTService>();
 
             //Register the database tables
             builder.Services.AddSingleton<IDeviceLocationDataService, DeviceLocationDBService>(
@@ -80,6 +82,9 @@ namespace SleepSure
 
             builder.Services.AddSingleton<IWaterLeakSensorDataService, WaterLeakSensorDBService>(
                 s => ActivatorUtilities.CreateInstance<WaterLeakSensorDBService>(s, databasePath));
+
+            builder.Services.AddSingleton<IDoorSensorDataServer, DoorSensorDBService>(
+                s => ActivatorUtilities.CreateInstance<DoorSensorDBService>(s, databasePath));
 
             //Register the devicetype file service
             builder.Services.AddSingleton<IDeviceTypeService, DeviceTypeFileService>();

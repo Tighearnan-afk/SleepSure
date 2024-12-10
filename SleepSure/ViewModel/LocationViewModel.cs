@@ -25,14 +25,18 @@ namespace SleepSure.ViewModel
         readonly ILightDataService _lightsDataService;
 
         readonly IWaterLeakSensorDataService _waterLeakSensorDataService;
+
+        readonly IDoorSensorDataServer _doorSensorDataServer;
         //A collection that the cameras are stored in
         public ObservableCollection<Camera> Cameras { get; } = [];
         //A collection that the motion sensors are stored in
         public ObservableCollection<MotionSensor> MotionSensors { get; } = [];
         //A collection that the lights are stored in
         public ObservableCollection<Light> Lights { get; } = [];
-        //A collection that the lights are stored in
+        //A collection that the waterleak sensors are stored in
         public ObservableCollection<WaterLeakSensor> WaterLeakSensors { get; } = [];
+        //A collection that the door sensors are stored in
+        public ObservableCollection<DoorSensor> DoorSensors { get; } = [];
 
         //An boolean property that determines whether or not the application is in demo mode
         private bool _isInDemoMode;
@@ -48,7 +52,7 @@ namespace SleepSure.ViewModel
 
         //Constructor for the LocationViewModel initialises the various device services
         public LocationViewModel(ICameraDataService cameraDataService, IDeviceLocationDataService deviceLocationDataService, IConfiguration AppConfig, IMotionSensorDataService motionSensorDataService
-            ,ILightDataService lightsDataService, IWaterLeakSensorDataService waterLeakSensorDataService)
+            ,ILightDataService lightsDataService, IWaterLeakSensorDataService waterLeakSensorDataService, IDoorSensorDataServer doorSensorDataServer)
         {
             _cameraDataService = cameraDataService;
             _deviceLocationDataService = deviceLocationDataService;
@@ -59,6 +63,7 @@ namespace SleepSure.ViewModel
             _motionSensorDataService = motionSensorDataService;
             _lightsDataService = lightsDataService;
             _waterLeakSensorDataService = waterLeakSensorDataService;
+            _doorSensorDataServer = doorSensorDataServer;
         }
 
         [RelayCommand]
@@ -108,6 +113,16 @@ namespace SleepSure.ViewModel
                 {
                     if (waterLeakSensor.DeviceLocationId.Equals(Location.Id))
                         WaterLeakSensors.Add(waterLeakSensor);
+                }
+
+                var doorSensors = await _doorSensorDataServer.GetDoorSensorsAsync(_isInDemoMode);
+
+                DoorSensors.Clear();
+
+                foreach (var doorSensor in doorSensors)
+                {
+                    if (doorSensor.DeviceLocationId.Equals(Location.Id))
+                        DoorSensors.Add(doorSensor);
                 }
             }
             catch (Exception ex)
@@ -205,6 +220,7 @@ namespace SleepSure.ViewModel
                     await _motionSensorDataService.SyncMotionSensorsAsync();
                     await _lightsDataService.SyncLightsAsync();
                     await _waterLeakSensorDataService.SyncWaterLeakSensorsAsync();
+                    await _doorSensorDataServer.SyncDoorSensorsAsync();
                     await GetLocationDevices();
                 }
             }
