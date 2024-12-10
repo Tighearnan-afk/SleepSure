@@ -15,6 +15,7 @@ namespace SleepSure.Services
         IDeviceLocationRESTService _locationRESTService;
         //Local data service for cameras
         ICameraDataService _cameraDataService;
+        IMotionSensorDataService _motionSensorDataService;
         //List of locations retrieved from the REST API
         public List<DeviceLocation> RESTLocations { get; private set; } = [];
         //List of locations retrieved from a local JSON file
@@ -38,12 +39,13 @@ namespace SleepSure.Services
         public string StatusMessage;
 
         private bool _isInDemoMode;
-        public DeviceLocationDBService(string dbPath, IDeviceLocationRESTService locationRESTService, ICameraDataService cameraDataService)
+        public DeviceLocationDBService(string dbPath, IDeviceLocationRESTService locationRESTService, ICameraDataService cameraDataService, IMotionSensorDataService motionSensorDataService)
         {
             _dbPath = dbPath;
             _locationRESTService = locationRESTService;
             _cameraDataService = cameraDataService;
             _internet = Connectivity.Current.NetworkAccess;
+            _motionSensorDataService = motionSensorDataService;
         }
 
         /// <summary>
@@ -198,12 +200,14 @@ namespace SleepSure.Services
 
                 //A temporary lsit of cameras
                 List<Camera> TempCameras = [];
+                List<MotionSensor> TempMotionSensors = [];
                 //A list of cameras that are associated with the current room
                 List<Camera> AssociatedCameras = [];
+                List<MotionSensor> AssociatedMotionSensors = [];
                 //Retrieves a list of all cameras and inserts them into the temporary list
                 TempCameras = await _cameraDataService.GetCamerasAsync(_isInDemoMode);
-
-                //Iterates through the temporary list
+                TempMotionSensors = await _motionSensorDataService.GetMotionSensorsAsync(_isInDemoMode);
+                //Iterates through the temporary lists
                 foreach (var camera in TempCameras)
                 {
                     //Checks if the camera has the current location is associated with the camera
@@ -213,12 +217,27 @@ namespace SleepSure.Services
                         AssociatedCameras.Add(camera);
                     }
                 }
+                foreach (var motionSensor in TempMotionSensors)
+                {
+                    //Checks if the motion sensor has the current location is associated with the camera
+                    if (motionSensor.DeviceLocationId == location.Id)
+                    {
+                        //If it is then adds the motion sensor to the associated camera list
+                        AssociatedMotionSensors.Add(motionSensor);
+                    }
+                }
 
-                //Iterates through the associated camera list
+                //Iterates through the lists
                 foreach (var camera in AssociatedCameras)
                 {
                     //Deletes the camera from the SQLite database
                     await _cameraDataService.DeleteCameraAsync(camera);
+                }
+
+                foreach (var motionSensor in AssociatedMotionSensors)
+                {
+                    //Deletes the camera from the SQLite database
+                    await _motionSensorDataService.DeleteMotionSensorAsync(motionSensor);
                 }
 
                 //Deletes the location from the SQLite database and stores the result code

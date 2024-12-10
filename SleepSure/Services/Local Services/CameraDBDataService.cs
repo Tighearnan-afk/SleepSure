@@ -86,6 +86,9 @@ namespace SleepSure.Services
                 Camera newCamera = new Camera(name, description, deviceLocationId);
                 result = await _connection.InsertAsync(newCamera);
                 await _videoDataService.AddVideoAsync((int)newCamera.Id);
+
+                //Call the sync method as the Camera created is assigned an Id by SQLite and therefore cannot be used with the REST save method
+                await SyncCamerasAsync();
             }
             catch (Exception ex)
             {

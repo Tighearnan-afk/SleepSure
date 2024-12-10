@@ -5,8 +5,6 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SleepSure", "SleepSure\SleepSure.csproj", "{C1B7EEAB-9C37-4156-9876-E5D1626A3900}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SleepSure.Tests", "SleepSure.Tests\SleepSure.Tests.csproj", "{06E6E58C-59E3-4429-92EA-CCD30A5A5D73}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SleepSure.WebAPI", "SleepSure.WebAPI\SleepSure.WebAPI.csproj", "{856DDD7E-28B3-403B-BB3F-D6190E838F24}"
 EndProject
 Global
@@ -21,10 +19,6 @@ Global
 		{C1B7EEAB-9C37-4156-9876-E5D1626A3900}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1B7EEAB-9C37-4156-9876-E5D1626A3900}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C1B7EEAB-9C37-4156-9876-E5D1626A3900}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{06E6E58C-59E3-4429-92EA-CCD30A5A5D73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06E6E58C-59E3-4429-92EA-CCD30A5A5D73}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06E6E58C-59E3-4429-92EA-CCD30A5A5D73}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06E6E58C-59E3-4429-92EA-CCD30A5A5D73}.Release|Any CPU.Build.0 = Release|Any CPU
 		{856DDD7E-28B3-403B-BB3F-D6190E838F24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{856DDD7E-28B3-403B-BB3F-D6190E838F24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{856DDD7E-28B3-403B-BB3F-D6190E838F24}.Release|Any CPU.ActiveCfg = Release|Any CPU

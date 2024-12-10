@@ -3,7 +3,7 @@ using SQLite;
 using System.Diagnostics;
 using System.Text.Json;
 
-namespace SleepSure.Services.Local_Services
+namespace SleepSure.Services
 {
     public class VideoDBDataService : IVideoDataService
     {

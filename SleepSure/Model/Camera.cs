@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SQLite;
 
 namespace SleepSure.Model
 {
+    [Table("camera")]
     public class Camera : BaseDevice
     {
         public Camera() 

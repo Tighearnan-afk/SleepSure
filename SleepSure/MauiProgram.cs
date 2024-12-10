@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SleepSure.Pages;
 using SleepSure.Services;
-using SleepSure.Services.Local_Services;
 using SleepSure.ViewModel;
 using System.Reflection;
 using UraniumUI;
@@ -56,6 +55,9 @@ namespace SleepSure
             builder.Services.AddSingleton<IDeviceLocationRESTService, DeviceLocationRESTService>();
             builder.Services.AddSingleton<ICameraRESTService, CameraRESTService>();
             builder.Services.AddSingleton<IUserRESTService, UserRESTService>();
+            builder.Services.AddSingleton<IMotionSensorRESTService, MotionSensorRESTService>();
+            builder.Services.AddSingleton<ILightRESTService, LightRESTService>();
+            builder.Services.AddSingleton<IWaterLeakSensorRESTService, WaterLeakSensorRESTService>();
 
             //Register the database tables
             builder.Services.AddSingleton<IDeviceLocationDataService, DeviceLocationDBService>(
@@ -72,6 +74,12 @@ namespace SleepSure
 
             builder.Services.AddSingleton<IMotionSensorDataService, MotionSensorDBDataService>(
                 s => ActivatorUtilities.CreateInstance<MotionSensorDBDataService>(s, databasePath));
+
+            builder.Services.AddSingleton<ILightDataService, LightDBDataService>(
+                s => ActivatorUtilities.CreateInstance<LightDBDataService>(s, databasePath));
+
+            builder.Services.AddSingleton<IWaterLeakSensorDataService, WaterLeakSensorDBService>(
+                s => ActivatorUtilities.CreateInstance<WaterLeakSensorDBService>(s, databasePath));
 
             //Register the devicetype file service
             builder.Services.AddSingleton<IDeviceTypeService, DeviceTypeFileService>();
@@ -118,6 +126,10 @@ namespace SleepSure
             builder.Services.AddTransient<CameraDetails>();
             //Register the camera details view model 
             builder.Services.AddTransient<CameraDetailsViewModel>();
+            //Register the motion details details page 
+            builder.Services.AddTransient<MotionSensorDetails>();
+            //Register the camera details view model 
+            builder.Services.AddTransient<MotionDetailsSensorViewModel>();
 
             return builder.Build();
         }

@@ -20,6 +20,7 @@ namespace SleepSure
 
             //Device Configuration Routes
             Routing.RegisterRoute(nameof(CameraDetails), typeof(CameraDetails));
+            Routing.RegisterRoute(nameof(MotionSensorDetails), typeof(MotionSensorDetails));
         }
     }
 }

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SleepSure.Pages.MotionSensorDetails"
+             xmlns:model="clr-namespace:SleepSure.Model"
+             xmlns:viewmodel="clr-namespace:SleepSure.ViewModel"
+             x:DataType="viewmodel:MotionDetailsSensorViewModel"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="{Binding MotionSensor.Name}">
+
+    <ScrollView>
+        <Border Stroke="Black"
+                StrokeThickness="0.4"
+                MaximumWidthRequest="375"
+                BackgroundColor="{StaticResource Gray100}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="5" />
+            </Border.StrokeShape>
+
+            <StackLayout Orientation="Vertical"
+                         Spacing="10">
+
+                <StackLayout Orientation="Vertical">
+                    <Image MaximumHeightRequest="{OnIdiom Default=75,Phone=50}"
+                           MaximumWidthRequest="{OnIdiom Default=75,Phone=50}">
+                        <Image.Source>
+                            <FontImageSource FontFamily="MaterialRounded"
+                                             Glyph="{x:Static m:MaterialRounded.Motion_sensor_idle}"
+                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                                             Size="{OnIdiom Default=100, Phone=25}" />
+                        </Image.Source>
+                    </Image>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <uranium:TextField Title="Device Name"
+                                       Text="{Binding MotionSensor.Name}"
+                                       HorizontalOptions="CenterAndExpand"
+                                       Icon="{FontImageSource FontFamily=MaterialRounded, Glyph={x:Static m:MaterialRounded.Edit}}"
+                                       WidthRequest="350"
+                                       Padding="0,10,0,0" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <Picker Title="Choose New Location"
+                            HorizontalOptions="CenterAndExpand"
+                            WidthRequest="350"
+                            MaximumWidthRequest="350"
+                            ItemsSource="{Binding Locations}"
+                            ItemDisplayBinding="{Binding LocationName}"
+                            SelectedItem="{Binding UpdatedMotionSensorLocation}" />
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <uranium:EditorField Title="Description"
+                                         Text="{Binding MotionSensor.Description}"
+                                         Icon="{FontImageSource FontFamily=MaterialRounded, Glyph={x:Static m:MaterialRounded.Edit}}"
+                                         HorizontalOptions="CenterAndExpand"
+                                         WidthRequest="350" />
+                </StackLayout>
+
+                <BoxView Color="{StaticResource Black}"
+                         HeightRequest="0.5"
+                         HorizontalOptions="FillAndExpand" />
+
+                <Label Text="Device Options"
+                       FontSize="Medium"
+                       HorizontalOptions="Center" />
+
+                <Switch IsToggled="{Binding MotionSensor.PowerStatus}"
+                        ThumbColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                        OnColor="Green"
+                        HorizontalOptions="Start"
+                        Margin="10" />
+
+                <Button Text="Remove Device"
+                        Command="{Binding DeleteMotionSensorCommand}"
+                        BackgroundColor="{StaticResource Warning}"
+                        StyleClass="FilledButton"
+                        HorizontalOptions="Start"
+                        Margin="10" />
+
+                <Button Text="Update Device"
+                        Command="{Binding UpdateMotionSensorCommand}"
+                        BackgroundColor="{StaticResource Primary}"
+                        StyleClass="FilledButton"
+                        HorizontalOptions="Start"
+                        Margin="10" />
+            </StackLayout>
+        </Border>
+    </ScrollView>
+</ContentPage>

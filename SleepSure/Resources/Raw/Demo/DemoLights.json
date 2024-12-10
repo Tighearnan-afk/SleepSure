@@ -1,0 +1,9 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Living Room Motion Sensor",
+    "Description": "Motion sensor in the living room",
+    "Brightness": 89,
+    "DeviceLocationId": 1
+  }
+]

@@ -1,0 +1,12 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Living Room Window Sensor",
+    "Description": "Window sensor in the living room",
+    "BatteryLife": 87,
+    "Temperature": 89,
+    "DeviceLocationId": 1,
+    "PowerStatus": true,
+    "IsOpen": false
+  }
+]

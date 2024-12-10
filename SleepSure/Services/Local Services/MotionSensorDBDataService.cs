@@ -10,7 +10,7 @@ namespace SleepSure.Services
         //Network access variable that will be used to determine if the device has an internet connection
         NetworkAccess _internet;
         //REST API service for motion sensors
-        //IMotionSensorRESTService _motionSensorRESTService;
+        IMotionSensorRESTService _motionSensorRESTService;
 
         //List of motion sensors retrieved from the REST API
         public List<MotionSensor> RESTMotionSensors { get; private set; } = [];
@@ -36,11 +36,12 @@ namespace SleepSure.Services
 
         private bool _isInDemoMode;
 
-        public MotionSensorDBDataService(string dbPath)
+        public MotionSensorDBDataService(string dbPath, IMotionSensorRESTService motionSensorRESTService)
         {
             _dbPath = dbPath;
             //_motionSensorRESTService = cameraRESTService;
             _internet = Connectivity.Current.NetworkAccess;
+            _motionSensorRESTService = motionSensorRESTService;
         }
 
         /// <summary>
@@ -88,6 +89,13 @@ namespace SleepSure.Services
                 await Init();
                 //Insert the new motion sensor into the SQLite database with the provided parameters
                 result = await _connection.InsertAsync(new MotionSensor(name, description, batteryLife, temperature, deviceLocationId));
+
+                //Checks if the device has an internet connection
+                if (_internet != NetworkAccess.Internet)
+                    return;
+
+                //Call the sync method as the MotionSensor created is assigned an Id by SQLite and therefore cannot be used with the REST save method
+                await SyncMotionSensorsAsync();
             }
             catch (Exception ex)
             {
@@ -149,7 +157,7 @@ namespace SleepSure.Services
                 //Intialises the database if it isn't already
                 await Init();
                 //Refreshes the motion sensors present in the REST motion sensors list
-                //RESTMotionSensors = await _motionSensorRESTService.RefreshMotionSensorsAsync();
+                RESTMotionSensors = await _motionSensorRESTService.RefreshMotionSensorsAsync();
                 //Refreshes the cameras present in the local cameras list
                 LocalMotionSensors = await GetMotionSensorsAsync(_isInDemoMode);
                 //Iterates through the LocalCameras list
@@ -159,7 +167,7 @@ namespace SleepSure.Services
                     if (!RESTMotionSensors.Any(l => l.Id == motionSensor.Id))
                     {
                         //If the motion sensor is not present calls the MotionSensorRESTServices SaveMotionSensorAsync method which will post the motion sensor to the REST API
-                        //await _cameraRESTService.SaveCameraAsync(localCamera, true);
+                        await _motionSensorRESTService.SaveMotionSensorAsync(motionSensor, true);
                     }
                 }
                 //Iterates through the RESTMotionSensors list
@@ -200,7 +208,7 @@ namespace SleepSure.Services
                     return;
 
                 //Delete the motion sensor from REST API
-                //await _motionSensorRESTService.DeleteCameraAsync((int)motionSensor.Id);
+                await _motionSensorRESTService.DeleteMotionSensorAsync((int)motionSensor.Id);
             }
             catch (Exception ex)
             {
@@ -230,11 +238,11 @@ namespace SleepSure.Services
                     return;
 
                 //Update the camera in the REST API by calling the SaveCameraAsync method and providing a isNewCamera value of false
-                //await _motionSensorRESTService.SaveCameraAsync(motionSensor, false);
+                await _motionSensorRESTService.SaveMotionSensorAsync(motionSensor, false);
             }
             catch (Exception ex)
             {
-                StatusMessage = string.Format("Unable to update camera. Error{0}", ex.Message);
+                StatusMessage = string.Format("Unable to update motion sensor. Error{0}", ex.Message);
                 Debug.WriteLine(StatusMessage);
             }
         }

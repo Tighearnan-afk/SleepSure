@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Maui.Views;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using SleepSure.Model;
@@ -22,10 +21,18 @@ namespace SleepSure.ViewModel
         readonly IDeviceLocationDataService _deviceLocationDataService;
 
         readonly IMotionSensorDataService _motionSensorDataService;
+
+        readonly ILightDataService _lightsDataService;
+
+        readonly IWaterLeakSensorDataService _waterLeakSensorDataService;
         //A collection that the cameras are stored in
         public ObservableCollection<Camera> Cameras { get; } = [];
         //A collection that the motion sensors are stored in
         public ObservableCollection<MotionSensor> MotionSensors { get; } = [];
+        //A collection that the lights are stored in
+        public ObservableCollection<Light> Lights { get; } = [];
+        //A collection that the lights are stored in
+        public ObservableCollection<WaterLeakSensor> WaterLeakSensors { get; } = [];
 
         //An boolean property that determines whether or not the application is in demo mode
         private bool _isInDemoMode;
@@ -40,7 +47,8 @@ namespace SleepSure.ViewModel
         public bool _isRefreshing;
 
         //Constructor for the LocationViewModel initialises the various device services
-        public LocationViewModel(ICameraDataService cameraDataService, IDeviceLocationDataService deviceLocationDataService, IConfiguration AppConfig, IMotionSensorDataService motionSensorDataService)
+        public LocationViewModel(ICameraDataService cameraDataService, IDeviceLocationDataService deviceLocationDataService, IConfiguration AppConfig, IMotionSensorDataService motionSensorDataService
+            ,ILightDataService lightsDataService, IWaterLeakSensorDataService waterLeakSensorDataService)
         {
             _cameraDataService = cameraDataService;
             _deviceLocationDataService = deviceLocationDataService;
@@ -49,6 +57,8 @@ namespace SleepSure.ViewModel
             Settings appSettings = _appConfig.GetRequiredSection("Settings").Get<Settings>();
             _isInDemoMode = appSettings.DemoMode;
             _motionSensorDataService = motionSensorDataService;
+            _lightsDataService = lightsDataService;
+            _waterLeakSensorDataService = waterLeakSensorDataService;
         }
 
         [RelayCommand]
@@ -78,6 +88,26 @@ namespace SleepSure.ViewModel
                 {
                     if (sensor.DeviceLocationId.Equals(Location.Id))
                         MotionSensors.Add(sensor);
+                }
+
+                var lights = await _lightsDataService.GetLightsAsync(_isInDemoMode);
+
+                Lights.Clear();
+
+                foreach (var light in lights)
+                {
+                    if (light.DeviceLocationId.Equals(Location.Id))
+                        Lights.Add(light);
+                }
+
+                var waterLeakSensors = await _waterLeakSensorDataService.GetWaterLeakSensorsAsync(_isInDemoMode);
+
+                WaterLeakSensors.Clear();
+
+                foreach (var waterLeakSensor in waterLeakSensors)
+                {
+                    if (waterLeakSensor.DeviceLocationId.Equals(Location.Id))
+                        WaterLeakSensors.Add(waterLeakSensor);
                 }
             }
             catch (Exception ex)
@@ -144,8 +174,12 @@ namespace SleepSure.ViewModel
                     case Camera camera:
                         await Shell.Current.GoToAsync($"{nameof(CameraDetails)}", true,
                             new Dictionary<string, object> { { "Camera", selectedObject } });
-                    break;
+                        break;
 
+                    case MotionSensor motionSensor:
+                        await Shell.Current.GoToAsync($"{nameof(MotionSensorDetails)}",
+                            new Dictionary<string, object> { { "MotionSensor", selectedObject } });
+                        break;
                     default:
                         await Shell.Current.DisplayAlert("Invalid","Invalid device","OK");
                         break;
@@ -168,6 +202,9 @@ namespace SleepSure.ViewModel
                 else
                 {
                     await _cameraDataService.SyncCamerasAsync();
+                    await _motionSensorDataService.SyncMotionSensorsAsync();
+                    await _lightsDataService.SyncLightsAsync();
+                    await _waterLeakSensorDataService.SyncWaterLeakSensorsAsync();
                     await GetLocationDevices();
                 }
             }
