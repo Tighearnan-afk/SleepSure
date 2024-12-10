@@ -8,7 +8,7 @@
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
              xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
-             Title="UpdateLocation">
+             Title="Update Location">
     <StackLayout Orientation="Vertical">
         <input:FormView SubmitCommand="{Binding UpdateLocationCommand}"
                         VerticalOptions="CenterAndExpand">

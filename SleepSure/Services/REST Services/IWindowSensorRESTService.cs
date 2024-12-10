@@ -2,10 +2,10 @@
 
 namespace SleepSure.Services
 {
-    public interface IWindowRESTService
+    public interface IWindowSensorRESTService
     {
         public Task<List<WindowSensor>> RefreshWindowSensorsAsync();
-        public Task SaveCameraAsync(WindowSensor windowSensor, bool isNewWindowSensor);
+        public Task SaveWindowSensorAsync(WindowSensor windowSensor, bool isNewWindowSensor);
         public Task DeleteWindowSensorAsync(int id);
     }
 }

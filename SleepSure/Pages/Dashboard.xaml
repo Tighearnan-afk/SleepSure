@@ -529,38 +529,40 @@
         </CollectionView> -->
     <RefreshView IsRefreshing="{Binding IsRefreshing}"
                  Command="{Binding SyncLocationsCommand}">
-        <CollectionView ItemsSource="{Binding Locations}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:DeviceLocation">
-                    <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                            StrokeThickness="0.4"
-                            Padding="10"
-                            Margin="10"
-                            BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5" />
-                        </Border.StrokeShape>
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DashboardViewModel}},
-                                                            Path=GoToLocationCommand}"
-                                                  NumberOfTapsRequired="1" />
-                        </Border.GestureRecognizers>
-                        <Label Text="{Binding LocationName}"
-                               FontSize="Title"                               
-                               TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                               HorizontalOptions="Center"/>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            <CollectionView.EmptyView>
-                <StackLayout Orientation="Vertical">
-                    <Label Text="No locations registered"
-                           FontSize="Title"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Center" />
-                </StackLayout>
-            </CollectionView.EmptyView>
-        </CollectionView>
+        <ScrollView>
+            <CollectionView ItemsSource="{Binding Locations}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:DeviceLocation">
+                        <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                StrokeThickness="0.4"
+                                Padding="10"
+                                Margin="10"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5" />
+                            </Border.StrokeShape>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DashboardViewModel}},
+                                                                Path=GoToLocationCommand}"
+                                                      NumberOfTapsRequired="1" />
+                            </Border.GestureRecognizers>
+                            <Label Text="{Binding LocationName}"
+                                   FontSize="Title"                               
+                                   TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                   HorizontalOptions="Center"/>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <StackLayout Orientation="Vertical">
+                        <Label Text="No locations registered"
+                               FontSize="Title"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </ScrollView>
     </RefreshView>
 </ContentPage>

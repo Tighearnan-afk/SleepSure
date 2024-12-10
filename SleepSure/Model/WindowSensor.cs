@@ -1,6 +1,8 @@
-﻿
+﻿using SQLite;
+
 namespace SleepSure.Model
 {
+    [Table("windowsensor")]
     public class WindowSensor : Sensor
     {
         public bool IsOpen { get; set; }

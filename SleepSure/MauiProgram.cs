@@ -60,6 +60,10 @@ namespace SleepSure
             builder.Services.AddSingleton<ILightRESTService, LightRESTService>();
             builder.Services.AddSingleton<IWaterLeakSensorRESTService, WaterLeakSensorRESTService>();
             builder.Services.AddSingleton<IDoorSensorRESTService, DoorSensorRESTService>();
+            builder.Services.AddSingleton<IWindowSensorRESTService, WindowSensorRESTService>();
+            builder.Services.AddSingleton<ITemperatureSensorRESTService, TemperatureSensorRESTService>();
+            builder.Services.AddSingleton<IHumiditySensorRESTService, HumiditySensorRESTService>();
+            builder.Services.AddSingleton<IVibrationSensorRESTService, VibrationSensorRESTService>();
 
             //Register the database tables
             builder.Services.AddSingleton<IDeviceLocationDataService, DeviceLocationDBService>(
@@ -85,6 +89,18 @@ namespace SleepSure
 
             builder.Services.AddSingleton<IDoorSensorDataServer, DoorSensorDBService>(
                 s => ActivatorUtilities.CreateInstance<DoorSensorDBService>(s, databasePath));
+
+            builder.Services.AddSingleton<IWindowSensorDataService, WindowSensorDBDataService>(
+                s => ActivatorUtilities.CreateInstance<WindowSensorDBDataService>(s, databasePath));
+
+            builder.Services.AddSingleton<ITemperatureSensorDataService, TemperatureSensorDataService>(
+                s => ActivatorUtilities.CreateInstance<TemperatureSensorDataService>(s, databasePath));
+
+            builder.Services.AddSingleton<IHumiditySensorDataService, HumiditySensorDBService>(
+                s => ActivatorUtilities.CreateInstance<HumiditySensorDBService>(s, databasePath));
+
+            builder.Services.AddSingleton<IVibrationSensorDataService, VibrationSensorDBService>(
+                s => ActivatorUtilities.CreateInstance<VibrationSensorDBService>(s, databasePath));
 
             //Register the devicetype file service
             builder.Services.AddSingleton<IDeviceTypeService, DeviceTypeFileService>();

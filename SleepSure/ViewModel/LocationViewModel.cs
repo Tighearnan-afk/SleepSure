@@ -27,6 +27,14 @@ namespace SleepSure.ViewModel
         readonly IWaterLeakSensorDataService _waterLeakSensorDataService;
 
         readonly IDoorSensorDataServer _doorSensorDataServer;
+
+        readonly IWindowSensorDataService _windowSensorDataService;
+
+        readonly ITemperatureSensorDataService _temperatureSensorDataService;
+
+        readonly IHumiditySensorDataService _humiditySensorDataService;
+
+        readonly IVibrationSensorDataService _vibrationSensorDataService;
         //A collection that the cameras are stored in
         public ObservableCollection<Camera> Cameras { get; } = [];
         //A collection that the motion sensors are stored in
@@ -37,6 +45,14 @@ namespace SleepSure.ViewModel
         public ObservableCollection<WaterLeakSensor> WaterLeakSensors { get; } = [];
         //A collection that the door sensors are stored in
         public ObservableCollection<DoorSensor> DoorSensors { get; } = [];
+        //A collection that the window sensors are stored in
+        public ObservableCollection<WindowSensor> WindowSensors { get; } = [];
+        //A collection that the temperature sensors are stored in
+        public ObservableCollection<TemperatureSensor> TemperatureSensors { get; } = [];
+        //A collection that the humidity sensors are stored in
+        public ObservableCollection<HumiditySensor> HumiditySensors { get; } = [];
+        //A collection that the vibration sensors are stored in
+        public ObservableCollection<VibrationSensor> VibrationSensors { get; } = [];
 
         //An boolean property that determines whether or not the application is in demo mode
         private bool _isInDemoMode;
@@ -51,8 +67,9 @@ namespace SleepSure.ViewModel
         public bool _isRefreshing;
 
         //Constructor for the LocationViewModel initialises the various device services
-        public LocationViewModel(ICameraDataService cameraDataService, IDeviceLocationDataService deviceLocationDataService, IConfiguration AppConfig, IMotionSensorDataService motionSensorDataService
-            ,ILightDataService lightsDataService, IWaterLeakSensorDataService waterLeakSensorDataService, IDoorSensorDataServer doorSensorDataServer)
+        public LocationViewModel(ICameraDataService cameraDataService, IDeviceLocationDataService deviceLocationDataService, IConfiguration AppConfig, IMotionSensorDataService motionSensorDataService,
+                                 ILightDataService lightsDataService, IWaterLeakSensorDataService waterLeakSensorDataService, IDoorSensorDataServer doorSensorDataServer, IWindowSensorDataService windowSensorDataService,
+                                 ITemperatureSensorDataService temperatureSensorDataService, IHumiditySensorDataService humiditySensorDataService, IVibrationSensorDataService vibrationSensorDataService)
         {
             _cameraDataService = cameraDataService;
             _deviceLocationDataService = deviceLocationDataService;
@@ -64,6 +81,10 @@ namespace SleepSure.ViewModel
             _lightsDataService = lightsDataService;
             _waterLeakSensorDataService = waterLeakSensorDataService;
             _doorSensorDataServer = doorSensorDataServer;
+            _windowSensorDataService = windowSensorDataService;
+            _temperatureSensorDataService = temperatureSensorDataService;
+            _humiditySensorDataService = humiditySensorDataService;
+            _vibrationSensorDataService = vibrationSensorDataService;
         }
 
         [RelayCommand]
@@ -123,6 +144,46 @@ namespace SleepSure.ViewModel
                 {
                     if (doorSensor.DeviceLocationId.Equals(Location.Id))
                         DoorSensors.Add(doorSensor);
+                }
+
+                var windowSensors = await _windowSensorDataService.GetWindowSensorsAsync(_isInDemoMode);
+
+                WindowSensors.Clear();
+
+                foreach (var windowSensor in windowSensors)
+                {
+                    if (windowSensor.DeviceLocationId.Equals(Location.Id))
+                        WindowSensors.Add(windowSensor);
+                }
+
+                var temperatureSensors = await _temperatureSensorDataService.GetTemperatureSensorsAsync(_isInDemoMode);
+
+                TemperatureSensors.Clear();
+
+                foreach (var temperatureSensor in temperatureSensors)
+                {
+                    if (temperatureSensor.DeviceLocationId.Equals(Location.Id))
+                        TemperatureSensors.Add(temperatureSensor);
+                }
+
+                var humiditySensors = await _humiditySensorDataService.GetHumiditySensorsAsync(_isInDemoMode);
+
+                HumiditySensors.Clear();
+
+                foreach (var humiditySensor in humiditySensors)
+                {
+                    if (humiditySensor.DeviceLocationId.Equals(Location.Id))
+                        HumiditySensors.Add(humiditySensor);
+                }
+
+                var vibrationSensors = await _vibrationSensorDataService.GetVibrationSensorsAsync(_isInDemoMode);
+
+                VibrationSensors.Clear();
+
+                foreach (var vibrationSensor in vibrationSensors)
+                {
+                    if (vibrationSensor.DeviceLocationId.Equals(Location.Id))
+                        VibrationSensors.Add(vibrationSensor);
                 }
             }
             catch (Exception ex)
@@ -221,6 +282,10 @@ namespace SleepSure.ViewModel
                     await _lightsDataService.SyncLightsAsync();
                     await _waterLeakSensorDataService.SyncWaterLeakSensorsAsync();
                     await _doorSensorDataServer.SyncDoorSensorsAsync();
+                    await _windowSensorDataService.SyncWindowSensorsAsync();
+                    await _temperatureSensorDataService.SyncTemperatureSensorsAsync();
+                    await _humiditySensorDataService.SyncHumiditySensorsAsync();
+                    await _vibrationSensorDataService.SyncVibrationSensorsAsync();
                     await GetLocationDevices();
                 }
             }
@@ -271,6 +336,11 @@ namespace SleepSure.ViewModel
 
             try
             {
+                var result = await Shell.Current.DisplayAlert("Confirm", $"Are you sure you want to delete {Location.LocationName}","Yes","No");
+
+                if (result == false)
+                    return;
+
                 //Set the IsBusy flag to true
                 IsBusy = true;
                 //Remove the location from the local database

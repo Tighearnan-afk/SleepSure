@@ -1,6 +1,8 @@
-﻿
+﻿using SQLite;
+
 namespace SleepSure.Model
 {
+    [Table("temperaturesensor")]
     public class TemperatureSensor: Sensor
     {
         public TemperatureSensor() { }

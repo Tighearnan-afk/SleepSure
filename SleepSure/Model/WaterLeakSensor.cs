@@ -1,8 +1,11 @@
-﻿namespace SleepSure.Model
+﻿using SQLite;
+
+namespace SleepSure.Model
 {
+    [Table("waterleaksensor")]
     public class WaterLeakSensor : Sensor
     {
-        public bool LeakDetected;
+        public bool LeakDetected { get; set; }
 
         public WaterLeakSensor() { }
 

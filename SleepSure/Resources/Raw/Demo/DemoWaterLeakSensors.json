@@ -1,8 +1,8 @@
 ﻿[
   {
     "Id": 1,
-    "Name": "Living Room Leak Sensor",
-    "Description": "Leak sensor in the living room",
+    "Name": "Living Room Water Leak Sensor",
+    "Description": "Water Leak sensor in the living room",
     "BatteryLife": 87,
     "Temperature": 89,
     "DeviceLocationId": 1,

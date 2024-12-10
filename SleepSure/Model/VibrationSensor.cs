@@ -1,5 +1,8 @@
-﻿namespace SleepSure.Model
+﻿using SQLite;
+
+namespace SleepSure.Model
 {
+    [Table("vibrationsensor")]
     public class VibrationSensor : Sensor
     {
         public bool VibrationDetected { get; set; }

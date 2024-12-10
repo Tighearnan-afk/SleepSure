@@ -5,9 +5,9 @@ namespace SleepSure.Services
     public interface IWindowSensorDataService
     {
         public Task<List<WindowSensor>> GetWindowSensorsAsync(bool isInDemoMode);
-        public Task AddWindowSensor(string name, string description, int deviceLocationId);
-        public Task DeleteWindowSensor(WindowSensor windowSensor);
-        public Task SyncWindowSensors();
+        public Task AddWindowSensorAsync(string name, string description, int batteryLife, int temperature, int deviceLocationId);
+        public Task DeleteWindowSensorAsync(WindowSensor windowSensor);
+        public Task SyncWindowSensorsAsync();
         public Task UpdateWindowSensorAsync(WindowSensor windowSensor);
     }
 }

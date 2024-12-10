@@ -2,7 +2,7 @@
 
 namespace SleepSure.Services
 {
-    public interface IHumiditySensor
+    public interface IHumiditySensorRESTService
     {
         public Task<List<HumiditySensor>> RefreshHumiditySensorsAsync();
         public Task SaveHumiditySensorAsync(HumiditySensor humiditySensor, bool isNewHumiditySensor);

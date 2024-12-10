@@ -32,302 +32,539 @@
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
-
+    
     <RefreshView IsRefreshing="{Binding IsRefreshing}"
                  Command="{Binding SyncDevicesCommand}">
-        <StackLayout Orientation="Vertical">
-            <!--Windows does not support refreshviews therefore I've added this button to showcase functionality-->
-            <ImageButton IsVisible="{OnPlatform WinUI=True,Default=False}"
-                         Command="{Binding SyncDevicesCommand}">
-                <ImageButton.Source>
-                    <FontImageSource FontFamily="MaterialRounded"
-                                     Glyph="{x:Static m:MaterialRounded.Refresh}"
-                                     Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}" />
-                </ImageButton.Source>
-            </ImageButton>
-            <CollectionView ItemsSource="{Binding Cameras}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Camera">
-                        <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                StrokeThickness="0.4"
-                                Margin="10"
-                                BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="5" />
-                            </Border.StrokeShape>
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
-                                                                Path=GoToDeviceDetailsCommand}"
-                                                      NumberOfTapsRequired="1" />
-                            </Border.GestureRecognizers>
-                            <Grid ColumnDefinitions="*,3*"
-                                  RowDefinitions="*,*,*"
-                                  Margin="10">
+        <ScrollView>
+            <StackLayout Orientation="Vertical" Spacing="{OnIdiom Desktop=10,Phone=0}">
+                <!--Windows does not support refreshviews therefore I've added this button to showcase functionality-->
+                <ImageButton IsVisible="{OnPlatform WinUI=True,Default=False}"
+                             Command="{Binding SyncDevicesCommand}">
+                    <ImageButton.Source>
+                        <FontImageSource FontFamily="MaterialRounded"
+                                         Glyph="{x:Static m:MaterialRounded.Refresh}"
+                                         Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}" />
+                    </ImageButton.Source>
+                </ImageButton>
+                <CollectionView ItemsSource="{Binding Cameras}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Camera">
+                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    StrokeThickness="0.4"
+                                    Margin="10"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    HeightRequest="100"
+                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                                                                    Path=GoToDeviceDetailsCommand}"
+                                                          NumberOfTapsRequired="1" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="*,3*"
+                                      RowDefinitions="*,*,*"
+                                      Margin="10">
 
-                                <Image Grid.Row="0"
-                                       Grid.Column="0"
-                                       Grid.RowSpan="3"
-                                       Margin="0,0,10,0">
-                                    <Image.Source>
-                                        <FontImageSource FontFamily="MaterialRounded"
-                                                         Glyph="{x:Static m:MaterialRounded.Speed_camera}"
-                                                         Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
-                                                         Size="{OnIdiom Default=100, Phone=25}" />
-                                    </Image.Source>
-                                </Image>
+                                    <Image Grid.Row="0"
+                                           Grid.Column="0"
+                                           Grid.RowSpan="3"
+                                           Margin="0,0,10,0">
+                                        <Image.Source>
+                                            <FontImageSource FontFamily="MaterialRounded"
+                                                             Glyph="{x:Static m:MaterialRounded.Speed_camera}"
+                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                             Size="{OnIdiom Default=100, Phone=25}" />
+                                        </Image.Source>
+                                    </Image>
 
-                                <Label Text="{Binding Name}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="0" />
+                                    <Label Text="{Binding Name}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="0" />
 
-                                <Label Text="{Binding PowerStatus}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="1" />
+                                    <Label Text="{Binding PowerStatus}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="1" />
 
-                                <Label Text="{Binding Description}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="2" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-                <!--<CollectionView.EmptyView>
-                    <StackLayout Orientation="Vertical">
-                        <Label Text="No devices present in this room"
-                               FontSize="Title"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Center" />
-                    </StackLayout>
-                </CollectionView.EmptyView>-->
-            </CollectionView>
-            <CollectionView ItemsSource="{Binding MotionSensors}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:MotionSensor">
-                        <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                StrokeThickness="0.4"
-                                Margin="10"
-                                BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="5" />
-                            </Border.StrokeShape>
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
-                                                Path=GoToDeviceDetailsCommand}"
-                                                      NumberOfTapsRequired="1" />
-                            </Border.GestureRecognizers>
-                            <Grid ColumnDefinitions="*,3*"
-                                  RowDefinitions="*,*,*,*"
-                                  Margin="10">
-
-                                <Image Grid.Row="0"
-                                       Grid.Column="0"
-                                       Grid.RowSpan="4"
-                                       Margin="0,0,10,0">
-                                    <Image.Source>
-                                        <FontImageSource FontFamily="MaterialRounded"
-                                                         Glyph="{x:Static m:MaterialRounded.Motion_sensor_idle}"
-                                                         Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
-                                                         Size="{OnIdiom Default=100, Phone=25}" />
-                                    </Image.Source>
-                                </Image>
-
-                                <Label Text="{Binding Name}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="0" />
-
-                                <Label Text="{Binding PowerStatus}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="1" />
-
-                                <Label Text="{Binding MotionDetected}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="2" />
-
-                                <Label Text="{Binding Description}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="3" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <CollectionView ItemsSource="{Binding Lights}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Light">
-                        <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                StrokeThickness="0.4"
-                                Margin="10"
-                                BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="5" />
-                            </Border.StrokeShape>
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
-                                    Path=GoToDeviceDetailsCommand}"
-                                                      NumberOfTapsRequired="1" />
-                            </Border.GestureRecognizers>
-                            <Grid ColumnDefinitions="*,3*"
-                                  RowDefinitions="*,*,*,*"
-                                  Margin="10">
-
-                                <Image Grid.Row="0"
-                                       Grid.Column="0"
-                                       Grid.RowSpan="4"
-                                       Margin="0,0,10,0">
-                                    <Image.Source>
-                                        <FontImageSource FontFamily="MaterialRounded"
-                                                         Glyph="{x:Static m:MaterialRounded.Lightbulb}"
-                                                         Color="Yellow"
-                                                         Size="{OnIdiom Default=100, Phone=25}" />
-                                    </Image.Source>
-                                </Image>
-
-                                <Label Text="{Binding Name}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="0" />
-
-                                <Label Text="{Binding PowerStatus}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="1" />
-
-                                <Label Text="{Binding Brightness}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="2" />
-
-                                <Label Text="{Binding Description}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="3" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <CollectionView ItemsSource="{Binding WaterLeakSensors}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:WaterLeakSensor">
-                        <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                StrokeThickness="0.4"
-                                Margin="10"
-                                BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="5" />
-                            </Border.StrokeShape>
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
-                                                                Path=GoToDeviceDetailsCommand}"
-                                                      NumberOfTapsRequired="1" />
-                            </Border.GestureRecognizers>
-                            <Grid ColumnDefinitions="*,3*"
-                                  RowDefinitions="*,*,*,*"
-                                  Margin="10">
-
-                                <Image Grid.Row="0"
-                                       Grid.Column="0"
-                                       Grid.RowSpan="4"
-                                       Margin="0,0,10,0">
-                                    <Image.Source>
-                                        <FontImageSource FontFamily="MaterialRounded"
-                                                         Glyph="{x:Static m:MaterialRounded.Water_damage}"
-                                                         Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
-                                                         Size="{OnIdiom Default=100, Phone=25}" />
-                                    </Image.Source>
-                                </Image>
-
-                                <Label Text="{Binding Name}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="0" />
-
-                                <Label Text="{Binding PowerStatus}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="1" />
-
-                                <!--<Label Text="{Binding LeakDetected}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="2" />-->
-
-                                <Label Text="{Binding Description}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="3" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <CollectionView ItemsSource="{Binding DoorSensors}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:DoorSensor">
-                        <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                StrokeThickness="0.4"
-                                Margin="10"
-                                BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="5" />
-                            </Border.StrokeShape>
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                                    <Label Text="{Binding Description}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="2" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <CollectionView ItemsSource="{Binding MotionSensors}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:MotionSensor">
+                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    StrokeThickness="0.4"
+                                    Margin="10"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    HeightRequest="100"
+                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
                                                     Path=GoToDeviceDetailsCommand}"
-                                                      NumberOfTapsRequired="1" />
-                            </Border.GestureRecognizers>
-                            <Grid ColumnDefinitions="*,3*"
-                                  RowDefinitions="*,*,*,*"
-                                  Margin="10">
+                                                          NumberOfTapsRequired="1" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="*,3*"
+                                      RowDefinitions="*,*,*,*"
+                                      Margin="10">
 
-                                <Image Grid.Row="0"
-                                       Grid.Column="0"
-                                       Grid.RowSpan="4"
-                                       Margin="0,0,10,0">
-                                    <Image.Source>
-                                        <FontImageSource FontFamily="MaterialRounded"
-                                                         Glyph="{x:Static m:MaterialRounded.Door_sensor}"
-                                                         Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
-                                                         Size="{OnIdiom Default=100, Phone=25}" />
-                                    </Image.Source>
-                                </Image>
+                                    <Image Grid.Row="0"
+                                           Grid.Column="0"
+                                           Grid.RowSpan="4"
+                                           Margin="0,0,10,0">
+                                        <Image.Source>
+                                            <FontImageSource FontFamily="MaterialRounded"
+                                                             Glyph="{x:Static m:MaterialRounded.Motion_sensor_idle}"
+                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                             Size="{OnIdiom Default=100, Phone=25}" />
+                                        </Image.Source>
+                                    </Image>
 
-                                <Label Text="{Binding Name}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="0" />
+                                    <Label Text="{Binding Name}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="0" />
 
-                                <Label Text="{Binding PowerStatus}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="1" />
+                                    <Label Text="{Binding PowerStatus}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="1" />
 
-                                <Label Text="{Binding IsOpen}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="2" />
+                                    <Label Text="{Binding MotionDetected}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="2" />
 
-                                <Label Text="{Binding Description}"
-                                       TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                       Grid.Column="1"
-                                       Grid.Row="3" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
+                                    <Label Text="{Binding Description}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="3" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <CollectionView ItemsSource="{Binding Lights}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Light">
+                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    StrokeThickness="0.4"
+                                    Margin="10"
+                                    BackgroundColor="Yellow"
+                                    HeightRequest="100"
+                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                                        Path=GoToDeviceDetailsCommand}"
+                                                          NumberOfTapsRequired="1" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="*,3*"
+                                      RowDefinitions="*,*,*,*"
+                                      Margin="10">
+
+                                    <Image Grid.Row="0"
+                                           Grid.Column="0"
+                                           Grid.RowSpan="4"
+                                           Margin="0,0,10,0">
+                                        <Image.Source>
+                                            <FontImageSource FontFamily="MaterialRounded"
+                                                             Glyph="{x:Static m:MaterialRounded.Lightbulb}"
+                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                             Size="{OnIdiom Default=100, Phone=25}" />
+                                        </Image.Source>
+                                    </Image>
+
+                                    <Label Text="{Binding Name}"
+                                           TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                           Grid.Column="1"
+                                           Grid.Row="0" />
+
+                                    <Label Text="{Binding PowerStatus}"
+                                           TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                           Grid.Column="1"
+                                           Grid.Row="1" />
+
+                                    <Label Text="{Binding Brightness}"
+                                           TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                           Grid.Column="1"
+                                           Grid.Row="2" />
+
+                                    <Label Text="{Binding Description}"
+                                           TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                           Grid.Column="1"
+                                           Grid.Row="3" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <CollectionView ItemsSource="{Binding WaterLeakSensors}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:WaterLeakSensor">
+                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    StrokeThickness="0.4"
+                                    Margin="10"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    HeightRequest="100"
+                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                                                                    Path=GoToDeviceDetailsCommand}"
+                                                          NumberOfTapsRequired="1" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="*,3*"
+                                      RowDefinitions="*,*,*,*"
+                                      Margin="10">
+
+                                    <Image Grid.Row="0"
+                                           Grid.Column="0"
+                                           Grid.RowSpan="4"
+                                           Margin="0,0,10,0">
+                                        <Image.Source>
+                                            <FontImageSource FontFamily="MaterialRounded"
+                                                             Glyph="{x:Static m:MaterialRounded.Water_damage}"
+                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                             Size="{OnIdiom Default=100, Phone=25}" />
+                                        </Image.Source>
+                                    </Image>
+
+                                    <Label Text="{Binding Name}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="0" />
+
+                                    <Label Text="{Binding PowerStatus}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="1" />
+
+                                    <Label Text="{Binding LeakDetected}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="2" />
+
+                                    <Label Text="{Binding Description}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="3" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <CollectionView ItemsSource="{Binding DoorSensors}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:DoorSensor">
+                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    StrokeThickness="0.4"
+                                    Margin="10"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    HeightRequest="100"
+                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                                                        Path=GoToDeviceDetailsCommand}"
+                                                          NumberOfTapsRequired="1" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="*,3*"
+                                      RowDefinitions="*,*,*,*"
+                                      Margin="10">
+
+                                    <Image Grid.Row="0"
+                                           Grid.Column="0"
+                                           Grid.RowSpan="4"
+                                           Margin="0,0,10,0">
+                                        <Image.Source>
+                                            <FontImageSource FontFamily="MaterialRounded"
+                                                             Glyph="{x:Static m:MaterialRounded.Door_sensor}"
+                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                             Size="{OnIdiom Default=100, Phone=25}" />
+                                        </Image.Source>
+                                    </Image>
+
+                                    <Label Text="{Binding Name}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="0" />
+
+                                    <Label Text="{Binding PowerStatus}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="1" />
+
+                                    <Label Text="{Binding IsOpen}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="2" />
+
+                                    <Label Text="{Binding Description}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="3" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <CollectionView ItemsSource="{Binding WindowSensors}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:WindowSensor">
+                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    StrokeThickness="0.4"
+                                    Margin="10"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    HeightRequest="100"
+                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                                            Path=GoToDeviceDetailsCommand}"
+                                                          NumberOfTapsRequired="1" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="*,3*"
+                                      RowDefinitions="*,*,*,*"
+                                      Margin="10">
+
+                                    <Image Grid.Row="0"
+                                           Grid.Column="0"
+                                           Grid.RowSpan="4"
+                                           Margin="0,0,10,0">
+                                        <Image.Source>
+                                            <FontImageSource FontFamily="MaterialRounded"
+                                                             Glyph="{x:Static m:MaterialRounded.Window_sensor}"
+                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                             Size="{OnIdiom Default=100, Phone=25}" />
+                                        </Image.Source>
+                                    </Image>
+
+                                    <Label Text="{Binding Name}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="0" />
+
+                                    <Label Text="{Binding PowerStatus}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="1" />
+
+                                    <Label Text="{Binding IsOpen}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="2" />
+
+                                    <Label Text="{Binding Description}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="3" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <CollectionView ItemsSource="{Binding TemperatureSensors}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:TemperatureSensor">
+                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    StrokeThickness="0.4"
+                                    Margin="10"
+                                    BackgroundColor="Red"
+                                    HeightRequest="100"
+                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                                Path=GoToDeviceDetailsCommand}"
+                                                          NumberOfTapsRequired="1" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="*,3*"
+                                      RowDefinitions="*,*,*,*"
+                                      Margin="10">
+
+                                    <Image Grid.Row="0"
+                                           Grid.Column="0"
+                                           Grid.RowSpan="4"
+                                           Margin="0,0,10,0">
+                                        <Image.Source>
+                                            <FontImageSource FontFamily="MaterialRounded"
+                                                             Glyph="{x:Static m:MaterialRounded.Thermostat}"
+                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                             Size="{OnIdiom Default=100, Phone=25}" />
+                                        </Image.Source>
+                                    </Image>
+
+                                    <Label Text="{Binding Name}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="0" />
+
+                                    <Label Text="{Binding PowerStatus}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="1" />
+
+                                    <Label Text="{Binding Temperature}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="2" />
+
+                                    <Label Text="{Binding Description}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="3" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <CollectionView ItemsSource="{Binding HumiditySensors}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:HumiditySensor">
+                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    StrokeThickness="0.4"
+                                    Margin="10"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    HeightRequest="100"
+                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                                                                    Path=GoToDeviceDetailsCommand}"
+                                                          NumberOfTapsRequired="1" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="*,3*"
+                                      RowDefinitions="*,*,*,*"
+                                      Margin="10">
+
+                                    <Image Grid.Row="0"
+                                           Grid.Column="0"
+                                           Grid.RowSpan="4"
+                                           Margin="0,0,10,0">
+                                        <Image.Source>
+                                            <FontImageSource FontFamily="MaterialRounded"
+                                                             Glyph="{x:Static m:MaterialRounded.Humidity_percentage}"
+                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                             Size="{OnIdiom Default=100, Phone=25}" />
+                                        </Image.Source>
+                                    </Image>
+
+                                    <Label Text="{Binding Name}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="0" />
+
+                                    <Label Text="{Binding PowerStatus}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="1" />
+
+                                    <Label Text="{Binding Humidity}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="2" />
+
+                                    <Label Text="{Binding Description}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="3" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <CollectionView ItemsSource="{Binding VibrationSensors}" 
+                                >
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:VibrationSensor">
+                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    StrokeThickness="0.4"
+                                    Margin="10"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    HeightRequest="100"
+                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                                                                    Path=GoToDeviceDetailsCommand}"
+                                                          NumberOfTapsRequired="1" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="*,3*"
+                                      RowDefinitions="*,*,*,*"
+                                      Margin="10">
+
+                                    <Image Grid.Row="0"
+                                           Grid.Column="0"
+                                           Grid.RowSpan="4"
+                                           Margin="0,0,10,0">
+                                        <Image.Source>
+                                            <FontImageSource FontFamily="MaterialRounded"
+                                                             Glyph="{x:Static m:MaterialRounded.Vibration}"
+                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                             Size="{OnIdiom Default=100, Phone=25}" />
+                                        </Image.Source>
+                                    </Image>
+
+                                    <Label Text="{Binding Name}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="0" />
+
+                                    <Label Text="{Binding PowerStatus}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="1" />
+
+                                    <Label Text="{Binding VibrationDetected}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="2" />
+
+                                    <Label Text="{Binding Description}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           Grid.Column="1"
+                                           Grid.Row="3" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>    
     </RefreshView>
 </ContentPage>

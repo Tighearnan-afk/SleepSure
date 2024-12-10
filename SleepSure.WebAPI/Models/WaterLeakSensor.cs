@@ -2,6 +2,6 @@
 {
     public class WaterLeakSensor : Sensor
     {
-        public bool LeakDetected;
+        public bool LeakDetected { get; set; }
     }
 }

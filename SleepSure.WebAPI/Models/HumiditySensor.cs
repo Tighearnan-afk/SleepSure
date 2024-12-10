@@ -1,15 +1,12 @@
-﻿using SQLite;
-
-namespace SleepSure.Model
+﻿namespace SleepSure.WebAPI.Models
 {
-    [Table("humiditysensor")]
     public class HumiditySensor : Sensor
     {
         public int Humidity { get; set; }
 
         public HumiditySensor() { }
 
-        public HumiditySensor(string name, string description, int batteryLife, int temperature, int humidity , int deviceLocationId)
+        public HumiditySensor(string name, string description, int batteryLife, int temperature, int humidity, int deviceLocationId)
         {
             Name = name;
             Description = description;
