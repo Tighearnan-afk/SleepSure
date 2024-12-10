@@ -3,6 +3,27 @@
     "Type": "Camera"
   },
   {
-    "Type": "MotionSensor"
+    "Type": "Motion Sensor"
+  },
+  {
+    "Type": "Door Sensor"
+  },
+  {
+    "Type": "Window Sensor"
+  },
+  {
+    "Type": "Temperature Sensor"
+  },
+  {
+    "Type": "Humidity Sensor"
+  },
+  {
+    "Type": "Vibration Sensor"
+  },
+  {
+    "Type": "Water Leak Sensor"
+  },
+  {
+    "Type": "Light"
   }
 ]

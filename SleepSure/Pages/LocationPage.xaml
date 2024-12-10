@@ -258,10 +258,10 @@
                                        Grid.Column="1"
                                        Grid.Row="1" />
 
-                                <Label Text="{Binding Brightness}"
+                                <!--<Label Text="{Binding LeakDetected}"
                                        TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
                                        Grid.Column="1"
-                                       Grid.Row="2" />
+                                       Grid.Row="2" />-->
 
                                 <Label Text="{Binding Description}"
                                        TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"

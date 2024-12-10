@@ -88,7 +88,7 @@ namespace SleepSure.ViewModel
                     case "Camera":
                         await _cameraDataService.AddCameraAsync(NewDeviceName, NewDeviceDescription, (int)Location.Id);
                         break;
-                    case "MotionSensor":
+                    case "Motion Sensor":
                         await _motionSensorDataService.AddMotionSensorAsync(NewDeviceName, NewDeviceDescription, random.Next(0, 100), random.Next(0, 32), (int)Location.Id);
                         break;
                     default:
