@@ -11,6 +11,8 @@ namespace SleepSure.Services
         NetworkAccess _internet;
         //REST API service for window sensors
         IWindowSensorRESTService windowRESTService;
+        //Alarm service for raising alarms
+        IAlarmDataService _alarmDataService;
 
         //List of window sensors retrieved from the REST API
         public List<WindowSensor> RESTWindowSensors { get; private set; } = [];
@@ -36,11 +38,12 @@ namespace SleepSure.Services
 
         private bool _isInDemoMode;
 
-        public WindowSensorDBDataService(string dbPath, IWindowSensorRESTService windowSensorRESTService)
+        public WindowSensorDBDataService(string dbPath, IWindowSensorRESTService windowSensorRESTService, IAlarmDataService alarmDataService)
         {
             _dbPath = dbPath;
             _internet = Connectivity.Current.NetworkAccess;
             windowRESTService = windowSensorRESTService;
+            _alarmDataService = alarmDataService;
         }
 
         /// <summary>
@@ -177,6 +180,16 @@ namespace SleepSure.Services
                     {
                         //If the window sensor is not present it is inserted into the local SQLite database
                         await AddWindowSensorAsync(windowSensor.Name, windowSensor.Description, windowSensor.BatteryLife, windowSensor.Temperature, windowSensor.DeviceLocationId);
+                    }
+                    //Checks if a window sensor is present in both the local SQLite database and REST API but has different details in the REST API
+                    if (LocalWindowSensors.Any(l => l.Id == windowSensor.Id && (l.PowerStatus != windowSensor.PowerStatus || l.IsOpen != windowSensor.IsOpen || l.Name != windowSensor.Name
+                        || l.Description != windowSensor.Description || l.BatteryLife != windowSensor.BatteryLife || l.Temperature != windowSensor.Temperature || l.DeviceLocationId != windowSensor.DeviceLocationId)))
+                    {
+                        //If the window sensor detects an open window raise the alarm
+                        if (windowSensor.IsOpen && windowSensor.PowerStatus)
+                            await _alarmDataService.CreateAlarmAsync("Window Opened",$"Window opening detected by {windowSensor.Name}",windowSensor.Name,DateTime.Now);
+                        //If the window sensor is turned off in the REST API in memory database turn the camera off in the local SQLite database
+                        await UpdateWindowSensorAsync(windowSensor);
                     }
                 }
 

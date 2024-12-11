@@ -11,6 +11,8 @@ namespace SleepSure.Services
         NetworkAccess _internet;
         //REST API service for motion sensors
         IMotionSensorRESTService _motionSensorRESTService;
+        //Alarm service for raising alarms
+        IAlarmDataService _alarmDataService;
 
         //List of motion sensors retrieved from the REST API
         public List<MotionSensor> RESTMotionSensors { get; private set; } = [];
@@ -36,12 +38,13 @@ namespace SleepSure.Services
 
         private bool _isInDemoMode;
 
-        public MotionSensorDBDataService(string dbPath, IMotionSensorRESTService motionSensorRESTService)
+        public MotionSensorDBDataService(string dbPath, IMotionSensorRESTService motionSensorRESTService, IAlarmDataService alarmDataService)
         {
             _dbPath = dbPath;
             //_motionSensorRESTService = cameraRESTService;
             _internet = Connectivity.Current.NetworkAccess;
             _motionSensorRESTService = motionSensorRESTService;
+            _alarmDataService = alarmDataService;
         }
 
         /// <summary>
@@ -178,6 +181,16 @@ namespace SleepSure.Services
                     {
                         //If the motion sensor is not present it is inserted into the local SQLite database
                         await AddMotionSensorAsync(motionSensor.Name, motionSensor.Description, motionSensor.BatteryLife, motionSensor.Temperature, motionSensor.DeviceLocationId);
+                    }
+                    //Checks if a motion sensor is present in both the local SQLite database and REST API but has been turned off in the REST API
+                    if (LocalMotionSensors.Any(l => l.Id == motionSensor.Id && (l.PowerStatus != motionSensor.PowerStatus || l.MotionDetected != motionSensor.MotionDetected || l.Name != motionSensor.Name
+                        || l.Description != motionSensor.Description || l.BatteryLife != motionSensor.BatteryLife || l.Temperature != motionSensor.Temperature || l.DeviceLocationId != motionSensor.DeviceLocationId)))
+                    {
+                        //If the window sensor detects an open window raise the alarm
+                        if (motionSensor.MotionDetected && motionSensor.PowerStatus)
+                            await _alarmDataService.CreateAlarmAsync("Motion Detected", $"Motion detected by {motionSensor.Name}", motionSensor.Name, DateTime.Now);
+                        //If the motion sensor is turned off in the REST API in memory database turn the camera off in the local SQLite database
+                        await UpdateMotionSensorAsync(motionSensor);
                     }
                 }
 

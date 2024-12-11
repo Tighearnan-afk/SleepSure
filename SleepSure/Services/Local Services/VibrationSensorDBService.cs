@@ -11,6 +11,8 @@ namespace SleepSure.Services
         NetworkAccess _internet;
         //REST API service for vibration sensors
         IVibrationSensorRESTService _vibrationRESTService;
+        //Alarm service for raising alarms
+        IAlarmDataService _alarmDataService;
 
         //List of vibration sensors retrieved from the REST API
         public List<VibrationSensor> RESTVibrationSensors { get; private set; } = [];
@@ -36,11 +38,12 @@ namespace SleepSure.Services
 
         private bool _isInDemoMode;
 
-        public VibrationSensorDBService(string dbPath, IVibrationSensorRESTService vibrationSensorRESTService)
+        public VibrationSensorDBService(string dbPath, IVibrationSensorRESTService vibrationSensorRESTService, IAlarmDataService alarmDataService)
         {
             _dbPath = dbPath;
             _internet = Connectivity.Current.NetworkAccess;
             _vibrationRESTService = vibrationSensorRESTService;
+            _alarmDataService = alarmDataService;
         }
 
         /// <summary>
@@ -178,6 +181,16 @@ namespace SleepSure.Services
                         //If the vibration sensor is not present it is inserted into the local SQLite database
                         await AddVibrationSensorAsync(vibrationSensor.Name, vibrationSensor.Description, vibrationSensor.BatteryLife, vibrationSensor.Temperature, vibrationSensor.DeviceLocationId);
                     }
+                    //Checks if a vibration sensor is present in both the local SQLite database and REST API but has different details in the REST API
+                    if (LocalVibrationSensors.Any(l => l.Id == vibrationSensor.Id && (l.PowerStatus != vibrationSensor.PowerStatus || l.VibrationDetected != vibrationSensor.VibrationDetected || l.Name != vibrationSensor.Name
+                        || l.Description != vibrationSensor.Description || l.BatteryLife != vibrationSensor.BatteryLife || l.Temperature != vibrationSensor.Temperature || l.DeviceLocationId != vibrationSensor.DeviceLocationId)))
+                    {
+                        //If the window sensor detects an open window raise the alarm
+                        if (vibrationSensor.VibrationDetected && vibrationSensor.PowerStatus)
+                            await _alarmDataService.CreateAlarmAsync("Vibration Detected", $"Vibration detected by {vibrationSensor.Name}", vibrationSensor.Name, DateTime.Now);
+                        //If the vibration sensor is turned off in the REST API in memory database turn the camera off in the local SQLite database
+                        await UpdateVibrationSensorAsync(vibrationSensor);
+                    }
                 }
 
             }
@@ -229,14 +242,14 @@ namespace SleepSure.Services
                 //Ensures the connection to the SQLite database is created
                 await Init();
 
-                //Updates the camera details and records the result
-                result = await _connection.UpdateAsync(vibrationSensor);
-
                 //Sets the string property OnOrOff based on the boolean property PowerStatus for display purposes in the location page
                 if (vibrationSensor.PowerStatus)
                     vibrationSensor.OnOrOff = "On";
                 else
                     vibrationSensor.OnOrOff = "Off";
+
+                //Updates the vibration sensor details and records the result
+                result = await _connection.UpdateAsync(vibrationSensor);
 
                 //Checks if the device has an internet connection
                 if (_internet != NetworkAccess.Internet)

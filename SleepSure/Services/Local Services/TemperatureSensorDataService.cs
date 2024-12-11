@@ -178,6 +178,13 @@ namespace SleepSure.Services
                         //If the temperature sensor is not present it is inserted into the local SQLite database
                         await AddTemperatureSensorAsync(temperatureSensor.Name, temperatureSensor.Description, temperatureSensor.BatteryLife, temperatureSensor.Temperature, temperatureSensor.DeviceLocationId);
                     }
+                    //Checks if a temperature sensor is present in both the local SQLite database and REST API but has different details in the REST API
+                    if (LocalTemperatureSensors.Any(l => l.Id == temperatureSensor.Id && (l.PowerStatus != temperatureSensor.PowerStatus || l.Name != temperatureSensor.Name || l.Description != temperatureSensor.Description 
+                        || l.BatteryLife != temperatureSensor.BatteryLife || l.Temperature != temperatureSensor.Temperature || l.DeviceLocationId != temperatureSensor.DeviceLocationId)))
+                    {
+                        //If the temperature sensor is turned off in the REST API in memory database turn the camera off in the local SQLite database
+                        await UpdateTemperatureSensorAsync(temperatureSensor);
+                    }
                 }
 
             }

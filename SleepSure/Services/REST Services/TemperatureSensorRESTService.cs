@@ -82,7 +82,7 @@ namespace SleepSure.Services
         public async Task SaveTemperatureSensorAsync(TemperatureSensor waterLeakSensor, bool isNewTemperatureSensor)
         {
             //Create a new string containing the URL for the rest API and appending the route for the temperature sensors 
-            string waterLeakSensorEndPoint = string.Concat(Constants.RestUrl, $"temperaturesensor/{{0}}");
+            string waterLeakSensorEndPoint = string.Concat(Constants.RestUrl, $"temperaturesensors/{{0}}");
             //Create the Uri object
             Uri uri;
             //Checks if the temperature sensor is a new temperature sensor
@@ -123,7 +123,7 @@ namespace SleepSure.Services
         public async Task DeleteTemperatureSensorAsync(int id)
         {
             //Create a new string containing the URL for the rest API and appending the route for the temperature sensors 
-            string waterLeakSensorEndPoint = string.Concat(Constants.RestUrl, $"temperaturesensor/{{0}}");
+            string waterLeakSensorEndPoint = string.Concat(Constants.RestUrl, $"temperaturesensors/{{0}}");
             //Instanstiates the uri object with the end point and adding the temperature sensor Id after the / as its a DELETE request
             Uri uri = new Uri(string.Format(waterLeakSensorEndPoint, id));
 

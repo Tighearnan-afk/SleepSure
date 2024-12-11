@@ -179,6 +179,13 @@ namespace SleepSure.Services
                         //If the humidity sensor is not present it is inserted into the local SQLite database
                         await AddHumiditySensorAsync(humiditySensor.Name, humiditySensor.Description, humiditySensor.BatteryLife, humiditySensor.Temperature, humiditySensor.Humidity, humiditySensor.DeviceLocationId);
                     }
+                    //Checks if a humidity sensor present in both the local SQLite database and REST API but has been turned off, or has a different humidity level in the REST API
+                    if (LocalHumiditySensors.Any(l => l.Id == humiditySensor.Id && (l.PowerStatus != humiditySensor.PowerStatus || l.Name != humiditySensor.Name|| l.Description != humiditySensor.Description 
+                                                || l.BatteryLife != humiditySensor.BatteryLife || l.Temperature != humiditySensor.Temperature || l.DeviceLocationId != humiditySensor.DeviceLocationId)))
+                    {
+                        //If the humidity sensor is turned off in the REST API in memory database turn the camera off in the local SQLite database
+                        await UpdateHumiditySensorAsync(humiditySensor);
+                    }
                 }
 
             }

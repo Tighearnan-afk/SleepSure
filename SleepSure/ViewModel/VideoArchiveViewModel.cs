@@ -101,6 +101,12 @@ namespace SleepSure.ViewModel
 
             try
             {
+                //Display an alert to confirm the user wishes to delete the video
+                var result = await Shell.Current.DisplayAlert("Confirm", $"Are you sure you want to delete {video.VideoPath}", "Yes", "No");
+                //If the answer is no then return
+                if (result == false)
+                    return;
+
                 //Sets the busy flag to true
                 IsBusy = true;
 

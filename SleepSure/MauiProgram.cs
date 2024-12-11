@@ -102,6 +102,9 @@ namespace SleepSure
             builder.Services.AddSingleton<IVibrationSensorDataService, VibrationSensorDBService>(
                 s => ActivatorUtilities.CreateInstance<VibrationSensorDBService>(s, databasePath));
 
+            builder.Services.AddSingleton<IAlarmDataService, AlarmDBDataService>(
+                s => ActivatorUtilities.CreateInstance<AlarmDBDataService>(s, databasePath));
+
             //Register the devicetype file service
             builder.Services.AddSingleton<IDeviceTypeService, DeviceTypeFileService>();
 
@@ -141,6 +144,10 @@ namespace SleepSure
             builder.Services.AddTransient<VideoArchive>();
             //Register the video archive view model
             builder.Services.AddTransient<VideoArchiveViewModel>();
+            //Register the notification page 
+            builder.Services.AddSingleton<Notifications>();
+            //Register the notification view model
+            builder.Services.AddSingleton<NotificationViewModel>();
 
             //Device Details
             //Register the camera details page 

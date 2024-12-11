@@ -11,6 +11,8 @@ namespace SleepSure.Services
         NetworkAccess _internet;
         //REST API service for door sensors
         IDoorSensorRESTService doorRESTService;
+        //Alarm service for raising alarms
+        IAlarmDataService _alarmDataService;
 
         //List of door sensors retrieved from the REST API
         public List<DoorSensor> RESTDoorSensors { get; private set; } = [];
@@ -36,11 +38,12 @@ namespace SleepSure.Services
 
         private bool _isInDemoMode;
 
-        public DoorSensorDBService(string dbPath, IDoorSensorRESTService doorSensorRESTService)
+        public DoorSensorDBService(string dbPath, IDoorSensorRESTService doorSensorRESTService, IAlarmDataService alarmDataService)
         {
             _dbPath = dbPath;
             _internet = Connectivity.Current.NetworkAccess;
             doorRESTService = doorSensorRESTService;
+            _alarmDataService = alarmDataService;
         }
 
         /// <summary>
@@ -177,6 +180,16 @@ namespace SleepSure.Services
                     {
                         //If the door sensor is not present it is inserted into the local SQLite database
                         await AddDoorSensorAsync(doorSensor.Name, doorSensor.Description, doorSensor.BatteryLife, doorSensor.Temperature, doorSensor.DeviceLocationId);
+                    }
+                    //Checks if a door sensor present in both the local SQLite database and REST API but has been turned off in the REST API
+                    if (LocalDoorSensors.Any(l => l.Id == doorSensor.Id && (l.PowerStatus != doorSensor.PowerStatus || l.IsOpen != doorSensor.IsOpen || l.Name != doorSensor.Name || l.Description != doorSensor.Description 
+                                            || l.BatteryLife != doorSensor.BatteryLife || l.Temperature != doorSensor.Temperature || l.DeviceLocationId != doorSensor.DeviceLocationId)))
+                    {
+                        //If the window sensor detects an open window raise the alarm
+                        if (doorSensor.IsOpen && doorSensor.PowerStatus)
+                            await _alarmDataService.CreateAlarmAsync("Door Opened", $"Door opening detected by {doorSensor.Name}", doorSensor.Name, DateTime.Now);
+                        //If the door sensor is turned off in the REST API in memory database turn the camera off in the local SQLite database
+                        await UpdateDoorSensorAsync(doorSensor);
                     }
                 }
 

@@ -62,6 +62,7 @@ namespace SleepSure.ViewModel
             finally
             {
                 IsBusy = false;
+                IsRefreshing = false;
             }
         }
         /// <summary>

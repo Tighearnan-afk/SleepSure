@@ -176,6 +176,13 @@ namespace SleepSure.Services
                         //If the light is not present it is inserted into the local SQLite database
                         await AddLightAsync(light.Name, light.Description, light.Brightness, light.DeviceLocationId);
                     }
+                    //Checks if a light is present in both the local SQLite database and REST API but has different details
+                    if (LocalLights.Any(l => l.Id == light.Id && (l.PowerStatus != light.PowerStatus || l.Name != light.Name || l.Brightness != light.Brightness || l.Description != light.Description 
+                                        || l.DeviceLocationId != light.DeviceLocationId)))
+                    {
+                        //If the light is turned off in the REST API in memory database turn the camera off in the local SQLite database
+                        await UpdateLightAsync(light);
+                    }
                 }
 
             }

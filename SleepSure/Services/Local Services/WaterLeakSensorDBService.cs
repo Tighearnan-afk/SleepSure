@@ -11,6 +11,8 @@ namespace SleepSure.Services
         NetworkAccess _internet;
         //REST API service for waterleak sensors
         IWaterLeakSensorRESTService waterLeakRESTService;
+        //Alarm service for raising alarms
+        IAlarmDataService _alarmDataService;
 
         //List of waterleak sensors retrieved from the REST API
         public List<WaterLeakSensor> RESTWaterLeakSensors { get; private set; } = [];
@@ -36,12 +38,13 @@ namespace SleepSure.Services
 
         private bool _isInDemoMode;
 
-        public WaterLeakSensorDBService(string dbPath, IWaterLeakSensorRESTService waterLeakSensorRESTService)
+        public WaterLeakSensorDBService(string dbPath, IWaterLeakSensorRESTService waterLeakSensorRESTService, IAlarmDataService alarmDataService)
         {
             _dbPath = dbPath;
             //waterLeakRESTService = cameraRESTService;
             _internet = Connectivity.Current.NetworkAccess;
             waterLeakRESTService = waterLeakSensorRESTService;
+            _alarmDataService = alarmDataService;
         }
 
         /// <summary>
@@ -178,6 +181,16 @@ namespace SleepSure.Services
                     {
                         //If the waterleak sensor is not present it is inserted into the local SQLite database
                         await AddWaterLeakSensorAsync(waterLeakSensor.Name, waterLeakSensor.Description, waterLeakSensor.BatteryLife, waterLeakSensor.Temperature, waterLeakSensor.DeviceLocationId);
+                    }
+                    //Checks if a waterleak sensor is present in both the local SQLite database and REST API but has different details in the REST API
+                    if (LocalWaterLeakSensors.Any(l => l.Id == waterLeakSensor.Id && (l.PowerStatus != waterLeakSensor.PowerStatus || l.LeakDetected != waterLeakSensor.LeakDetected || l.Name != waterLeakSensor.Name
+                        || l.Description != waterLeakSensor.Description || l.BatteryLife != waterLeakSensor.BatteryLife || l.Temperature != waterLeakSensor.Temperature || l.DeviceLocationId != waterLeakSensor.DeviceLocationId)))
+                    {
+                        //If the waterleak sensor detects an open window raise the alarm
+                        if (waterLeakSensor.LeakDetected && waterLeakSensor.PowerStatus)
+                            await _alarmDataService.CreateAlarmAsync("Waterleak Detected", $"Waterleak Detected detected by {waterLeakSensor.Name}", waterLeakSensor.Name, DateTime.Now);
+                        //If the waterleak sensor is turned off in the REST API in memory database turn the camera off in the local SQLite database
+                        await UpdateWaterLeakSensorAsync(waterLeakSensor);
                     }
                 }
 

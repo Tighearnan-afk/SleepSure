@@ -2,9 +2,72 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SleepSure.Pages.Notifications"
+             xmlns:model="clr-namespace:SleepSure.Model"
+             xmlns:viewmodel="clr-namespace:SleepSure.ViewModel"
+             x:DataType="viewmodel:NotificationViewModel"
+             xmlns:Uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="Notifications">
-    <StackLayout Orientation="Horizontal">
-        <Label Text="No Notifcations"
-               HorizontalOptions="CenterAndExpand"/>
-    </StackLayout>
+    <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                 Command="{Binding GetAlarmsCommand}">
+        <ScrollView>
+            <StackLayout Orientation="Vertical">
+                <CollectionView ItemsSource="{Binding Alarms}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Alarm">
+                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    StrokeThickness="0.4"
+                                    Padding="10"
+                                    Margin="10"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                    WidthRequest="{OnIdiom Desktop=600,Phone=350}">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:NotificationViewModel}},
+                                                            Path=DeleteAlarmCommand}"
+                                                          NumberOfTapsRequired="1" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="*"
+                                      RowDefinitions="*,*,*,*"
+                                      HorizontalOptions="FillAndExpand"
+                                      RowSpacing="10">
+                                    <Label Text="{Binding EventName}"
+                                           FontSize="Title"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           HorizontalOptions="Center"
+                                           Grid.Row="0"/>
+                                    <BoxView Color="{StaticResource Black}"
+                                             HeightRequest="0.5"
+                                             HorizontalOptions="FillAndExpand"
+                                             Grid.Row="1"/>
+                                    <Label Text="{Binding EventDescription}"
+                                           FontSize="Small"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           HorizontalOptions="Center"
+                                           Grid.Row="2" />
+                                    <Label Text="{Binding DateTime}"
+                                           FontSize="Small"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           HorizontalOptions="Center"
+                                           Grid.Row="3" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <StackLayout Orientation="Vertical">
+                            <Label Text="No notifications"
+                                   FontSize="Title"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center" />
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
+    </RefreshView>
 </ContentPage>
