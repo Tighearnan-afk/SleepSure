@@ -1,6 +1,4 @@
 ﻿using SleepSure.Pages;
-using SleepSure.Pages.Device_Configuration;
-using SleepSure.ViewModel;
 
 namespace SleepSure
 {
@@ -24,6 +22,12 @@ namespace SleepSure
             Routing.RegisterRoute(nameof(CameraDetails), typeof(CameraDetails));
             Routing.RegisterRoute(nameof(MotionSensorDetails), typeof(MotionSensorDetails));
             Routing.RegisterRoute(nameof(LightDetails), typeof(LightDetails));
+            Routing.RegisterRoute(nameof(WaterLeakSensorDetails), typeof(WaterLeakSensorDetails));
+            Routing.RegisterRoute(nameof(DoorSensorDetails), typeof(DoorSensorDetails));
+            Routing.RegisterRoute(nameof(WindowSensorDetails), typeof(WindowSensorDetails));
+            Routing.RegisterRoute(nameof(HumiditySensorDetails), typeof(HumiditySensorDetails));
+            Routing.RegisterRoute(nameof(TemperatureSensorDetails), typeof(TemperatureSensorDetails));
+            Routing.RegisterRoute(nameof(VibrationSensorDetails), typeof(VibrationSensorDetails));
         }
     }
 }

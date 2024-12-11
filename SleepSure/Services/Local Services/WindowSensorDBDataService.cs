@@ -229,6 +229,7 @@ namespace SleepSure.Services
                 //Ensures the connection to the SQLite database is created
                 await Init();
 
+                //Sets the string property OnOrOff based on the boolean property PowerStatus for display purposes in the location page
                 if (windowSensor.PowerStatus)
                     windowSensor.OnOrOff = "On";
                 else

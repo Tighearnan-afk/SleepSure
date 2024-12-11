@@ -2,9 +2,9 @@ using SleepSure.ViewModel;
 
 namespace SleepSure.Pages;
 
-public partial class LightDetails : ContentPage
+public partial class WaterLeakSensorDetails : ContentPage
 {
-	public LightDetails(LightDetailsViewModel viewmodel)
+	public WaterLeakSensorDetails(WaterLeakSensorDetailsViewModel viewmodel)
 	{
 		InitializeComponent();
 
@@ -17,7 +17,7 @@ public partial class LightDetails : ContentPage
 
         Shell.SetTabBarIsVisible(Shell.Current.CurrentPage, false);
 
-        if (BindingContext is CameraDetailsViewModel viewModel)
+        if (BindingContext is MotionDetailsSensorViewModel viewModel)
         {
             viewModel.RetrieveLocationsCommand.Execute(null);
         }

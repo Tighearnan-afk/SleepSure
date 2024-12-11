@@ -84,10 +84,28 @@
 	  <MauiXaml Update="Pages\Device Configuration\CameraDetails.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\Device Configuration\DoorSensorDetails.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Device Configuration\HumiditySensorDetails.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\Device Configuration\LightDetails.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\Device Configuration\TemperatureSensorDetails.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Device Configuration\VibrationSensorDetails.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Device Configuration\WaterLeakSensorDetails.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\Device Configuration\MotionSensorDetails.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Device Configuration\WindowSensorDetails.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\DeviceDetails.xaml">
@@ -152,6 +170,9 @@
 	<ItemGroup>
 	  <Compile Update="Pages\AddLocation.xaml.cs">
 	    <DependentUpon>AddLocation.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\Device Configuration\WaterLeakSensorDetails.xaml.cs">
+	    <DependentUpon>WaterLeakSensorDetails.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Pages\LocationPage.xaml.cs">
 	    <DependentUpon>LocationPage.xaml</DependentUpon>

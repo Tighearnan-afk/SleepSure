@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace SleepSure.Services
 {
-    public class DoorSensorDBService : IDoorSensorDataServer
+    public class DoorSensorDBService : IDoorSensorDataService
     {
         //Network access variable that will be used to determine if the device has an internet connection
         NetworkAccess _internet;
@@ -229,6 +229,7 @@ namespace SleepSure.Services
                 //Ensures the connection to the SQLite database is created
                 await Init();
 
+                //Sets the string property OnOrOff based on the boolean property PowerStatus for display purposes in the location page
                 if (doorSensor.PowerStatus)
                     doorSensor.OnOrOff = "On";
                 else

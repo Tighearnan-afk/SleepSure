@@ -230,6 +230,7 @@ namespace SleepSure.Services
                 //Updates the camera details and records the result
                 result = await _connection.UpdateAsync(light);
 
+                //Sets the string property OnOrOff based on the boolean property PowerStatus for display purposes in the location page
                 if (light.PowerStatus)
                     light.OnOrOff = "On";
                 else

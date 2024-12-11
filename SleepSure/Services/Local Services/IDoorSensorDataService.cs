@@ -2,7 +2,7 @@
 
 namespace SleepSure.Services
 {
-    public interface IDoorSensorDataServer
+    public interface IDoorSensorDataService
     {
         public Task<List<DoorSensor>> GetDoorSensorsAsync(bool isInDemoMode);
         public Task AddDoorSensorAsync(string name, string description, int batteryLife, int temperature, int deviceLocationId);

@@ -2,14 +2,14 @@ using SleepSure.ViewModel;
 
 namespace SleepSure.Pages;
 
-public partial class LightDetails : ContentPage
+public partial class WindowSensorDetails : ContentPage
 {
-	public LightDetails(LightDetailsViewModel viewmodel)
-	{
-		InitializeComponent();
+    public WindowSensorDetails(WindowSensorDetailsViewModel viewmodel)
+    {
+        InitializeComponent();
 
         BindingContext = viewmodel;
-	}
+    }
 
     protected override void OnAppearing()
     {
@@ -17,7 +17,7 @@ public partial class LightDetails : ContentPage
 
         Shell.SetTabBarIsVisible(Shell.Current.CurrentPage, false);
 
-        if (BindingContext is CameraDetailsViewModel viewModel)
+        if (BindingContext is WindowSensorDetailsViewModel viewModel)
         {
             viewModel.RetrieveLocationsCommand.Execute(null);
         }

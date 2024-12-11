@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SleepSure.Pages.LightDetails"
+             x:Class="SleepSure.Pages.WindowSensorDetails"
              xmlns:model="clr-namespace:SleepSure.Model"
              xmlns:viewmodel="clr-namespace:SleepSure.ViewModel"
-             x:DataType="viewmodel:LightDetailsViewModel"
+             x:DataType="viewmodel:WindowSensorDetailsViewModel"
              xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="{Binding Light.Name}">
+             Title="{Binding WindowSensor.Name}">
     <ScrollView>
         <Border Stroke="Black"
                 StrokeThickness="0.4"
@@ -26,8 +26,8 @@
                            MaximumWidthRequest="{OnIdiom Default=75,Phone=50}">
                         <Image.Source>
                             <FontImageSource FontFamily="MaterialRounded"
-                                             Glyph="{x:Static m:MaterialRounded.Lightbulb}"
-                                             Color="Yellow"
+                                             Glyph="{x:Static m:MaterialRounded.Window_sensor}"
+                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                                              Size="{OnIdiom Default=100, Phone=25}" />
                         </Image.Source>
                     </Image>
@@ -35,7 +35,7 @@
 
                 <StackLayout Orientation="Horizontal">
                     <uranium:TextField Title="Device Name"
-                                       Text="{Binding Light.Name}"
+                                       Text="{Binding WindowSensor.Name}"
                                        HorizontalOptions="CenterAndExpand"
                                        Icon="{FontImageSource FontFamily=MaterialRounded, Glyph={x:Static m:MaterialRounded.Edit}}"
                                        WidthRequest="350"
@@ -49,12 +49,12 @@
                             MaximumWidthRequest="350"
                             ItemsSource="{Binding Locations}"
                             ItemDisplayBinding="{Binding LocationName}"
-                            SelectedItem="{Binding UpdatedLightLocation}" />
+                            SelectedItem="{Binding UpdatedWindowSensorLocation}" />
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal">
                     <uranium:EditorField Title="Description"
-                                         Text="{Binding Light.Description}"
+                                         Text="{Binding WindowSensor.Description}"
                                          Icon="{FontImageSource FontFamily=MaterialRounded, Glyph={x:Static m:MaterialRounded.Edit}}"
                                          HorizontalOptions="CenterAndExpand"
                                          WidthRequest="350" />
@@ -68,33 +68,21 @@
                        FontSize="Medium"
                        HorizontalOptions="Center" />
 
-                <Switch IsToggled="{Binding Light.PowerStatus}"
+                <Switch IsToggled="{Binding WindowSensor.PowerStatus}"
                         ThumbColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
                         OnColor="Green"
                         HorizontalOptions="Start"
                         Margin="10" />
 
-                <!--<StackLayout Orientation="Horizontal">-->
-                    <Slider Value="{Binding Light.Brightness}"
-                            
-                            Minimum="0"
-                            Maximum="100"
-                            ThumbColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                            MinimumTrackColor="Yellow"/>
-
-                    <!--<Label Text="{Binding Light.Brightness}"
-                            Padding="0,0,10,0"/>
-
-                </StackLayout>-->
                 <Button Text="Remove Device"
-                        Command="{Binding DeleteLightCommand}"
+                        Command="{Binding DeleteWindowSensorCommand}"
                         BackgroundColor="{StaticResource Warning}"
                         StyleClass="FilledButton"
                         HorizontalOptions="Start"
                         Margin="10" />
 
                 <Button Text="Update Device"
-                        Command="{Binding UpdateLightCommand}"
+                        Command="{Binding UpdateWindowSensorCommand}"
                         BackgroundColor="{StaticResource Primary}"
                         StyleClass="FilledButton"
                         HorizontalOptions="Start"

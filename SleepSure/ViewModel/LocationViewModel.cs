@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using SleepSure.Model;
 using SleepSure.Pages;
-using SleepSure.Pages.Device_Configuration;
 using SleepSure.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -27,7 +26,7 @@ namespace SleepSure.ViewModel
 
         readonly IWaterLeakSensorDataService _waterLeakSensorDataService;
 
-        readonly IDoorSensorDataServer _doorSensorDataServer;
+        readonly IDoorSensorDataService _doorSensorDataServer;
 
         readonly IWindowSensorDataService _windowSensorDataService;
 
@@ -69,7 +68,7 @@ namespace SleepSure.ViewModel
 
         //Constructor for the LocationViewModel initialises the various device services
         public LocationViewModel(ICameraDataService cameraDataService, IDeviceLocationDataService deviceLocationDataService, IConfiguration AppConfig, IMotionSensorDataService motionSensorDataService,
-                                 ILightDataService lightsDataService, IWaterLeakSensorDataService waterLeakSensorDataService, IDoorSensorDataServer doorSensorDataServer, IWindowSensorDataService windowSensorDataService,
+                                 ILightDataService lightsDataService, IWaterLeakSensorDataService waterLeakSensorDataService, IDoorSensorDataService doorSensorDataServer, IWindowSensorDataService windowSensorDataService,
                                  ITemperatureSensorDataService temperatureSensorDataService, IHumiditySensorDataService humiditySensorDataService, IVibrationSensorDataService vibrationSensorDataService)
         {
             _cameraDataService = cameraDataService;
@@ -260,6 +259,30 @@ namespace SleepSure.ViewModel
                     case Light light:
                         await Shell.Current.GoToAsync($"{nameof(LightDetails)}",
                             new Dictionary<string, object> { { "Light", selectedObject } });
+                        break;
+                    case WaterLeakSensor waterLeakSensor:
+                        await Shell.Current.GoToAsync($"{nameof(WaterLeakSensorDetails)}",
+                            new Dictionary<string, object> { { "WaterLeakSensor", selectedObject } });
+                        break;
+                    case DoorSensor doorSensor:
+                        await Shell.Current.GoToAsync($"{nameof(DoorSensorDetails)}",
+                            new Dictionary<string, object> { { "DoorSensor", selectedObject } });
+                        break;
+                    case WindowSensor windowSensor:
+                        await Shell.Current.GoToAsync($"{nameof(WindowSensorDetails)}",
+                            new Dictionary<string, object> { { "WindowSensor", selectedObject } });
+                        break;
+                    case HumiditySensor humiditySensor:
+                        await Shell.Current.GoToAsync($"{nameof(HumiditySensorDetails)}",
+                            new Dictionary<string, object> { { "HumiditySensor", selectedObject } });
+                        break;
+                    case TemperatureSensor temperatureSensor:
+                        await Shell.Current.GoToAsync($"{nameof(TemperatureSensorDetails)}",
+                            new Dictionary<string, object> { { "TemperatureSensor", selectedObject } });
+                        break;
+                    case VibrationSensor vibrationSensor:
+                        await Shell.Current.GoToAsync($"{nameof(VibrationSensorDetails)}",
+                            new Dictionary<string, object> { { "VibrationSensor", selectedObject } });
                         break;
                     default:
                         await Shell.Current.DisplayAlert("Invalid","Invalid device","OK");

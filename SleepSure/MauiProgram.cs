@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SleepSure.Pages;
-using SleepSure.Pages.Device_Configuration;
 using SleepSure.Services;
 using SleepSure.Services.REST_Services;
 using SleepSure.ViewModel;
@@ -88,7 +87,7 @@ namespace SleepSure
             builder.Services.AddSingleton<IWaterLeakSensorDataService, WaterLeakSensorDBService>(
                 s => ActivatorUtilities.CreateInstance<WaterLeakSensorDBService>(s, databasePath));
 
-            builder.Services.AddSingleton<IDoorSensorDataServer, DoorSensorDBService>(
+            builder.Services.AddSingleton<IDoorSensorDataService, DoorSensorDBService>(
                 s => ActivatorUtilities.CreateInstance<DoorSensorDBService>(s, databasePath));
 
             builder.Services.AddSingleton<IWindowSensorDataService, WindowSensorDBDataService>(
@@ -148,7 +147,7 @@ namespace SleepSure
             builder.Services.AddTransient<CameraDetails>();
             //Register the camera details view model 
             builder.Services.AddTransient<CameraDetailsViewModel>();
-            //Register the motion details details page 
+            //Register the motion sensor details details page 
             builder.Services.AddTransient<MotionSensorDetails>();
             //Register the light details view model 
             builder.Services.AddTransient<MotionDetailsSensorViewModel>();
@@ -156,6 +155,30 @@ namespace SleepSure
             builder.Services.AddTransient<LightDetails>();
             //Register the light details view model 
             builder.Services.AddTransient<LightDetailsViewModel>();
+            //Register the waterleak sensor details details page 
+            builder.Services.AddTransient<WaterLeakSensorDetails>();
+            //Register the waterleak sensor details view model 
+            builder.Services.AddTransient<WaterLeakSensorDetailsViewModel>();
+            //Register the door sensor details details page 
+            builder.Services.AddTransient<DoorSensorDetails>();
+            //Register the door sensor details view model 
+            builder.Services.AddTransient<DoorSensorDetailsViewModel>();
+            //Register the window sensor details details page 
+            builder.Services.AddTransient<WindowSensorDetails>();
+            //Register the window sensor details view model 
+            builder.Services.AddTransient<WindowSensorDetailsViewModel>();
+            //Register the humidity sensor details details page 
+            builder.Services.AddTransient<HumiditySensorDetails>();
+            //Register the humidity sensor details view model 
+            builder.Services.AddTransient<HumiditySensorDetailsViewModel>();
+            ////Register the temperature sensor details details page 
+            builder.Services.AddTransient<TemperatureSensorDetails>();
+            //Register the temperature sensor details view model 
+            builder.Services.AddTransient<TemperatureSensorDetailsViewModel>();
+            //Register the vibration sensor details details page 
+            builder.Services.AddTransient<VibrationSensorDetails>();
+            //Register the vibration sensor details view model 
+            builder.Services.AddTransient<VibrationSensorDetailsViewModel>();
 
             return builder.Build();
         }

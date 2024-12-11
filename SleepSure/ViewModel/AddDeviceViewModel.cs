@@ -23,7 +23,7 @@ namespace SleepSure.ViewModel
 
         readonly IWaterLeakSensorDataService _waterLeakSensorDataService;
 
-        readonly IDoorSensorDataServer _doorSensorDataServer;
+        readonly IDoorSensorDataService _doorSensorDataServer;
 
         readonly IWindowSensorDataService _windowSensorDataService;
 
@@ -37,7 +37,7 @@ namespace SleepSure.ViewModel
         public ObservableCollection<Model.DeviceType> DeviceTypes { get; } = [];
 
         public AddDeviceViewModel(IDeviceTypeService DeviceTypeService, ICameraDataService cameraDataService, IDeviceLocationDataService deviceLocationDataService, IConfiguration AppConfig, IMotionSensorDataService motionSensorDataService,
-                                 ILightDataService lightsDataService, IWaterLeakSensorDataService waterLeakSensorDataService, IDoorSensorDataServer doorSensorDataServer, IWindowSensorDataService windowSensorDataService,
+                                 ILightDataService lightsDataService, IWaterLeakSensorDataService waterLeakSensorDataService, IDoorSensorDataService doorSensorDataServer, IWindowSensorDataService windowSensorDataService,
                                  ITemperatureSensorDataService temperatureSensorDataService, IHumiditySensorDataService humiditySensorDataService, IVibrationSensorDataService vibrationSensorDataService)
         {
             _deviceTypeService = DeviceTypeService;
