@@ -16,6 +16,7 @@ namespace SleepSure.Model
             Brightness = brightness;
             DeviceLocationId = deviceLocationId;
             PowerStatus = true;
+            OnOrOff = "On";
         }
     }
 }

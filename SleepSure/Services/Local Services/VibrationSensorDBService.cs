@@ -232,6 +232,11 @@ namespace SleepSure.Services
                 //Updates the camera details and records the result
                 result = await _connection.UpdateAsync(vibrationSensor);
 
+                if (vibrationSensor.PowerStatus)
+                    vibrationSensor.OnOrOff = "On";
+                else
+                    vibrationSensor.OnOrOff = "Off";
+
                 //Checks if the device has an internet connection
                 if (_internet != NetworkAccess.Internet)
                     return;

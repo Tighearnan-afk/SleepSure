@@ -12,6 +12,8 @@ namespace SleepSure.Model
         public bool PowerStatus { get; set; }
         public int DeviceLocationId { get; set; }
 
+        public string OnOrOff { get; set; }
+
         public BaseDevice() { }
     }
 }

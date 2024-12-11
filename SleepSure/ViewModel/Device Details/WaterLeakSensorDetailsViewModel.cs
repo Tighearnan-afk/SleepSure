@@ -7,11 +7,11 @@ using System.Diagnostics;
 
 namespace SleepSure.ViewModel
 {
-    [QueryProperty("MotionSensor", "MotionSensor")]
-    public partial class MotionDetailsSensorViewModel : BaseViewModel
+    [QueryProperty("WaterLeakSensor", "WaterLeakSensor")]
+    public partial class WaterLeakSensorDetailsViewModel : BaseViewModel
     {
         //A service that retrieves a list of cameras from a local SQLite database 
-        readonly IMotionSensorDataService _motionSensorDataService;
+        readonly IWaterLeakSensorDataService _waterLeakSensorDataService;
         //A service that retrieves a list of device locations from a local SQLite database
         readonly IDeviceLocationDataService _deviceLocationDataService;
         //A list that stores the available device types
@@ -20,16 +20,16 @@ namespace SleepSure.ViewModel
         public ObservableCollection<DeviceLocation> Locations { get; } = [];
 
         [ObservableProperty]
-        public MotionSensor _motionSensor;
+        public WaterLeakSensor _waterLeakSensor;
 
-        public MotionDetailsSensorViewModel(IMotionSensorDataService motionSensorDataService, IDeviceLocationDataService deviceLocationDataService)
+        public WaterLeakSensorDetailsViewModel(IWaterLeakSensorDataService waterLeakSensorDataService, IDeviceLocationDataService deviceLocationDataService)
         {
-            _motionSensorDataService = motionSensorDataService;
+            _waterLeakSensorDataService = waterLeakSensorDataService;
             _deviceLocationDataService = deviceLocationDataService;
         }
 
         [ObservableProperty]
-        public DeviceLocation _updatedMotionSensorLocation;
+        public DeviceLocation _updatedWaterLeakSensorLocation;
 
         [RelayCommand]
         public async Task RetrieveLocations()
@@ -54,15 +54,15 @@ namespace SleepSure.ViewModel
         [RelayCommand]
         public async Task UpdateMotionSensorAsync()
         {
-            if (MotionSensor is null)
+            if (WaterLeakSensor is null)
                 return;
 
             try
             {
                 IsBusy = true;
-                if (UpdatedMotionSensorLocation is not null)
-                    MotionSensor.DeviceLocationId = (int)UpdatedMotionSensorLocation.Id;
-                await _motionSensorDataService.UpdateMotionSensorAsync(MotionSensor);
+                if (UpdatedWaterLeakSensorLocation is not null)
+                    WaterLeakSensor.DeviceLocationId = (int)UpdatedWaterLeakSensorLocation.Id;
+                await _waterLeakSensorDataService.UpdateWaterLeakSensorAsync(WaterLeakSensor);
 
             }
             catch (Exception ex)
@@ -79,19 +79,19 @@ namespace SleepSure.ViewModel
         [RelayCommand]
         public async Task DeleteMotionSensorAsync()
         {
-            if (MotionSensor is null)
+            if (WaterLeakSensor is null)
                 return;
 
             try
             {
-                //Display an alert to confirm the user wishes to delete the motion sensor
-                var result = await Shell.Current.DisplayAlert("Confirm", $"Are you sure you want to delete {MotionSensor.Name}", "Yes", "No");
+                //Display an alert to confirm the user wishes to delete the waterleak sensor
+                var result = await Shell.Current.DisplayAlert("Confirm", $"Are you sure you want to delete {WaterLeakSensor.Name}", "Yes", "No");
                 //If the answer is no then return
                 if (result == false)
                     return;
 
                 IsBusy = true;
-                await _motionSensorDataService.DeleteMotionSensorAsync(MotionSensor);
+                await _waterLeakSensorDataService.DeleteWaterLeakSensorAsync(WaterLeakSensor);
 
             }
             catch (Exception ex)

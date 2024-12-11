@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SleepSure.Pages;
+using SleepSure.Pages.Device_Configuration;
 using SleepSure.Services;
 using SleepSure.Services.REST_Services;
 using SleepSure.ViewModel;
@@ -149,8 +150,12 @@ namespace SleepSure
             builder.Services.AddTransient<CameraDetailsViewModel>();
             //Register the motion details details page 
             builder.Services.AddTransient<MotionSensorDetails>();
-            //Register the camera details view model 
+            //Register the light details view model 
             builder.Services.AddTransient<MotionDetailsSensorViewModel>();
+            //Register the light details details page 
+            builder.Services.AddTransient<LightDetails>();
+            //Register the light details view model 
+            builder.Services.AddTransient<LightDetailsViewModel>();
 
             return builder.Build();
         }

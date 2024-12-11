@@ -4,6 +4,7 @@
     "Name": "Living Room Light",
     "Description": "Light in the living room",
     "Brightness": 89,
-    "DeviceLocationId": 1
+    "DeviceLocationId": 1,
+    "OnOrOff": "On"
   }
 ]

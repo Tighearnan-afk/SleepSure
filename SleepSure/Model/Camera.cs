@@ -15,6 +15,7 @@ namespace SleepSure.Model
             Description = description;
             DeviceLocationId = deviceLocationId;
             PowerStatus = true;
+            OnOrOff = "On";
         }
     }
 }

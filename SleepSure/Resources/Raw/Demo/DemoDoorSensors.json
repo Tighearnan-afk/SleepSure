@@ -7,6 +7,7 @@
     "Temperature": 89,
     "DeviceLocationId": 1,
     "PowerStatus": true,
+    "OnOrOff": "On",
     "IsOpen": false
   }
 ]

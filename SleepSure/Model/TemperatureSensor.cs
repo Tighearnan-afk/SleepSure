@@ -15,6 +15,7 @@ namespace SleepSure.Model
             Temperature = temperature;
             DeviceLocationId = deviceLocationId;
             PowerStatus = true;
+            OnOrOff = "On";
         }
     }
 }

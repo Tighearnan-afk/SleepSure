@@ -229,6 +229,11 @@ namespace SleepSure.Services
                 //Ensures the connection to the SQLite database is created
                 await Init();
 
+                if (windowSensor.PowerStatus)
+                    windowSensor.OnOrOff = "On";
+                else
+                    windowSensor.OnOrOff = "Off";
+
                 //Updates the camera details and records the result
                 result = await _connection.UpdateAsync(windowSensor);
 

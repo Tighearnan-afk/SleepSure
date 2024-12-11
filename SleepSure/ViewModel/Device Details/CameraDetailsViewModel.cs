@@ -84,6 +84,12 @@ namespace SleepSure.ViewModel
 
             try
             {
+                //Display an alert to confirm the user wishes to delete the camera
+                var result = await Shell.Current.DisplayAlert("Confirm", $"Are you sure you want to delete {Camera.Name}", "Yes", "No");
+                //If the answer is no then return
+                if (result == false)
+                    return;
+
                 IsBusy = true;
                 await _cameraDataService.DeleteCameraAsync(Camera);
 

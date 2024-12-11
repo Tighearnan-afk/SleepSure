@@ -4,6 +4,7 @@
     "Name": "Living Room Camera",
     "Description": "The living room camera is located in the corner of the room, facing the sofa and TV.",
     "DeviceLocationId": 1,
-    "PowerStatus": true
+    "PowerStatus": true,
+    "OnOrOff": "On"
   }
 ]

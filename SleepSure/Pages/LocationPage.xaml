@@ -85,7 +85,7 @@
                                            Grid.Column="1"
                                            Grid.Row="0" />
 
-                                    <Label Text="{Binding PowerStatus}"
+                                    <Label Text="{Binding OnOrOff}"
                                            TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
                                            Grid.Column="1"
                                            Grid.Row="1" />
@@ -138,7 +138,7 @@
                                            Grid.Column="1"
                                            Grid.Row="0" />
 
-                                    <Label Text="{Binding PowerStatus}"
+                                    <Label Text="{Binding OnOrOff}"
                                            TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
                                            Grid.Column="1"
                                            Grid.Row="1" />
@@ -172,7 +172,7 @@
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer CommandParameter="{Binding .}"
                                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
-                                        Path=GoToDeviceDetailsCommand}"
+                                                                    Path=GoToDeviceDetailsCommand}"
                                                           NumberOfTapsRequired="1" />
                                 </Border.GestureRecognizers>
                                 <Grid ColumnDefinitions="*,3*"
@@ -196,7 +196,7 @@
                                            Grid.Column="1"
                                            Grid.Row="0" />
 
-                                    <Label Text="{Binding PowerStatus}"
+                                    <Label Text="{Binding OnOrOff}"
                                            TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
                                            Grid.Column="1"
                                            Grid.Row="1" />
@@ -254,7 +254,7 @@
                                            Grid.Column="1"
                                            Grid.Row="0" />
 
-                                    <Label Text="{Binding PowerStatus}"
+                                    <Label Text="{Binding OnOrOff}"
                                            TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
                                            Grid.Column="1"
                                            Grid.Row="1" />
@@ -288,7 +288,7 @@
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer CommandParameter="{Binding .}"
                                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
-                                                        Path=GoToDeviceDetailsCommand}"
+                                                                    Path=GoToDeviceDetailsCommand}"
                                                           NumberOfTapsRequired="1" />
                                 </Border.GestureRecognizers>
                                 <Grid ColumnDefinitions="*,3*"
@@ -312,7 +312,7 @@
                                            Grid.Column="1"
                                            Grid.Row="0" />
 
-                                    <Label Text="{Binding PowerStatus}"
+                                    <Label Text="{Binding OnOrOff}"
                                            TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
                                            Grid.Column="1"
                                            Grid.Row="1" />
@@ -370,7 +370,7 @@
                                            Grid.Column="1"
                                            Grid.Row="0" />
 
-                                    <Label Text="{Binding PowerStatus}"
+                                    <Label Text="{Binding OnOrOff}"
                                            TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
                                            Grid.Column="1"
                                            Grid.Row="1" />
@@ -428,7 +428,7 @@
                                            Grid.Column="1"
                                            Grid.Row="0" />
 
-                                    <Label Text="{Binding PowerStatus}"
+                                    <Label Text="{Binding OnOrOff}"
                                            TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
                                            Grid.Column="1"
                                            Grid.Row="1" />
@@ -486,7 +486,7 @@
                                            Grid.Column="1"
                                            Grid.Row="0" />
 
-                                    <Label Text="{Binding PowerStatus}"
+                                    <Label Text="{Binding OnOrOff}"
                                            TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
                                            Grid.Column="1"
                                            Grid.Row="1" />
@@ -545,7 +545,7 @@
                                            Grid.Column="1"
                                            Grid.Row="0" />
 
-                                    <Label Text="{Binding PowerStatus}"
+                                    <Label Text="{Binding OnOrOff}"
                                            TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
                                            Grid.Column="1"
                                            Grid.Row="1" />

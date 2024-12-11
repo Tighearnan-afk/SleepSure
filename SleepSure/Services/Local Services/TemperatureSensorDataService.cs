@@ -229,6 +229,11 @@ namespace SleepSure.Services
                 //Ensures the connection to the SQLite database is created
                 await Init();
 
+                if (temperatureSensor.PowerStatus)
+                    temperatureSensor.OnOrOff = "On";
+                else
+                    temperatureSensor.OnOrOff = "Off";
+
                 //Updates the camera details and records the result
                 result = await _connection.UpdateAsync(temperatureSensor);
 

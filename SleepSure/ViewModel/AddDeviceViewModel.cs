@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Configuration;
 using SleepSure.Model;
 using SleepSure.Services;
 using System.Collections.ObjectModel;
@@ -17,14 +18,38 @@ namespace SleepSure.ViewModel
         readonly ICameraDataService _cameraDataService;
 
         readonly IMotionSensorDataService _motionSensorDataService;
+
+        readonly ILightDataService _lightsDataService;
+
+        readonly IWaterLeakSensorDataService _waterLeakSensorDataService;
+
+        readonly IDoorSensorDataServer _doorSensorDataServer;
+
+        readonly IWindowSensorDataService _windowSensorDataService;
+
+        readonly ITemperatureSensorDataService _temperatureSensorDataService;
+
+        readonly IHumiditySensorDataService _humiditySensorDataService;
+
+        readonly IVibrationSensorDataService _vibrationSensorDataService;
+
         //A list that stores the available device types
         public ObservableCollection<Model.DeviceType> DeviceTypes { get; } = [];
 
-        public AddDeviceViewModel(IDeviceTypeService DeviceTypeService, ICameraDataService cameraDataService, IMotionSensorDataService motionSensorDataService)
+        public AddDeviceViewModel(IDeviceTypeService DeviceTypeService, ICameraDataService cameraDataService, IDeviceLocationDataService deviceLocationDataService, IConfiguration AppConfig, IMotionSensorDataService motionSensorDataService,
+                                 ILightDataService lightsDataService, IWaterLeakSensorDataService waterLeakSensorDataService, IDoorSensorDataServer doorSensorDataServer, IWindowSensorDataService windowSensorDataService,
+                                 ITemperatureSensorDataService temperatureSensorDataService, IHumiditySensorDataService humiditySensorDataService, IVibrationSensorDataService vibrationSensorDataService)
         {
             _deviceTypeService = DeviceTypeService;
             _cameraDataService = cameraDataService;
             _motionSensorDataService = motionSensorDataService;
+            _lightsDataService = lightsDataService;
+            _waterLeakSensorDataService = waterLeakSensorDataService;
+            _doorSensorDataServer = doorSensorDataServer;
+            _windowSensorDataService = windowSensorDataService;
+            _temperatureSensorDataService = temperatureSensorDataService;
+            _humiditySensorDataService = humiditySensorDataService;
+            _vibrationSensorDataService = vibrationSensorDataService;
         }
 
         [ObservableProperty]
@@ -90,6 +115,27 @@ namespace SleepSure.ViewModel
                         break;
                     case "Motion Sensor":
                         await _motionSensorDataService.AddMotionSensorAsync(NewDeviceName, NewDeviceDescription, random.Next(0, 100), random.Next(0, 32), (int)Location.Id);
+                        break;
+                    case "Door Sensor":
+                        await _doorSensorDataServer.AddDoorSensorAsync(NewDeviceName, NewDeviceDescription, random.Next(0, 100), random.Next(0, 32), (int)Location.Id);
+                        break;
+                    case "Window Sensor":
+                        await _windowSensorDataService.AddWindowSensorAsync(NewDeviceName, NewDeviceDescription, random.Next(0, 100), random.Next(0, 32), (int)Location.Id);
+                        break;
+                    case "Temperature Sensor":
+                        await _temperatureSensorDataService.AddTemperatureSensorAsync(NewDeviceName, NewDeviceDescription, random.Next(0, 100), random.Next(0, 32), (int)Location.Id);
+                        break;
+                    case "Humidity Sensor":
+                        await _humiditySensorDataService.AddHumiditySensorAsync(NewDeviceName, NewDeviceDescription, random.Next(0, 100), random.Next(0, 32), random.Next(0,100), (int)Location.Id);
+                        break;
+                    case "Vibration Sensor":
+                        await _vibrationSensorDataService.AddVibrationSensorAsync(NewDeviceName, NewDeviceDescription, random.Next(0, 100), random.Next(0, 32), (int)Location.Id);
+                        break;
+                    case "Waterleak Sensor":
+                        await _waterLeakSensorDataService.AddWaterLeakSensorAsync(NewDeviceName, NewDeviceDescription, random.Next(0, 100), random.Next(0, 32), (int)Location.Id);
+                        break;
+                    case "Light":
+                        await _lightsDataService.AddLightAsync(NewDeviceName, NewDeviceDescription, 100, (int)Location.Id);
                         break;
                     default:
                         return;

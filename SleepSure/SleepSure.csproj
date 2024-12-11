@@ -84,6 +84,9 @@
 	  <MauiXaml Update="Pages\Device Configuration\CameraDetails.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\Device Configuration\LightDetails.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\Device Configuration\MotionSensorDetails.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

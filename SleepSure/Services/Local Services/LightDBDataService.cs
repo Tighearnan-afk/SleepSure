@@ -230,6 +230,11 @@ namespace SleepSure.Services
                 //Updates the camera details and records the result
                 result = await _connection.UpdateAsync(light);
 
+                if (light.PowerStatus)
+                    light.OnOrOff = "On";
+                else
+                    light.OnOrOff = "Off";
+
                 //Checks if the device has an internet connection
                 if (_internet != NetworkAccess.Internet)
                     return;

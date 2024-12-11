@@ -230,6 +230,11 @@ namespace SleepSure.Services
                 //Ensures the connection to the SQLite database is created
                 await Init();
 
+                if (waterLeakSensor.PowerStatus)
+                    waterLeakSensor.OnOrOff = "On";
+                else
+                    waterLeakSensor.OnOrOff = "Off";
+
                 //Updates the camera details and records the result
                 result = await _connection.UpdateAsync(waterLeakSensor);
 

@@ -6,6 +6,7 @@
     "BatteryLife": 87,
     "Temperature": 89,
     "DeviceLocationId": 1,
-    "PowerStatus": true
+    "PowerStatus": true,
+    "OnOrOff": "On"
   }
 ]

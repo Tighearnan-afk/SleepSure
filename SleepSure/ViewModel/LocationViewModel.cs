@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using SleepSure.Model;
 using SleepSure.Pages;
+using SleepSure.Pages.Device_Configuration;
 using SleepSure.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -256,6 +257,10 @@ namespace SleepSure.ViewModel
                         await Shell.Current.GoToAsync($"{nameof(MotionSensorDetails)}",
                             new Dictionary<string, object> { { "MotionSensor", selectedObject } });
                         break;
+                    case Light light:
+                        await Shell.Current.GoToAsync($"{nameof(LightDetails)}",
+                            new Dictionary<string, object> { { "Light", selectedObject } });
+                        break;
                     default:
                         await Shell.Current.DisplayAlert("Invalid","Invalid device","OK");
                         break;
@@ -336,8 +341,9 @@ namespace SleepSure.ViewModel
 
             try
             {
+                //Display an alert to confirm the user wishes to delete the room
                 var result = await Shell.Current.DisplayAlert("Confirm", $"Are you sure you want to delete {Location.LocationName}","Yes","No");
-
+                //If the answer is no then return
                 if (result == false)
                     return;
 
