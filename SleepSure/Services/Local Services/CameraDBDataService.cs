@@ -162,6 +162,11 @@ namespace SleepSure.Services
                         //If the camera is not present it is inserted into the local SQLite database
                         await AddCameraAsync(restCamera.Name, restCamera.Description, restCamera.DeviceLocationId);
                     }
+                    if (LocalCameras.Any(l => l.Id == restCamera.Id && l.PowerStatus != restCamera.PowerStatus))
+                    {
+                        //If the camera is turned off in the REST API in memory database turn the camera off in the local SQLite database
+                        await UpdateCameraAsync(restCamera);
+                    }
                 }
 
             }

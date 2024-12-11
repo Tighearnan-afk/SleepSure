@@ -14,7 +14,9 @@
     <Color x:Key="Tertiary">#2B0B98</Color>-->
 
     <Color x:Key="Primary">#2378c9</Color>
+    <Color x:Key="PrimaryBackground">#44299E</Color>
     <Color x:Key="PrimaryDark">#4c98e0</Color>
+    <Color x:Key="PrimaryDarkBackground">#9075e7</Color>
     <Color x:Key="PrimaryDarkText">#FFF</Color>
     <Color x:Key="Secondary">#d7ab0c</Color>
     <Color x:Key="SecondaryDarkText">#f3c623</Color>

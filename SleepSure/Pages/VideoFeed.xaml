@@ -44,8 +44,7 @@
                     Command="{Binding GoToVideoArchiveCommand}"
                     StyleClass="FilledButton"
                     WidthRequest="150"
-                    HorizontalOptions="Start"
-                    />
+                    HorizontalOptions="Start"/>
 
             <Button Text="Record"
                     Command="{Binding RecordVideoCommand}"

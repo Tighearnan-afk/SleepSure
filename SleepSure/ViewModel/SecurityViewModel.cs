@@ -77,6 +77,12 @@ namespace SleepSure.ViewModel
             //Ensures the selected camera exists
             if (camera is null)
                 return;
+
+            if(!camera.PowerStatus)
+            {
+                await Shell.Current.DisplayAlert("No Power",$"Please turn on the {camera.Name} camera to resume the livestream","OK");
+                return;
+            }
             //Navigate to the video feed page passing the selected camera object within a dictionary and a true value for animate
             await Shell.Current.GoToAsync($"{nameof(VideoFeed)}", true,
                 new Dictionary<string, object> { { "Camera", camera } });

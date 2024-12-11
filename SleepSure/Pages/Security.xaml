@@ -99,9 +99,11 @@
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="5" />
                                 </Border.StrokeShape>
-                                <Grid ColumnDefinitions="*,1.75*">
+                                <Grid ColumnDefinitions="*,1.75*"
+                                      RowDefinitions="*,*">
                                     <Image x:Name="BackWallCamera"
-                                           Source="placeholdervideo.png">
+                                           Source="placeholdervideo.png"
+                                           Grid.RowSpan="2">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer CommandParameter="{Binding .}"
                                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SecurityViewModel}},
@@ -112,10 +114,17 @@
 
                                     <Label Text="{Binding Name}"
                                            TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           FontSize="Large"
+                                           FontSize="Title"
                                            Grid.Column="1"
                                            HorizontalOptions="CenterAndExpand"
                                            VerticalOptions="Center"/>
+                                    <Label Text="{Binding OnOrOff}"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           FontSize="Subtitle"
+                                           Grid.Column="1"
+                                           HorizontalOptions="CenterAndExpand"
+                                           VerticalOptions="Center"
+                                           Grid.Row="1"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>

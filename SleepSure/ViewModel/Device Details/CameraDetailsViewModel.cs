@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SleepSure.Model;
+using SleepSure.Pages;
 using SleepSure.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -102,6 +103,31 @@ namespace SleepSure.ViewModel
             {
                 IsBusy = false;
                 await Shell.Current.GoToAsync("..");
+            }
+        }
+
+        [RelayCommand]
+        public async Task GoToVideoArchiveAsync()
+        {
+            if (Camera is null)
+                return;
+
+            if (IsBusy)
+                return;
+            try
+            {
+                IsBusy = true;
+                //Navigate to the video archive page passing the selected camera object within a dictionary and a true value for animate
+                await Shell.Current.GoToAsync($"{nameof(VideoArchive)}", true,
+                    new Dictionary<string, object> { { "Camera", Camera } });
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
     }

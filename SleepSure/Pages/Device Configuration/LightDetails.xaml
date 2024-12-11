@@ -12,8 +12,7 @@
     <ScrollView>
         <Border Stroke="Black"
                 StrokeThickness="0.4"
-                MaximumWidthRequest="375"
-                BackgroundColor="{StaticResource Gray100}">
+                MaximumWidthRequest="375">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="5" />
             </Border.StrokeShape>
@@ -69,8 +68,6 @@
                        HorizontalOptions="Center" />
 
                 <Switch IsToggled="{Binding Light.PowerStatus}"
-                        ThumbColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                        OnColor="Green"
                         HorizontalOptions="Start"
                         Margin="10" />
 
