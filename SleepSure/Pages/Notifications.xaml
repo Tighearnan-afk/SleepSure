@@ -16,46 +16,49 @@
                 <CollectionView ItemsSource="{Binding Alarms}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Alarm">
-                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    StrokeThickness="0.4"
-                                    Padding="10"
-                                    Margin="10"
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    WidthRequest="{OnIdiom Desktop=600,Phone=350}">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="5" />
-                                </Border.StrokeShape>
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:NotificationViewModel}},
-                                                            Path=DeleteAlarmCommand}"
-                                                          NumberOfTapsRequired="1" />
-                                </Border.GestureRecognizers>
-                                <Grid ColumnDefinitions="*"
-                                      RowDefinitions="*,*,*,*"
-                                      HorizontalOptions="FillAndExpand"
-                                      RowSpacing="10">
-                                    <Label Text="{Binding EventName}"
-                                           FontSize="Title"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           HorizontalOptions="Center"
-                                           Grid.Row="0"/>
-                                    <BoxView Color="{StaticResource Black}"
-                                             HeightRequest="0.5"
-                                             HorizontalOptions="FillAndExpand"
-                                             Grid.Row="1"/>
-                                    <Label Text="{Binding EventDescription}"
-                                           FontSize="Small"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           HorizontalOptions="Center"
-                                           Grid.Row="2" />
-                                    <Label Text="{Binding DateTime}"
-                                           FontSize="Small"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           HorizontalOptions="Center"
-                                           Grid.Row="3" />
-                                </Grid>
-                            </Border>
+                            <StackLayout Orientation="Vertical"
+                                         Margin="10">
+                                <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        StrokeThickness="0.4"
+                                        Padding="10"
+                                        Margin="10"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        WidthRequest="{OnIdiom Desktop=600,Phone=350}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5" />
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:NotificationViewModel}},
+                                                                Path=DeleteAlarmCommand}"
+                                                              NumberOfTapsRequired="1" />
+                                    </Border.GestureRecognizers>
+                                    <Grid ColumnDefinitions="*"
+                                          RowDefinitions="*,*,*,*"
+                                          HorizontalOptions="FillAndExpand"
+                                          RowSpacing="10">
+                                        <Label Text="{Binding EventName}"
+                                               FontSize="Title"
+                                               TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                               HorizontalOptions="Center"
+                                               Grid.Row="0"/>
+                                        <BoxView Color="{StaticResource Black}"
+                                                 HeightRequest="0.5"
+                                                 HorizontalOptions="FillAndExpand"
+                                                 Grid.Row="1"/>
+                                        <Label Text="{Binding EventDescription}"
+                                               FontSize="Small"
+                                               TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                               HorizontalOptions="Center"
+                                               Grid.Row="2" />
+                                        <Label Text="{Binding DateTime}"
+                                               FontSize="Small"
+                                               TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                               HorizontalOptions="Center"
+                                               Grid.Row="3" />
+                                    </Grid>
+                                </Border>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                     <CollectionView.EmptyView>

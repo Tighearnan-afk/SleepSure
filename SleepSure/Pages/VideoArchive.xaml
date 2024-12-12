@@ -12,35 +12,40 @@
         <CollectionView ItemsSource="{Binding Videos}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Video">
-                    <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
-                            StrokeThickness="0.4"
-                            Margin="10"
-                            StyleClass="Elevation1">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5" />
-                        </Border.StrokeShape>
-                        <Grid ColumnDefinitions="*,*,*"
-                              RowDefinitions="4*,*"
-                              Margin="10">
+                    <StackLayout Orientation="Vertical"
+                                 Margin="10">
+                        <Border Stroke="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
+                                StrokeThickness="0.4"
+                                Margin="10"
+                                StyleClass="Elevation1"
+                                WidthRequest="{OnIdiom Default=600,Phone=380}"
+                                HeightRequest="{OnIdiom Default=500,Phone=200}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5" />
+                            </Border.StrokeShape>
+                            <Grid ColumnDefinitions="*,*,*"
+                                  RowDefinitions="4*,*"
+                                  Margin="10">
 
-                            <toolkit:MediaElement Source="{Binding MediaSource}"
-                                                  ShouldShowPlaybackControls="True"
-                                                  ShouldAutoPlay="False"
-                                                  HorizontalOptions="CenterAndExpand"
-                                                  MaximumWidthRequest="{OnIdiom Default=600,Phone=380}"
-                                                  MaximumHeightRequest="{OnIdiom Default=400,Phone=200}"
-                                                  Aspect="AspectFill"
-                                                  Grid.ColumnSpan="3">
-                            </toolkit:MediaElement>
-                            <Button Text="Delete"
-                                    StyleClass="FilledButton"
-                                    BackgroundColor="{StaticResource Warning}"
-                                    Grid.Row="2"
-                                    CommandParameter="{Binding .}"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:VideoArchiveViewModel}},
-                                                                            Path=DeleteVideoCommand}" />
-                        </Grid>
-                    </Border>
+                                <toolkit:MediaElement Source="{Binding MediaSource}"
+                                                      ShouldShowPlaybackControls="True"
+                                                      ShouldAutoPlay="False"
+                                                      HorizontalOptions="CenterAndExpand"
+                                                      WidthRequest="{OnIdiom Default=600,Phone=380}"
+                                                      HeightRequest="{OnIdiom Default=400,Phone=100}"
+                                                      Aspect="AspectFill"
+                                                      Grid.ColumnSpan="3">
+                                </toolkit:MediaElement>
+                                <Button Text="Delete"
+                                        StyleClass="FilledButton"
+                                        BackgroundColor="{StaticResource Warning}"
+                                        Grid.Row="2"
+                                        CommandParameter="{Binding .}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:VideoArchiveViewModel}},
+                                                                                Path=DeleteVideoCommand}" />
+                            </Grid>
+                        </Border>
+                    </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
             <CollectionView.EmptyView>

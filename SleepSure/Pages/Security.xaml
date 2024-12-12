@@ -92,41 +92,44 @@
                 <CollectionView ItemsSource="{Binding Cameras}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Camera">
-                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    StrokeThickness="0.4"
-                                    Padding="0,0,5,0"
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="5" />
-                                </Border.StrokeShape>
-                                <Grid ColumnDefinitions="*,1.75*"
-                                      RowDefinitions="*,*">
-                                    <Image x:Name="BackWallCamera"
-                                           Source="placeholdervideo.png"
-                                           Grid.RowSpan="2">
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SecurityViewModel}},
+                            <StackLayout Orientation="Vertical"
+                                         Margin="20">
+                                <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        StrokeThickness="0.4"
+                                        Padding="0,0,5,0"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5" />
+                                    </Border.StrokeShape>
+                                    <Grid ColumnDefinitions="*,1.75*"
+                                          RowDefinitions="*,*">
+                                        <Image x:Name="BackWallCamera"
+                                               Source="placeholdervideo.png"
+                                               Grid.RowSpan="2">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SecurityViewModel}},
                                                                             Path=GoToVideoFeedCommand}"
-                                                                  NumberOfTapsRequired="1" />
-                                        </Image.GestureRecognizers>
-                                    </Image>
+                                                                      NumberOfTapsRequired="1" />
+                                            </Image.GestureRecognizers>
+                                        </Image>
 
-                                    <Label Text="{Binding Name}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           FontSize="Title"
-                                           Grid.Column="1"
-                                           HorizontalOptions="CenterAndExpand"
-                                           VerticalOptions="Center"/>
-                                    <Label Text="{Binding OnOrOff}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           FontSize="Subtitle"
-                                           Grid.Column="1"
-                                           HorizontalOptions="CenterAndExpand"
-                                           VerticalOptions="Center"
-                                           Grid.Row="1"/>
-                                </Grid>
-                            </Border>
+                                        <Label Text="{Binding Name}"
+                                               TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                               FontSize="Title"
+                                               Grid.Column="1"
+                                               HorizontalOptions="CenterAndExpand"
+                                               VerticalOptions="Center" />
+                                        <Label Text="{Binding OnOrOff}"
+                                               TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                               FontSize="Subtitle"
+                                               Grid.Column="1"
+                                               HorizontalOptions="CenterAndExpand"
+                                               VerticalOptions="Center"
+                                               Grid.Row="1" />
+                                    </Grid>
+                                </Border>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                     <CollectionView.EmptyView>

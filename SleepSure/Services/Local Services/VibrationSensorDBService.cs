@@ -8,11 +8,11 @@ namespace SleepSure.Services
     public class VibrationSensorDBService : IVibrationSensorDataService
     {
         //Network access variable that will be used to determine if the device has an internet connection
-        NetworkAccess _internet;
+        readonly NetworkAccess _internet;
         //REST API service for vibration sensors
-        IVibrationSensorRESTService _vibrationRESTService;
+        readonly IVibrationSensorRESTService _vibrationRESTService;
         //Alarm service for raising alarms
-        IAlarmDataService _alarmDataService;
+        readonly IAlarmDataService _alarmDataService;
 
         //List of vibration sensors retrieved from the REST API
         public List<VibrationSensor> RESTVibrationSensors { get; private set; } = [];

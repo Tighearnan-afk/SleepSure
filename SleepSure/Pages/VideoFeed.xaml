@@ -11,12 +11,16 @@
     
     <Border Stroke="Black"
             StrokeThickness="0.4"
-            HorizontalOptions="CenterAndExpand">
+            HorizontalOptions="CenterAndExpand"
+            WidthRequest="{OnIdiom Default=800,Phone=380}"
+            HeightRequest="{OnIdiom Default=700,Phone=400}">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="5" />
+        </Border.StrokeShape>
         <StackLayout Orientation="Vertical">
         
             <StackLayout Orientation="Horizontal"
-                         Padding="10"
-                         WidthRequest="625">
+                         Padding="10">
 
                 <toolkit:MediaElement x:Name="Stream"
                     Source="{OnPlatform WinUI=embed://motion_detected.mp4, Android=rtsp://rtspstream:4df0a9f80e31539d4408952ab4d4e18a@zephyr.rtsp.stream/pattern}"
@@ -24,8 +28,8 @@
                     ShouldShowPlaybackControls="False"
                     ShouldLoopPlayback="True"                  
                     HorizontalOptions="CenterAndExpand"
-                    MaximumWidthRequest="{OnIdiom Default=600,Phone=380}"
-                    MaximumHeightRequest="{OnIdiom Default=400,Phone=200}"
+                    WidthRequest="{OnIdiom Default=800,Phone=380}"
+                    HeightRequest="{OnIdiom Default=600,Phone=100}"
                     Aspect="AspectFill">
                 </toolkit:MediaElement>
 
@@ -50,7 +54,8 @@
                     Command="{Binding RecordVideoCommand}"
                     StyleClass="FilledButton"
                     WidthRequest="150"
-                    HorizontalOptions="EndAndExpand"/>
+                    HorizontalOptions="EndAndExpand"
+                    Margin="0,0,10,0"/>
             </StackLayout>
 
         </StackLayout>

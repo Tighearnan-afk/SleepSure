@@ -543,27 +543,30 @@
                 <CollectionView ItemsSource="{Binding Locations}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:DeviceLocation">
-                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    StrokeThickness="0.4"
-                                    Padding="10"
-                                    Margin="10"
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    HeightRequest="50"
-                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="5" />
-                                </Border.StrokeShape>
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DashboardViewModel}},
-                                                                    Path=GoToLocationCommand}"
-                                                            NumberOfTapsRequired="1" />
-                                </Border.GestureRecognizers>
-                                <Label Text="{Binding LocationName}"
-                                        FontSize="Title"                               
-                                        TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                        HorizontalOptions="Center"/>
-                            </Border>
+                            <StackLayout Orientation="Vertical"
+                                         Margin="20">
+                                <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        StrokeThickness="0.4"
+                                        Padding="10"
+                                        Margin="10"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        HeightRequest="50"
+                                        WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5" />
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DashboardViewModel}},
+                                                                        Path=GoToLocationCommand}"
+                                                              NumberOfTapsRequired="1" />
+                                    </Border.GestureRecognizers>
+                                    <Label Text="{Binding LocationName}"
+                                           FontSize="Title"
+                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                           HorizontalOptions="Center" />
+                                </Border>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 <CollectionView.EmptyView>
