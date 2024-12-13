@@ -14,21 +14,24 @@
             <ToolbarItem.IconImageSource>
                 <FontImageSource FontFamily="MaterialRounded"
                                  Glyph="{x:Static m:MaterialRounded.Edit_square}"
-                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}" />
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                 Size="{OnIdiom Default=100, Phone=50}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
         <ToolbarItem Command="{Binding GoToCreatePageCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource FontFamily="MaterialRounded"
                                  Glyph="{x:Static m:MaterialRounded.Add_circle}"
-                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}" />
+                                 Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                 Size="{OnIdiom Default=100, Phone=50}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
         <ToolbarItem Command="{Binding DeleteLocationCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource FontFamily="MaterialRounded"
                                  Glyph="{x:Static m:MaterialRounded.Delete}"
-                                 Color="{StaticResource Warning}" />
+                                 Color="{StaticResource Warning}"
+                                 Size="{OnIdiom Default=100, Phone=50}"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
@@ -36,8 +39,8 @@
     <RefreshView IsRefreshing="{Binding IsRefreshing}"
                  Command="{Binding SyncDevicesCommand}">
         <ScrollView>
-            <StackLayout Orientation="Vertical" Spacing="{OnIdiom Desktop=10,Phone=0}">
-                <!--Windows does not support refreshviews therefore I've added this button to showcase functionality-->
+            <StackLayout Orientation="Vertical">
+                <!--I couldn't get refresh views to work with windows so I've added this image button to sync with the REST API on windows-->
                 <ImageButton IsVisible="{OnPlatform WinUI=True,Default=False}"
                              Command="{Binding SyncDevicesCommand}">
                     <ImageButton.Source>
@@ -49,518 +52,926 @@
                 <CollectionView ItemsSource="{Binding Cameras}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Camera">
-                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    StrokeThickness="0.4"
-                                    Margin="10"
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    HeightRequest="100"
-                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="5" />
-                                </Border.StrokeShape>
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                            <StackLayout Orientation="Vertical"
+                                         Margin="20">
+                                <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        StrokeThickness="0.4"
+                                        Margin="10"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5" />
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
                                                                     Path=GoToDeviceDetailsCommand}"
-                                                          NumberOfTapsRequired="1" />
-                                </Border.GestureRecognizers>
-                                <Grid ColumnDefinitions="*,3*"
-                                      RowDefinitions="*,*,*"
-                                      Margin="10">
+                                                              NumberOfTapsRequired="1" />
+                                    </Border.GestureRecognizers>
+                                    <Grid ColumnDefinitions="*,3*"
+                                          RowDefinitions="*,*,*"
+                                          Margin="10">
 
-                                    <Image Grid.Row="0"
-                                           Grid.Column="0"
-                                           Grid.RowSpan="3"
-                                           Margin="0,0,10,0">
-                                        <Image.Source>
-                                            <FontImageSource FontFamily="MaterialRounded"
-                                                             Glyph="{x:Static m:MaterialRounded.Speed_camera}"
-                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
-                                                             Size="{OnIdiom Default=100, Phone=25}" />
-                                        </Image.Source>
-                                    </Image>
+                                        <Image Grid.Row="0"
+                                               Grid.Column="0"
+                                               Grid.RowSpan="3"
+                                               Margin="0,0,10,0">
+                                            <Image.Source>
+                                                <FontImageSource FontFamily="MaterialRounded"
+                                                                 Glyph="{x:Static m:MaterialRounded.Speed_camera}"
+                                                                 Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                                 Size="{OnIdiom Default=100, Phone=50}" />
+                                            </Image.Source>
+                                        </Image>
 
-                                    <Label Text="{Binding Name}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="0" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Name: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold"/>
+                                                    <Span Text="{Binding Name}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <!--Retrieved from "https://www.youtube.com/watch?v=hdZgsRBIoes"-->
+                                        <Label Grid.Column="1"
+                                               Grid.Row="1">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Power Status: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding OnOrOff}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding OnOrOff}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="1" />
-
-                                    <Label Text="{Binding Description}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="2" />
-                                </Grid>
-                            </Border>
+                                        <Label Grid.Column="1"
+                                               Grid.Row="2">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Description: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Description}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                </Border>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
                 <CollectionView ItemsSource="{Binding MotionSensors}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:MotionSensor">
-                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    StrokeThickness="0.4"
-                                    Margin="10"
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    HeightRequest="100"
-                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="5" />
-                                </Border.StrokeShape>
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                            <StackLayout Orientation="Vertical"
+                                         Margin="20">
+                                <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        StrokeThickness="0.4"
+                                        Margin="10"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5" />
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
                                                     Path=GoToDeviceDetailsCommand}"
-                                                          NumberOfTapsRequired="1" />
-                                </Border.GestureRecognizers>
-                                <Grid ColumnDefinitions="*,3*"
-                                      RowDefinitions="*,*,*,*"
-                                      Margin="10">
+                                                              NumberOfTapsRequired="1" />
+                                    </Border.GestureRecognizers>
+                                    <Grid ColumnDefinitions="*,3*"
+                                          RowDefinitions="*,*,*,*,*"
+                                          Margin="10">
 
-                                    <Image Grid.Row="0"
-                                           Grid.Column="0"
-                                           Grid.RowSpan="4"
-                                           Margin="0,0,10,0">
-                                        <Image.Source>
-                                            <FontImageSource FontFamily="MaterialRounded"
-                                                             Glyph="{x:Static m:MaterialRounded.Motion_sensor_idle}"
-                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
-                                                             Size="{OnIdiom Default=100, Phone=25}" />
-                                        </Image.Source>
-                                    </Image>
+                                        <Image Grid.Row="0"
+                                               Grid.Column="0"
+                                               Grid.RowSpan="5"
+                                               Margin="0,0,10,0">
+                                            <Image.Source>
+                                                <FontImageSource FontFamily="MaterialRounded"
+                                                                 Glyph="{x:Static m:MaterialRounded.Motion_sensor_idle}"
+                                                                 Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                                 Size="{OnIdiom Default=100, Phone=50}" />
+                                            </Image.Source>
+                                        </Image>
 
-                                    <Label Text="{Binding Name}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="0" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Name: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Name}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        
+                                        <Label Grid.Column="1"
+                                               Grid.Row="1">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Power Status: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding OnOrOff}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding OnOrOff}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="1" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="2">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Motion Detected: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding MotionDetected}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding MotionDetected}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="2" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="3">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Battery Level: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding BatteryLife}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                    <Span Text="%"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding Description}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="3" />
-                                </Grid>
-                            </Border>
+                                        <Label Grid.Column="1"
+                                               Grid.Row="4">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Description: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Description}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                </Border>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
                 <CollectionView ItemsSource="{Binding Lights}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Light">
-                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    StrokeThickness="0.4"
-                                    Margin="10"
-                                    BackgroundColor="Yellow"
-                                    HeightRequest="100"
-                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="5" />
-                                </Border.StrokeShape>
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
-                                                                    Path=GoToDeviceDetailsCommand}"
-                                                          NumberOfTapsRequired="1" />
-                                </Border.GestureRecognizers>
-                                <Grid ColumnDefinitions="*,3*"
-                                      RowDefinitions="*,*,*,*"
-                                      Margin="10">
+                            <StackLayout Orientation="Vertical"
+                                         Margin="20">
+                                <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        StrokeThickness="0.4"
+                                        Margin="10"
+                                        BackgroundColor="Yellow"
+                                        WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5" />
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                                                              Path=GoToDeviceDetailsCommand}"
+                                                              NumberOfTapsRequired="1" />
+                                    </Border.GestureRecognizers>
+                                    <Grid ColumnDefinitions="*,3*"
+                                          RowDefinitions="*,*,*,*"
+                                          Margin="10">
 
-                                    <Image Grid.Row="0"
-                                           Grid.Column="0"
-                                           Grid.RowSpan="4"
-                                           Margin="0,0,10,0">
-                                        <Image.Source>
-                                            <FontImageSource FontFamily="MaterialRounded"
-                                                             Glyph="{x:Static m:MaterialRounded.Lightbulb}"
-                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
-                                                             Size="{OnIdiom Default=100, Phone=25}" />
-                                        </Image.Source>
-                                    </Image>
+                                        <Image Grid.Row="0"
+                                               Grid.Column="0"
+                                               Grid.RowSpan="4"
+                                               Margin="0,0,10,0">
+                                            <Image.Source>
+                                                <FontImageSource FontFamily="MaterialRounded"
+                                                                 Glyph="{x:Static m:MaterialRounded.Lightbulb}"
+                                                                 Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                                 Size="{OnIdiom Default=150, Phone=50}" />
+                                            </Image.Source>
+                                        </Image>
 
-                                    <Label Text="{Binding Name}"
-                                           TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
-                                           Grid.Column="1"
-                                           Grid.Row="0" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Name: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Name}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding OnOrOff}"
-                                           TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
-                                           Grid.Column="1"
-                                           Grid.Row="1" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="1">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Power Status: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding OnOrOff}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding Brightness}"
-                                           TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
-                                           Grid.Column="1"
-                                           Grid.Row="2" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="2">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Brightness Level: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Brightness}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}" />
+                                                    <Span Text="%"
+                                                          TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding Description}"
-                                           TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
-                                           Grid.Column="1"
-                                           Grid.Row="3" />
-                                </Grid>
-                            </Border>
+                                        <Label Grid.Column="1"
+                                               Grid.Row="3">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Description: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Description}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                </Border>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
                 <CollectionView ItemsSource="{Binding WaterLeakSensors}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:WaterLeakSensor">
-                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    StrokeThickness="0.4"
-                                    Margin="10"
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    HeightRequest="100"
-                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="5" />
-                                </Border.StrokeShape>
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
-                                                                    Path=GoToDeviceDetailsCommand}"
-                                                          NumberOfTapsRequired="1" />
-                                </Border.GestureRecognizers>
-                                <Grid ColumnDefinitions="*,3*"
-                                      RowDefinitions="*,*,*,*"
-                                      Margin="10">
+                            <StackLayout Orientation="Vertical"
+                                         Margin="20">
+                                <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        StrokeThickness="0.4"
+                                        Margin="10"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5" />
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                                                              Path=GoToDeviceDetailsCommand}"
+                                                              NumberOfTapsRequired="1" />
+                                    </Border.GestureRecognizers>
+                                    <Grid ColumnDefinitions="*,3*"
+                                          RowDefinitions="*,*,*,*,*"
+                                          Margin="10">
 
-                                    <Image Grid.Row="0"
-                                           Grid.Column="0"
-                                           Grid.RowSpan="4"
-                                           Margin="0,0,10,0">
-                                        <Image.Source>
-                                            <FontImageSource FontFamily="MaterialRounded"
-                                                             Glyph="{x:Static m:MaterialRounded.Water_damage}"
-                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
-                                                             Size="{OnIdiom Default=100, Phone=25}" />
-                                        </Image.Source>
-                                    </Image>
+                                        <Image Grid.Row="0"
+                                               Grid.Column="0"
+                                               Grid.RowSpan="5"
+                                               Margin="0,0,10,0">
+                                            <Image.Source>
+                                                <FontImageSource FontFamily="MaterialRounded"
+                                                                 Glyph="{x:Static m:MaterialRounded.Water_damage}"
+                                                                 Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                                 Size="{OnIdiom Default=100, Phone=50}" />
+                                            </Image.Source>
+                                        </Image>
 
-                                    <Label Text="{Binding Name}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="0" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Name: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Name}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding OnOrOff}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="1" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="1">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Power Status: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding OnOrOff}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding LeakDetected}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="2" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="2">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Leak Detected: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding LeakDetected}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding Description}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="3" />
-                                </Grid>
-                            </Border>
+                                        <Label Grid.Column="1"
+                                               Grid.Row="3">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Battery Level: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding BatteryLife}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                    <Span Text="%"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <Label Grid.Column="1"
+                                               Grid.Row="4">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Description: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Description}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                </Border>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
                 <CollectionView ItemsSource="{Binding DoorSensors}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:DoorSensor">
-                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    StrokeThickness="0.4"
-                                    Margin="10"
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    HeightRequest="100"
-                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="5" />
-                                </Border.StrokeShape>
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
-                                                                    Path=GoToDeviceDetailsCommand}"
-                                                          NumberOfTapsRequired="1" />
-                                </Border.GestureRecognizers>
-                                <Grid ColumnDefinitions="*,3*"
-                                      RowDefinitions="*,*,*,*"
-                                      Margin="10">
+                            <StackLayout Orientation="Vertical"
+                                         Margin="20">
+                                <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        StrokeThickness="0.4"
+                                        Margin="10"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5" />
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                                                              Path=GoToDeviceDetailsCommand}"
+                                                              NumberOfTapsRequired="1" />
+                                    </Border.GestureRecognizers>
+                                    <Grid ColumnDefinitions="*,3*"
+                                          RowDefinitions="*,*,*,*,*"
+                                          Margin="10">
 
-                                    <Image Grid.Row="0"
-                                           Grid.Column="0"
-                                           Grid.RowSpan="4"
-                                           Margin="0,0,10,0">
-                                        <Image.Source>
-                                            <FontImageSource FontFamily="MaterialRounded"
-                                                             Glyph="{x:Static m:MaterialRounded.Door_sensor}"
-                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
-                                                             Size="{OnIdiom Default=100, Phone=25}" />
-                                        </Image.Source>
-                                    </Image>
+                                        <Image Grid.Row="0"
+                                               Grid.Column="0"
+                                               Grid.RowSpan="5"
+                                               Margin="0,0,10,0">
+                                            <Image.Source>
+                                                <FontImageSource FontFamily="MaterialRounded"
+                                                                 Glyph="{x:Static m:MaterialRounded.Door_sensor}"
+                                                                 Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                                 Size="{OnIdiom Default=100, Phone=50}" />
+                                            </Image.Source>
+                                        </Image>
 
-                                    <Label Text="{Binding Name}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="0" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Name: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Name}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding OnOrOff}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="1" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="1">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Power Status: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding OnOrOff}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding IsOpen}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="2" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="2">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Door Open: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding IsOpen}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding Description}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="3" />
-                                </Grid>
-                            </Border>
+                                        <Label Grid.Column="1"
+                                               Grid.Row="3">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Battery Level: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding BatteryLife}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                    <Span Text="%"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <Label Grid.Column="1"
+                                               Grid.Row="4">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Description: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Description}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                </Border>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
                 <CollectionView ItemsSource="{Binding WindowSensors}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:WindowSensor">
-                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    StrokeThickness="0.4"
-                                    Margin="10"
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    HeightRequest="100"
-                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="5" />
-                                </Border.StrokeShape>
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
-                                            Path=GoToDeviceDetailsCommand}"
-                                                          NumberOfTapsRequired="1" />
-                                </Border.GestureRecognizers>
-                                <Grid ColumnDefinitions="*,3*"
-                                      RowDefinitions="*,*,*,*"
-                                      Margin="10">
+                            <StackLayout Orientation="Vertical"
+                                         Margin="20">
+                                <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        StrokeThickness="0.4"
+                                        Margin="10"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5" />
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                                                              Path=GoToDeviceDetailsCommand}"
+                                                              NumberOfTapsRequired="1" />
+                                    </Border.GestureRecognizers>
+                                    <Grid ColumnDefinitions="*,3*"
+                                          RowDefinitions="*,*,*,*,*"
+                                          Margin="10">
 
-                                    <Image Grid.Row="0"
-                                           Grid.Column="0"
-                                           Grid.RowSpan="4"
-                                           Margin="0,0,10,0">
-                                        <Image.Source>
-                                            <FontImageSource FontFamily="MaterialRounded"
-                                                             Glyph="{x:Static m:MaterialRounded.Window_sensor}"
-                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
-                                                             Size="{OnIdiom Default=100, Phone=25}" />
-                                        </Image.Source>
-                                    </Image>
+                                        <Image Grid.Row="0"
+                                               Grid.Column="0"
+                                               Grid.RowSpan="5"
+                                               Margin="0,0,10,0">
+                                            <Image.Source>
+                                                <FontImageSource FontFamily="MaterialRounded"
+                                                                 Glyph="{x:Static m:MaterialRounded.Window_sensor}"
+                                                                 Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                                 Size="{OnIdiom Default=100, Phone=50}" />
+                                            </Image.Source>
+                                        </Image>
 
-                                    <Label Text="{Binding Name}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="0" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Name: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Name}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding OnOrOff}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="1" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="1">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Power Status: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding OnOrOff}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding IsOpen}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="2" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="2">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Window Open: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding IsOpen}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding Description}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="3" />
-                                </Grid>
-                            </Border>
+                                        <Label Grid.Column="1"
+                                               Grid.Row="3">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Battery Level: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding BatteryLife}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                    <Span Text="%"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <Label Grid.Column="1"
+                                               Grid.Row="4">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Description: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Description}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                </Border>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
                 <CollectionView ItemsSource="{Binding TemperatureSensors}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:TemperatureSensor">
-                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    StrokeThickness="0.4"
-                                    Margin="10"
-                                    BackgroundColor="Red"
-                                    HeightRequest="100"
-                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="5" />
-                                </Border.StrokeShape>
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
-                                Path=GoToDeviceDetailsCommand}"
-                                                          NumberOfTapsRequired="1" />
-                                </Border.GestureRecognizers>
-                                <Grid ColumnDefinitions="*,3*"
-                                      RowDefinitions="*,*,*,*"
-                                      Margin="10">
+                            <StackLayout Orientation="Vertical"
+                                         Margin="20">
+                                <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        StrokeThickness="0.4"
+                                        Margin="10"
+                                        BackgroundColor="Red"
+                                        WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5" />
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                                                              Path=GoToDeviceDetailsCommand}"
+                                                              NumberOfTapsRequired="1" />
+                                    </Border.GestureRecognizers>
+                                    <Grid ColumnDefinitions="*,3*"
+                                          RowDefinitions="*,*,*,*,*"
+                                          Margin="10">
 
-                                    <Image Grid.Row="0"
-                                           Grid.Column="0"
-                                           Grid.RowSpan="4"
-                                           Margin="0,0,10,0">
-                                        <Image.Source>
-                                            <FontImageSource FontFamily="MaterialRounded"
-                                                             Glyph="{x:Static m:MaterialRounded.Thermostat}"
-                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
-                                                             Size="{OnIdiom Default=100, Phone=25}" />
-                                        </Image.Source>
-                                    </Image>
+                                        <Image Grid.Row="0"
+                                               Grid.Column="0"
+                                               Grid.RowSpan="5"
+                                               Margin="0,0,10,0">
+                                            <Image.Source>
+                                                <FontImageSource FontFamily="MaterialRounded"
+                                                                 Glyph="{x:Static m:MaterialRounded.Thermostat}"
+                                                                 Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                                 Size="{OnIdiom Default=100, Phone=50}" />
+                                            </Image.Source>
+                                        </Image>
 
-                                    <Label Text="{Binding Name}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="0" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Name: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Name}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding OnOrOff}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="1" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="1">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Power Status: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding OnOrOff}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding Temperature}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="2" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="2">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Temperature: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Temperature}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                    <Span Text="°C"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding Description}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="3" />
-                                </Grid>
-                            </Border>
+                                        <Label Grid.Column="1"
+                                               Grid.Row="3">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Battery Level: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding BatteryLife}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                    <Span Text="%"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <Label Grid.Column="1"
+                                               Grid.Row="4">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Description: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Description}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                </Border>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
                 <CollectionView ItemsSource="{Binding HumiditySensors}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:HumiditySensor">
-                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    StrokeThickness="0.4"
-                                    Margin="10"
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    HeightRequest="100"
-                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="5" />
-                                </Border.StrokeShape>
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
-                                                                    Path=GoToDeviceDetailsCommand}"
-                                                          NumberOfTapsRequired="1" />
-                                </Border.GestureRecognizers>
-                                <Grid ColumnDefinitions="*,3*"
-                                      RowDefinitions="*,*,*,*"
-                                      Margin="10">
+                            <StackLayout Orientation="Vertical"
+                                         Margin="20">
+                                <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        StrokeThickness="0.4"
+                                        Margin="10"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5" />
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                                                              Path=GoToDeviceDetailsCommand}"
+                                                              NumberOfTapsRequired="1" />
+                                    </Border.GestureRecognizers>
+                                    <Grid ColumnDefinitions="*,3*"
+                                          RowDefinitions="*,*,*,*,*"
+                                          Margin="10">
 
-                                    <Image Grid.Row="0"
-                                           Grid.Column="0"
-                                           Grid.RowSpan="4"
-                                           Margin="0,0,10,0">
-                                        <Image.Source>
-                                            <FontImageSource FontFamily="MaterialRounded"
-                                                             Glyph="{x:Static m:MaterialRounded.Humidity_percentage}"
-                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
-                                                             Size="{OnIdiom Default=100, Phone=25}" />
-                                        </Image.Source>
-                                    </Image>
+                                        <Image Grid.Row="0"
+                                               Grid.Column="0"
+                                               Grid.RowSpan="5"
+                                               Margin="0,0,10,0">
+                                            <Image.Source>
+                                                <FontImageSource FontFamily="MaterialRounded"
+                                                                 Glyph="{x:Static m:MaterialRounded.Humidity_percentage}"
+                                                                 Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                                 Size="{OnIdiom Default=100, Phone=50}" />
+                                            </Image.Source>
+                                        </Image>
 
-                                    <Label Text="{Binding Name}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="0" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Name: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Name}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding OnOrOff}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="1" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="1">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Power Status: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding OnOrOff}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding Humidity}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="2" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="2">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Humidity: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Humidity}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                    <Span Text="%"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding Description}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="3" />
-                                </Grid>
-                            </Border>
+                                        <Label Grid.Column="1"
+                                               Grid.Row="3">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Battery Level: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding BatteryLife}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                    <Span Text="%"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <Label Grid.Column="1"
+                                               Grid.Row="4">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Description: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Description}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                </Border>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <CollectionView ItemsSource="{Binding VibrationSensors}" 
-                                >
+                <CollectionView ItemsSource="{Binding VibrationSensors}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:VibrationSensor">
-                            <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    StrokeThickness="0.4"
-                                    Margin="10"
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                                    HeightRequest="100"
-                                    WidthRequest="{OnIdiom Desktop=500,Phone=350}">
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="5" />
-                                </Border.StrokeShape>
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
-                                                                    Path=GoToDeviceDetailsCommand}"
-                                                          NumberOfTapsRequired="1" />
-                                </Border.GestureRecognizers>
-                                <Grid ColumnDefinitions="*,3*"
-                                      RowDefinitions="*,*,*,*"
-                                      Margin="10">
+                            <StackLayout Orientation="Vertical"
+                                         Margin="20">
+                                <Border Stroke="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        StrokeThickness="0.4"
+                                        Margin="10"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
+                                        WidthRequest="{OnIdiom Desktop=500,Phone=350}">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5" />
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LocationViewModel}},
+                                                              Path=GoToDeviceDetailsCommand}"
+                                                              NumberOfTapsRequired="1" />
+                                    </Border.GestureRecognizers>
+                                    <Grid ColumnDefinitions="*,3*"
+                                          RowDefinitions="*,*,*,*,*"
+                                          Margin="10">
 
-                                    <Image Grid.Row="0"
-                                           Grid.Column="0"
-                                           Grid.RowSpan="4"
-                                           Margin="0,0,10,0">
-                                        <Image.Source>
-                                            <FontImageSource FontFamily="MaterialRounded"
-                                                             Glyph="{x:Static m:MaterialRounded.Vibration}"
-                                                             Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
-                                                             Size="{OnIdiom Default=100, Phone=25}" />
-                                        </Image.Source>
-                                    </Image>
+                                        <Image Grid.Row="0"
+                                               Grid.Column="0"
+                                               Grid.RowSpan="5"
+                                               Margin="0,0,10,0">
+                                            <Image.Source>
+                                                <FontImageSource FontFamily="MaterialRounded"
+                                                                 Glyph="{x:Static m:MaterialRounded.Vibration}"
+                                                                 Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource Black}}"
+                                                                 Size="{OnIdiom Default=100, Phone=50}" />
+                                            </Image.Source>
+                                        </Image>
 
-                                    <Label Text="{Binding Name}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="0" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Name: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Name}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding OnOrOff}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="1" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="1">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Power Status: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding OnOrOff}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding VibrationDetected}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="2" />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="2">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Vibration Detected: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding VibrationDetected}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
-                                    <Label Text="{Binding Description}"
-                                           TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                           Grid.Column="1"
-                                           Grid.Row="3" />
-                                </Grid>
-                            </Border>
+                                        <Label Grid.Column="1"
+                                               Grid.Row="3">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Battery Level: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding BatteryLife}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                    <Span Text="%"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <Label Grid.Column="1"
+                                               Grid.Row="4">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Description: "
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
+                                                          FontAttributes="Bold" />
+                                                    <Span Text="{Binding Description}"
+                                                          TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                </Border>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

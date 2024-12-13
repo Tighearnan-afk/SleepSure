@@ -54,6 +54,7 @@
 
                 <Button Command="{Binding AddDeviceCommand}"
                         Text="Create"
+                        TextColor="White"
                         StyleClass="FilledButton"
                         VerticalOptions="EndAndExpand"
                         HorizontalOptions="EndAndExpand" 

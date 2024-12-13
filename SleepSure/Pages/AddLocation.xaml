@@ -10,22 +10,38 @@
              xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
              Title="Create location">
     <StackLayout Orientation="Vertical">
-        <input:FormView SubmitCommand="{Binding AddLocationCommand}" 
-                        VerticalOptions="CenterAndExpand">
-            <Grid ColumnDefinitions="*,2*,*"
-                  RowDefinitions="*,*">
-                <uranium:TextField Title="Location Name"
-                                   Text="{Binding NewLocation}"
-                                   Grid.Column="1"
-                                   Grid.Row="0"/>
+        <Border Stroke="Black"
+                StrokeThickness="0.4"
+                WidthRequest="{OnIdiom Desktop=700, Phone=300}"
+                HeightRequest="{OnIdiom Desktop=400, Phone=300}"
+                Background="{AppThemeBinding Light={StaticResource PrimaryBackground},Dark={StaticResource PrimaryDarkBackground}}"
+                VerticalOptions="CenterAndExpand">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="5" />
+            </Border.StrokeShape>
 
-                <Button Text="Create"
-                        input:FormView.IsSubmitButton="True"
-                        StyleClass="FilledButton"
-                        TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}"
-                        Grid.Column="1"
-                        Grid.Row="1" />
-            </Grid>
-        </input:FormView>
+            <input:FormView SubmitCommand="{Binding AddLocationCommand}" 
+                            VerticalOptions="CenterAndExpand"
+                            HeightRequest="200">
+                <Grid ColumnDefinitions="*,2*,*"
+                      RowDefinitions="*,*"
+                      VerticalOptions="CenterAndExpand">
+                    <uranium:TextField Title="Location Name"
+                                       Text="{Binding NewLocation}"
+                                       Grid.Column="1"
+                                       Grid.Row="0"
+                                       WidthRequest="{OnIdiom Desktop=600, Phone=300}"
+                                       Margin="20"/>
+
+                    <Button Text="Create"
+                            input:FormView.IsSubmitButton="True"
+                            StyleClass="FilledButton"
+                            TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}"
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            Padding="10"/>
+                </Grid>
+            </input:FormView>
+        </Border>
     </StackLayout>
 </ContentPage>

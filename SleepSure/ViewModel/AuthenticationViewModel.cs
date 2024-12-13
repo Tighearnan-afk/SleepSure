@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using SleepSure.Model;
+using SleepSure.Pages;
 using SleepSure.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -47,6 +48,22 @@ namespace SleepSure.ViewModel
             else
                 await Shell.Current.DisplayAlert("Invalid Credentials","You have entered invalid credentials","OK");
 
+        }
+
+        [RelayCommand]
+        private async Task Logout()
+        {
+            //Display an alert to confirm the user wishes to logout
+            var result = await Shell.Current.DisplayAlert("Confirm", $"Are you sure you want to logout?", "Yes", "No");
+            //If the answer is no then return
+            if (result == false)
+                return;
+
+            Email = "";
+            Password = "";
+            ReenteredPassword = "";
+            //Navigates to the absolute route login present in the appshell to prevent the back button from being displayed
+            await Shell.Current.GoToAsync("//login");
         }
 
         [RelayCommand]

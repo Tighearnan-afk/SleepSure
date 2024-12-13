@@ -59,6 +59,34 @@
                                          WidthRequest="350" />
                 </StackLayout>
 
+                <Label HorizontalOptions="Start"
+                       Margin="10">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Humidity: "
+                                  TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"/>
+                            <Span Text="{Binding HumiditySensor.Humidity}"
+                                  TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}" />
+                            <Span Text="%"
+                                  TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label HorizontalOptions="Start"
+                       Margin="10">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Battery Level: "
+                                  TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}" />
+                            <Span Text="{Binding HumiditySensor.BatteryLife}"
+                                  TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}" />
+                            <Span Text="%"
+                                  TextColor="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
                 <BoxView Color="{StaticResource Black}"
                          HeightRequest="0.5"
                          HorizontalOptions="FillAndExpand" />

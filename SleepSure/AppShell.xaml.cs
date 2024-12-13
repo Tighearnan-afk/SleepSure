@@ -9,6 +9,7 @@ namespace SleepSure
             InitializeComponent();
 
             //Register routes
+            Routing.RegisterRoute(nameof(Login), typeof(Login));
             Routing.RegisterRoute(nameof(Register), typeof(Register));
             Routing.RegisterRoute(nameof(Dashboard), typeof(Dashboard));
             Routing.RegisterRoute(nameof(LocationPage), typeof(LocationPage));

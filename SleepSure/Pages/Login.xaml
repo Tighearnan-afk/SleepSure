@@ -30,7 +30,8 @@
         <Border Grid.Row="1" 
                 Grid.Column="1"
                 Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                StrokeThickness="0.8">
+                StrokeThickness="0.8"
+                Background="{AppThemeBinding Light={StaticResource PrimaryBackground},Dark={StaticResource PrimaryDarkBackground}}">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20,20,20,20"/>
             </Border.StrokeShape>
@@ -44,7 +45,8 @@
                     <uranium:TextField Title="Email"
                                        Text="{Binding Email}"
                                        AllowClear="True"
-                                       Margin="10">
+                                       Margin="10"
+                                       InputBackground="White">
                         <validation:RequiredValidation />
                         <validation:RegexValidation Pattern="{x:Static input:AdvancedEntry.REGEX_EMAIL}"
                                                     Message="Invalid email address" />
@@ -53,7 +55,8 @@
                                        Text="{Binding Password}"
                                        AllowClear="True"
                                        IsPassword="True"
-                                       Margin="10">
+                                       Margin="10"
+                                       InputBackground="White">
                         <uranium:TextField.Attachments>
                             <uranium:TextFieldPasswordShowHideAttachment />
                         </uranium:TextField.Attachments>

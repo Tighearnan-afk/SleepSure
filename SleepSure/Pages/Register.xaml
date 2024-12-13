@@ -29,7 +29,8 @@
         <Border Grid.Row="1"
                 Grid.Column="1"
                 Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                StrokeThickness="0.8">
+                StrokeThickness="0.8"
+                Background="{AppThemeBinding Light={StaticResource PrimaryBackground},Dark={StaticResource PrimaryDarkBackground}}">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="20,20,20,20" />
             </Border.StrokeShape>
@@ -42,12 +43,10 @@
                        FontAttributes="Bold">
                     Welcome to Sleepsure!</Label>
                 <input:FormView SubmitCommand="{Binding RegisterCommand}">
-                    <uranium:TextField Title="Name"
-                                       Margin="10,5" />
-
                     <uranium:TextField Title="Email"
                                        Text="{Binding Email}"
-                                       Margin="10,5">
+                                       Margin="10,5"
+                                       InputBackground="White">
                         <validation:RequiredValidation />
                         <validation:RegexValidation Pattern="{x:Static input:AdvancedEntry.REGEX_EMAIL}"
                                                     Message="Invalid email address" />
@@ -55,7 +54,8 @@
 
                     <uranium:TextField Title="Password"
                                        Text="{Binding Password}"
-                                       Margin="10,5">
+                                       Margin="10,5"
+                                       InputBackground="White">
                         <uranium:TextField.Attachments>
                             <uranium:TextFieldPasswordShowHideAttachment />
                         </uranium:TextField.Attachments>
@@ -65,7 +65,8 @@
 
                     <uranium:TextField Title="Re-enter Password"
                                        Text="{Binding ReenteredPassword}"
-                                       Margin="10,5">
+                                       Margin="10,5"
+                                       InputBackground="White">
                         <uranium:TextField.Attachments>
                             <uranium:TextFieldPasswordShowHideAttachment />
                         </uranium:TextField.Attachments>

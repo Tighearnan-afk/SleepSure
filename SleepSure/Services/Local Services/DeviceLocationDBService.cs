@@ -268,7 +268,7 @@ namespace SleepSure.Services
                 //Updates the location name and records the result
                 result = await _connection.UpdateAsync(location);
                 
-                //await _locationRESTService.DeleteLocationAsync((int)location.Id);
+                await _locationRESTService.SaveLocationAsync(location,false);
             }
             catch (Exception ex)
             {

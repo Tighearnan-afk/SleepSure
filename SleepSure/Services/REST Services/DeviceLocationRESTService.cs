@@ -65,9 +65,17 @@ namespace SleepSure.Services
 
         public async Task SaveLocationAsync(DeviceLocation location, bool isNewLocation)
         {
+            //Create a new string containing the URL for the rest API and appending the route for the locations
             string locationEndPoint = string.Concat(Constants.RestUrl, $"devicelocations/{{0}}");
-
-            Uri uri = new Uri(string.Format(locationEndPoint, string.Empty));
+            //Create the Uri object
+            Uri uri;
+            //Checks if the location is a new location
+            if (isNewLocation)
+                //Instanstiates the uri object with the end point and removing everything after the last / as its a POST request
+                uri = new Uri(string.Format(locationEndPoint, string.Empty));
+            else
+                //Instanstiates the uri object with the end point and adding thelocations Id after the / as its a PUT request
+                uri = new Uri(string.Format(locationEndPoint, location.Id));
 
             try
             {

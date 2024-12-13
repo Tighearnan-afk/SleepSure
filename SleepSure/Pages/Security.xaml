@@ -20,9 +20,10 @@
                 </Border.StrokeShape>
                 <StackLayout Orientation="Horizontal"
                              Margin="20">
-                    <Border>
+                    <Border Margin="0,0,30,0">
                         <Border.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1" />
+                            <TapGestureRecognizer Command="{Binding DisableSecurityDevicesCommand}"
+                                                  NumberOfTapsRequired="1" />
                         </Border.GestureRecognizers>
                         <Image>
                             <Image.Source>
@@ -35,30 +36,17 @@
                     </Border>
 
                     <Border>
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1" />
-                        </Border.GestureRecognizers>
-                        <Image>
-                            <Image.Source>
-                                <FontImageSource FontFamily="MaterialRounded"
-                                                 Glyph="{x:Static m:MaterialRounded.Home}"
-                                                 Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
-                                                 Size="100" />
-                            </Image.Source>
-                        </Image>
-                    </Border>
-
-                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
                         <Border.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="1" />
+                            <TapGestureRecognizer Command="{Binding EnableSecurityDevicesCommand}"
+                                                  NumberOfTapsRequired="1" />
                         </Border.GestureRecognizers>
                         <Image>
                             <Image.Source>
                                 <FontImageSource FontFamily="MaterialRounded"
-                                                 Glyph="{x:Static m:MaterialRounded.Shield}"
+                                                 Glyph="{x:Static m:MaterialRounded.Lock}"
                                                  Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
                                                  Size="100" />
                             </Image.Source>
@@ -66,19 +54,6 @@
                     </Border>
                 </StackLayout>
             </Border>
-
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Current Status:"
-                       FontSize="Title"
-                       FontAttributes="Bold"
-                       HorizontalOptions="CenterAndExpand" />
-                <Label x:Name="SystemStatus"
-                       Text="Armed"
-                       TextColor="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}"
-                       FontSize="Title"
-                       FontAttributes="Bold"
-                       HorizontalOptions="CenterAndExpand" />
-            </StackLayout>
 
             <StackLayout Orientation="Vertical"
                          Margin="10"
@@ -103,8 +78,7 @@
                                     </Border.StrokeShape>
                                     <Grid ColumnDefinitions="*,1.75*"
                                           RowDefinitions="*,*">
-                                        <Image x:Name="BackWallCamera"
-                                               Source="placeholdervideo.png"
+                                        <Image Source="placeholdervideo.png"
                                                Grid.RowSpan="2">
                                             <Image.GestureRecognizers>
                                                 <TapGestureRecognizer CommandParameter="{Binding .}"
@@ -116,13 +90,13 @@
 
                                         <Label Text="{Binding Name}"
                                                TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                               FontSize="Title"
+                                               FontSize="Medium"
                                                Grid.Column="1"
                                                HorizontalOptions="CenterAndExpand"
                                                VerticalOptions="Center" />
                                         <Label Text="{Binding OnOrOff}"
                                                TextColor="{AppThemeBinding Light={StaticResource White},Dark={StaticResource White}}"
-                                               FontSize="Subtitle"
+                                               FontSize="Small"
                                                Grid.Column="1"
                                                HorizontalOptions="CenterAndExpand"
                                                VerticalOptions="Center"

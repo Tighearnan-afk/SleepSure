@@ -148,6 +148,8 @@ namespace SleepSure
             builder.Services.AddSingleton<Notifications>();
             //Register the notification view model
             builder.Services.AddSingleton<NotificationViewModel>();
+            //Register the profile page
+            builder.Services.AddSingleton<Profile>();
 
             //Device Details
             //Register the camera details page 
