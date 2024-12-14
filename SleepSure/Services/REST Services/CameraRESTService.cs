@@ -84,7 +84,7 @@ namespace SleepSure.Services
                     response = await _client.PutAsync(uri, content);
 
                 if(response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"\tCamera successfully saved.");
+                    Debug.WriteLine(@"Camera successfully saved.");
             }
             catch (Exception ex)
             {
@@ -106,7 +106,7 @@ namespace SleepSure.Services
                 response = await _client.DeleteAsync(uri);
 
                 if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"\Camera deleted saved.");
+                    Debug.WriteLine(@"Camera deleted saved.");
             }
             catch (Exception ex)
             {

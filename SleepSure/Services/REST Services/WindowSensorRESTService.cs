@@ -109,7 +109,7 @@ namespace SleepSure.Services
                     response = await _client.PutAsync(uri, content);
 
                 if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"\tWaterleak Sensor successfully saved.");
+                    Debug.WriteLine(@"Waterleak Sensor successfully saved.");
             }
             catch (Exception ex)
             {
@@ -135,7 +135,7 @@ namespace SleepSure.Services
                 response = await _client.DeleteAsync(uri);
 
                 if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"\Waterleak Sensor successfully deleted.");
+                    Debug.WriteLine(@"Waterleak Sensor successfully deleted.");
             }
             catch (Exception ex)
             {

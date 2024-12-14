@@ -1,19 +1,12 @@
 ﻿using SleepSure.Model;
 using SQLite;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace SleepSure.Services
 {
     public class UserDBDataService : IUserDataService
     {
-        //REST API service for users
-        IUserRESTService _userRESTService;
         //List of users retrieved from the SQLite database
         public List<User> Users { get; private set; } = [];
         //List of users retrieved from a local JSON file
@@ -34,10 +27,9 @@ namespace SleepSure.Services
         public string StatusMessage;
 
         private bool _isInDemoMode;
-        public UserDBDataService(string dbPath, IUserRESTService userRESTService)
+        public UserDBDataService(string dbPath)
         {
             _dbPath = dbPath;
-            _userRESTService = userRESTService;
         }
 
         /// <summary>

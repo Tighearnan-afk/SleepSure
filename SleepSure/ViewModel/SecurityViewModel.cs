@@ -187,7 +187,7 @@ namespace SleepSure.ViewModel
         }
 
         /// <summary>
-        /// The DisableSecurityDevicesAsync method retrieves a list of security devices and sets the power status to True
+        /// The DisableSecurityDevicesAsync method retrieves a list of security devices and sets the power status to False
         /// </summary>
         [RelayCommand]
         public async Task DisableSecurityDevicesAsync()

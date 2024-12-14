@@ -55,7 +55,6 @@ namespace SleepSure
             //Register the REST services
             builder.Services.AddSingleton<IDeviceLocationRESTService, DeviceLocationRESTService>();
             builder.Services.AddSingleton<ICameraRESTService, CameraRESTService>();
-            builder.Services.AddSingleton<IUserRESTService, UserRESTService>();
             builder.Services.AddSingleton<IMotionSensorRESTService, MotionSensorRESTService>();
             builder.Services.AddSingleton<ILightRESTService, LightRESTService>();
             builder.Services.AddSingleton<IWaterLeakSensorRESTService, WaterLeakSensorRESTService>();

@@ -89,7 +89,7 @@ namespace SleepSure.Services
                     response = await _client.PutAsync(uri, content);
 
                 if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"\tLocation successfully saved.");
+                    Debug.WriteLine(@"Location successfully saved.");
             }
             catch (Exception ex)
             {

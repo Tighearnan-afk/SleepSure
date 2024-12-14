@@ -109,7 +109,7 @@ namespace SleepSure.Services
                     response = await _client.PutAsync(uri, content);
 
                 if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"Temperature Sensor successfully saved.");
+                    Debug.WriteLine(@"Vibration Sensor successfully saved.");
             }
             catch (Exception ex)
             {
@@ -135,7 +135,7 @@ namespace SleepSure.Services
                 response = await _client.DeleteAsync(uri);
 
                 if (response.IsSuccessStatusCode)
-                    Debug.WriteLine(@"\temperature Sensor successfully deleted.");
+                    Debug.WriteLine(@"Vibration Sensor successfully deleted.");
             }
             catch (Exception ex)
             {
