@@ -64,6 +64,11 @@
                        HorizontalOptions="CenterAndExpand"
                        Padding="10" />
 
+                <ActivityIndicator IsVisible="{Binding IsBusy}"
+                                   IsRunning="{Binding IsBusy}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+
                 <CollectionView ItemsSource="{Binding Cameras}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Camera">

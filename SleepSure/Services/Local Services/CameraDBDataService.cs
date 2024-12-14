@@ -107,7 +107,7 @@ namespace SleepSure.Services
             }
             catch (Exception ex)
             {
-                StatusMessage = string.Format("Failed to get devices from database. Error{0}", ex.Message);
+                StatusMessage = string.Format("Failed to get cameras from database. Error{0}", ex.Message);
                 Debug.WriteLine(StatusMessage);
             }
             return new List<Camera>();

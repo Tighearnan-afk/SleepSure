@@ -52,6 +52,11 @@
                                          WidthRequest="350" />
                 </StackLayout>
 
+                <ActivityIndicator IsVisible="{Binding IsBusy}"
+                                   IsRunning="{Binding IsBusy}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+
                 <Button Command="{Binding AddDeviceCommand}"
                         Text="Create"
                         TextColor="White"

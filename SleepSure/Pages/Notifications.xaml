@@ -13,6 +13,10 @@
                  Command="{Binding GetAlarmsCommand}">
         <ScrollView>
             <StackLayout Orientation="Vertical">
+                <ActivityIndicator IsVisible="{Binding IsBusy}"
+                                   IsRunning="{Binding IsBusy}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
                 <CollectionView ItemsSource="{Binding Alarms}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Alarm">

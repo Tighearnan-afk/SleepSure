@@ -245,6 +245,7 @@ namespace SleepSure.ViewModel
                 //Sets the IsBusy flag to true
                 IsBusy = true;
 
+                //Determine the type of device that has been clicked and navigate to the appropriate page passing in a dictionary containg the object
                 switch (selectedObject)
                 {
                     case Camera camera:
@@ -330,6 +331,9 @@ namespace SleepSure.ViewModel
         [RelayCommand]
         public async Task UpdateLocationAsync()
         {
+            if (Updatedlocation is null || Updatedlocation == "")
+                return;
+
             if (IsBusy)
                 return;
 

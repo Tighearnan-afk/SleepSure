@@ -9,7 +9,12 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="Video Archive">
     <ScrollView>
-        <CollectionView ItemsSource="{Binding Videos}">
+        <StackLayout>
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                               IsRunning="{Binding IsBusy}"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+            <CollectionView ItemsSource="{Binding Videos}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Video">
                     <StackLayout Orientation="Vertical"
@@ -18,8 +23,8 @@
                                 StrokeThickness="0.4"
                                 Margin="10"
                                 StyleClass="Elevation1"
-                                WidthRequest="{OnIdiom Default=600,Phone=380}"
-                                HeightRequest="{OnIdiom Default=500,Phone=200}">
+                                WidthRequest="{OnIdiom Default=600,Phone=370}"
+                                HeightRequest="{OnIdiom Default=500,Phone=300}">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="5" />
                             </Border.StrokeShape>
@@ -32,11 +37,12 @@
                                                       ShouldAutoPlay="False"
                                                       HorizontalOptions="CenterAndExpand"
                                                       WidthRequest="{OnIdiom Default=600,Phone=380}"
-                                                      HeightRequest="{OnIdiom Default=400,Phone=100}"
+                                                      HeightRequest="{OnIdiom Default=400,Phone=200}"
                                                       Aspect="AspectFill"
                                                       Grid.ColumnSpan="3">
                                 </toolkit:MediaElement>
                                 <Button Text="Delete"
+                                        TextColor="White"
                                         StyleClass="FilledButton"
                                         BackgroundColor="{StaticResource Warning}"
                                         Grid.Row="2"
@@ -57,5 +63,6 @@
                 </StackLayout>
             </CollectionView.EmptyView>
         </CollectionView>
+        </StackLayout>
     </ScrollView>
 </ContentPage>

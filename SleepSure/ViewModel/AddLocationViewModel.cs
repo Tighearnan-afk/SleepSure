@@ -21,7 +21,7 @@ namespace SleepSure.ViewModel
         [RelayCommand]
         public async Task AddLocationAsync()
         {
-            if (NewLocation is null)
+            if (NewLocation is null || NewLocation == "")
                 return;
 
             await _locationDataService.AddLocationAsync(NewLocation);

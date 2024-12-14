@@ -12,7 +12,7 @@
     <StackLayout Orientation="Vertical">
         <Border Stroke="Black"
                 StrokeThickness="0.4"
-                WidthRequest="{OnIdiom Desktop=700, Phone=300}"
+                WidthRequest="{OnIdiom Desktop=700, Phone=350}"
                 HeightRequest="{OnIdiom Desktop=400, Phone=300}"
                 Background="{AppThemeBinding Light={StaticResource PrimaryBackground},Dark={StaticResource PrimaryDarkBackground}}"
                 VerticalOptions="CenterAndExpand">

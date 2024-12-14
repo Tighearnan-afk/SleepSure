@@ -29,7 +29,7 @@
                     ShouldLoopPlayback="True"                  
                     HorizontalOptions="CenterAndExpand"
                     WidthRequest="{OnIdiom Default=800,Phone=380}"
-                    HeightRequest="{OnIdiom Default=600,Phone=100}"
+                    HeightRequest="{OnIdiom Default=600,Phone=250}"
                     Aspect="AspectFill">
                 </toolkit:MediaElement>
 
@@ -45,12 +45,14 @@
             <StackLayout Orientation="Horizontal"
                          Margin="10,0,0,0">
             <Button Text="View Archive"
+                    TextColor="White"
                     Command="{Binding GoToVideoArchiveCommand}"
                     StyleClass="FilledButton"
                     WidthRequest="150"
                     HorizontalOptions="Start"/>
 
             <Button Text="Record"
+                    TextColor="White"
                     Command="{Binding RecordVideoCommand}"
                     StyleClass="FilledButton"
                     WidthRequest="150"

@@ -49,6 +49,10 @@
                                          Color="{AppThemeBinding Light={StaticResource Primary},Dark={StaticResource PrimaryDark}}" />
                     </ImageButton.Source>
                 </ImageButton>
+                <ActivityIndicator IsVisible="{Binding IsBusy}"
+                                   IsRunning="{Binding IsBusy}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
                 <CollectionView ItemsSource="{Binding Cameras}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Camera">

@@ -87,13 +87,13 @@ namespace SleepSure.ViewModel
         public async Task AddDeviceAsync()
         {
             //Ensure the device name field is not empty
-            if (NewDeviceName is null)
+            if (NewDeviceName is null || NewDeviceName == "")
                 return;
             //Ensure the device type field is not empty
             if (NewDeviceType is null)
                 return;
             //Ensure the device description field is not empty
-            if (NewDeviceDescription is null)
+            if (NewDeviceDescription is null || NewDeviceDescription == "")
                 return;
 
             //Ensure the application is not performing another I/O operation
