@@ -37,6 +37,7 @@
                 <StackLayout Orientation="Horizontal">
                     <uranium:TextField Title="Device Name"
                                        Text="{Binding DoorSensor.Name}"
+                                       InputBackgroundColor="{AppThemeBinding Light=White}"
                                        HorizontalOptions="CenterAndExpand"
                                        Icon="{FontImageSource FontFamily=MaterialRounded, Glyph={x:Static m:MaterialRounded.Edit}}"
                                        WidthRequest="350"
@@ -50,7 +51,8 @@
                             MaximumWidthRequest="350"
                             ItemsSource="{Binding Locations}"
                             ItemDisplayBinding="{Binding LocationName}"
-                            SelectedItem="{Binding UpdatedDoorSensorLocation}" />
+                            SelectedItem="{Binding UpdatedDoorSensorLocation}"
+                            BackgroundColor="{AppThemeBinding Light=White}"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal">
@@ -58,7 +60,8 @@
                                          Text="{Binding DoorSensor.Description}"
                                          Icon="{FontImageSource FontFamily=MaterialRounded, Glyph={x:Static m:MaterialRounded.Edit}}"
                                          HorizontalOptions="CenterAndExpand"
-                                         WidthRequest="350" />
+                                         WidthRequest="350"
+                                         InputBackgroundColor="{AppThemeBinding Light=White}"/>
                 </StackLayout>
 
                 <Label HorizontalOptions="Start"

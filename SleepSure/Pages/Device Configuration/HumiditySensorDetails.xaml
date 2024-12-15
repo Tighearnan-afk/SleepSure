@@ -38,7 +38,8 @@
                                        HorizontalOptions="CenterAndExpand"
                                        Icon="{FontImageSource FontFamily=MaterialRounded, Glyph={x:Static m:MaterialRounded.Edit}}"
                                        WidthRequest="350"
-                                       Padding="0,10,0,0" />
+                                       Padding="0,10,0,0"
+                                       InputBackgroundColor="{AppThemeBinding Light=White}"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal">
@@ -48,7 +49,8 @@
                             MaximumWidthRequest="350"
                             ItemsSource="{Binding Locations}"
                             ItemDisplayBinding="{Binding LocationName}"
-                            SelectedItem="{Binding UpdatedHumiditySensorLocation}" />
+                            SelectedItem="{Binding UpdatedHumiditySensorLocation}"
+                            BackgroundColor="{AppThemeBinding Light=White}" />
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal">
@@ -56,7 +58,8 @@
                                          Text="{Binding HumiditySensor.Description}"
                                          Icon="{FontImageSource FontFamily=MaterialRounded, Glyph={x:Static m:MaterialRounded.Edit}}"
                                          HorizontalOptions="CenterAndExpand"
-                                         WidthRequest="350" />
+                                         WidthRequest="350"
+                                         InputBackgroundColor="{AppThemeBinding Light=White}"/>
                 </StackLayout>
 
                 <Label HorizontalOptions="Start"

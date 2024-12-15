@@ -12,7 +12,8 @@
         <Border Stroke="Black"
                 StrokeThickness="0.4"
                 MaximumWidthRequest="375"
-                MaximumHeightRequest="700">
+                MaximumHeightRequest="700"
+                Background="{AppThemeBinding Light={StaticResource PrimaryBackground},Dark={StaticResource PrimaryDarkBackground}}">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="5" />
             </Border.StrokeShape>
@@ -20,6 +21,7 @@
                 <StackLayout Orientation="Horizontal">
                 <uranium:TextField Title="Device Name"
                                    Text="{Binding NewDeviceName}"
+                                   InputBackgroundColor="{AppThemeBinding Light=White}"
                                    HorizontalOptions="CenterAndExpand"
                                    WidthRequest="350" 
                                    Padding="0,10,0,0"/>
@@ -32,7 +34,8 @@
                             MaximumWidthRequest="350" 
                             ItemsSource ="{Binding DeviceTypes}"
                             ItemDisplayBinding="{Binding Type}"
-                            SelectedItem="{Binding NewDeviceType}"/>
+                            SelectedItem="{Binding NewDeviceType}"
+                            BackgroundColor="{AppThemeBinding Light=White}"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal">
@@ -46,6 +49,7 @@
                 <StackLayout Orientation="Horizontal">
                     <uranium:EditorField Title="Description"
                                          Text="{Binding NewDeviceDescription}"
+                                         InputBackgroundColor="{AppThemeBinding Light=White}"
                                          Icon="{FontImageSource FontFamily=MaterialRounded, Glyph={x:Static m:MaterialRounded.Edit}}"
                                          MaxLength="150"
                                          HorizontalOptions="CenterAndExpand"
