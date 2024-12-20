@@ -1,11 +1,11 @@
 [
   {
     "Id": 1,
-    "Name": "Living Room Motion Sensor",
-    "Description": "Motion sensor in the living room",
+    "Name": "Back Door Motion Sensor",
+    "Description": "Motion sensor placed next to back door",
     "BatteryLife": 78,
     "Temperature": 11,
-    "DeviceLocationId": 1,
+    "DeviceLocationId": 4,
     "OnOrOff": "On"
   }
 ]

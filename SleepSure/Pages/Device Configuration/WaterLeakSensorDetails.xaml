@@ -51,8 +51,7 @@
                             MaximumWidthRequest="350"
                             ItemsSource="{Binding Locations}"
                             ItemDisplayBinding="{Binding LocationName}"
-                            SelectedItem="{Binding UpdatedWaterLeakSensorLocation}"
-                            BackgroundColor="{AppThemeBinding Light=White}"/>
+                            SelectedItem="{Binding UpdatedWaterLeakSensorLocation}"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal">

@@ -1,11 +1,11 @@
 ﻿[
   {
     "Id": 1,
-    "Name": "Living Room Window Sensor",
-    "Description": "Window sensor in the living room",
+    "Name": "Kitchen Window Sensor",
+    "Description": "Window sensor placed next to window above sink",
     "BatteryLife": 87,
     "Temperature": 89,
-    "DeviceLocationId": 1,
+    "DeviceLocationId": 2,
     "PowerStatus": true,
     "IsOpen": false,
     "OnOrOff": "On"

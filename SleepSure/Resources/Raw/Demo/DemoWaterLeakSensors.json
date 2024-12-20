@@ -1,11 +1,11 @@
 ﻿[
   {
     "Id": 1,
-    "Name": "Living Room Water Leak Sensor",
-    "Description": "Water Leak sensor in the living room",
+    "Name": "Basement Water Leak Sensor",
+    "Description": "Water Leak sensor placed in the corner of the basement",
     "BatteryLife": 87,
     "Temperature": 89,
-    "DeviceLocationId": 1,
+    "DeviceLocationId": 5,
     "PowerStatus": true,
     "LeakDetected": false,
     "OnOrOff": "On"

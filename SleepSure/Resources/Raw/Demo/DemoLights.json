@@ -2,7 +2,7 @@
   {
     "Id": 1,
     "Name": "Living Room Light",
-    "Description": "Light in the living room",
+    "Description": "Light placed in the corner of the living room next to the sofa",
     "Brightness": 89,
     "DeviceLocationId": 1,
     "OnOrOff": "On"

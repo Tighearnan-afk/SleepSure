@@ -1,13 +1,13 @@
 ﻿[
   {
     "Id": 1,
-    "Name": "Living Room Humidity Sensor",
-    "Description": "Humidity sensor in the living room",
+    "Name": "Basement Humidity Sensor",
+    "Description": "Humidity sensor placed next to the entrance to the basement",
     "BatteryLife": 87,
     "Temperature": 89,
-    "DeviceLocationId": 1,
+    "DeviceLocationId": 5,
     "PowerStatus": true,
     "OnOrOff": "On",
-    "Humidity": 73
+    "Humidity": 43
   }
 ]

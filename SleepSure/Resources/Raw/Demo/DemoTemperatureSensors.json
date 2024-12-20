@@ -2,7 +2,7 @@
   {
     "Id": 1,
     "Name": "Living Room Temperature Sensor",
-    "Description": "Temperature sensor in the living room",
+    "Description": "Temperature sensor placed next to fireplace",
     "BatteryLife": 87,
     "Temperature": 89,
     "DeviceLocationId": 1,

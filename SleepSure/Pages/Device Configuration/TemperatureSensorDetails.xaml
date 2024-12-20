@@ -51,8 +51,7 @@
                             MaximumWidthRequest="350"
                             ItemsSource="{Binding Locations}"
                             ItemDisplayBinding="{Binding LocationName}"
-                            SelectedItem="{Binding UpdatedTemperatureSensorLocation}"
-                            BackgroundColor="{AppThemeBinding Light=White}"/>
+                            SelectedItem="{Binding UpdatedTemperatureSensorLocation}"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal">

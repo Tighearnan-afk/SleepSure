@@ -12,7 +12,8 @@
     <ScrollView>
         <Border Stroke="Black"
                 StrokeThickness="0.4"
-                MaximumWidthRequest="375">
+                MaximumWidthRequest="375"
+                Background="{AppThemeBinding Light={StaticResource PrimaryBackground},Dark={StaticResource PrimaryDarkBackground}}">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="5" />
             </Border.StrokeShape>
@@ -21,13 +22,13 @@
                          Spacing="10">
 
                 <StackLayout Orientation="Vertical">
-                    <Image MaximumHeightRequest="{OnIdiom Default=75,Phone=50}"
-                           MaximumWidthRequest="{OnIdiom Default=75,Phone=50}">
+                    <Image HeightRequest="{OnIdiom Default=75,Phone=50}"
+                           WidthRequest="{OnIdiom Default=75,Phone=50}">
                         <Image.Source>
                             <FontImageSource FontFamily="MaterialRounded"
                                              Glyph="{x:Static m:MaterialRounded.Humidity_percentage}"
                                              Color="{AppThemeBinding Light={StaticResource Black},Dark={StaticResource White}}"
-                                             Size="{OnIdiom Default=100, Phone=25}" />
+                                             Size="{OnIdiom Default=100, Phone=75}" />
                         </Image.Source>
                     </Image>
                 </StackLayout>
@@ -49,8 +50,7 @@
                             MaximumWidthRequest="350"
                             ItemsSource="{Binding Locations}"
                             ItemDisplayBinding="{Binding LocationName}"
-                            SelectedItem="{Binding UpdatedHumiditySensorLocation}"
-                            BackgroundColor="{AppThemeBinding Light=White}" />
+                            SelectedItem="{Binding UpdatedHumiditySensorLocation}"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal">

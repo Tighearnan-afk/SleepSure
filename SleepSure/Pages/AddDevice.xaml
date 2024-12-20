@@ -34,8 +34,7 @@
                             MaximumWidthRequest="350" 
                             ItemsSource ="{Binding DeviceTypes}"
                             ItemDisplayBinding="{Binding Type}"
-                            SelectedItem="{Binding NewDeviceType}"
-                            BackgroundColor="{AppThemeBinding Light=White}"/>
+                            SelectedItem="{Binding NewDeviceType}"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal">

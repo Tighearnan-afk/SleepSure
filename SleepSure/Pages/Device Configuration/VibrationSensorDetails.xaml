@@ -50,8 +50,7 @@
                             MaximumWidthRequest="350"
                             ItemsSource="{Binding Locations}"
                             ItemDisplayBinding="{Binding LocationName}"
-                            SelectedItem="{Binding UpdatedVibrationSensorLocation}"
-                            BackgroundColor="{AppThemeBinding Light=White}"/>
+                            SelectedItem="{Binding UpdatedVibrationSensorLocation}"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal">

@@ -13,5 +13,15 @@
     "Id": 3,
     "VideoPath": "motion_detected.mp4",
     "CameraId": 1
+  },
+  {
+    "Id": 4,
+    "VideoPath": "motion_detected.mp4",
+    "CameraId": 2
+  },
+  {
+    "Id": 5,
+    "VideoPath": "motion_detected.mp4",
+    "CameraId": 2
   }
 ]

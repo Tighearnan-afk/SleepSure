@@ -1,9 +1,17 @@
 ﻿[
   {
     "Id": 1,
-    "Name": "Living Room Camera",
-    "Description": "The living room camera is located in the corner of the room, facing the sofa and TV.",
-    "DeviceLocationId": 1,
+    "Name": "Back Door Camera",
+    "Description": "Camera placed above the back door facing the shed",
+    "DeviceLocationId": 4,
+    "PowerStatus": true,
+    "OnOrOff": "On"
+  },
+  {
+    "Id": 2,
+    "Name": "Back Wall Camera",
+    "Description": "Camera placed on the wall of the house facing the doghouse",
+    "DeviceLocationId": 4,
     "PowerStatus": true,
     "OnOrOff": "On"
   }
