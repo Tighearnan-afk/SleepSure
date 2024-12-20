@@ -92,7 +92,7 @@ namespace SleepSure.Services
             }
             catch (Exception ex)
             {
-                StatusMessage = string.Format("Failed to add location. Error: {0}", ex.Message);
+                StatusMessage = string.Format("Failed to add camera. Error: {0}", ex.Message);
                 Debug.WriteLine(StatusMessage);
             }
         }
