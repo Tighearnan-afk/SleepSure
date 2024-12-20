@@ -234,14 +234,14 @@ namespace SleepSure.Services
                 //Ensures the connection to the SQLite database is created
                 await Init();
 
-                //Updates the camera details and records the result
-                result = await _connection.UpdateAsync(light);
-
                 //Sets the string property OnOrOff based on the boolean property PowerStatus for display purposes in the location page
                 if (light.PowerStatus)
                     light.OnOrOff = "On";
                 else
                     light.OnOrOff = "Off";
+
+                //Updates the camera details and records the result
+                result = await _connection.UpdateAsync(light);
 
                 //Checks if the device has an internet connection
                 if (_internet != NetworkAccess.Internet)

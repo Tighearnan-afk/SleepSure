@@ -15,7 +15,22 @@ namespace SleepSure.Services
         IDeviceLocationRESTService _locationRESTService;
         //Local data service for cameras
         ICameraDataService _cameraDataService;
+
         IMotionSensorDataService _motionSensorDataService;
+
+        readonly ILightDataService _lightsDataService;
+
+        readonly IWaterLeakSensorDataService _waterLeakSensorDataService;
+
+        readonly IDoorSensorDataService _doorSensorDataServer;
+
+        readonly IWindowSensorDataService _windowSensorDataService;
+
+        readonly ITemperatureSensorDataService _temperatureSensorDataService;
+
+        readonly IHumiditySensorDataService _humiditySensorDataService;
+
+        readonly IVibrationSensorDataService _vibrationSensorDataService;
         //List of locations retrieved from the REST API
         public List<DeviceLocation> RESTLocations { get; private set; } = [];
         //List of locations retrieved from a local JSON file
@@ -39,13 +54,22 @@ namespace SleepSure.Services
         public string StatusMessage;
 
         private bool _isInDemoMode;
-        public DeviceLocationDBService(string dbPath, IDeviceLocationRESTService locationRESTService, ICameraDataService cameraDataService, IMotionSensorDataService motionSensorDataService)
+        public DeviceLocationDBService(string dbPath, IDeviceLocationRESTService locationRESTService, ICameraDataService cameraDataService, IMotionSensorDataService motionSensorDataService, 
+                                       ILightDataService lightsDataService, IWaterLeakSensorDataService waterLeakSensorDataService, IDoorSensorDataService doorSensorDataServer, IWindowSensorDataService windowSensorDataService,
+                                       ITemperatureSensorDataService temperatureSensorDataService, IHumiditySensorDataService humiditySensorDataService, IVibrationSensorDataService vibrationSensorDataService)
         {
             _dbPath = dbPath;
             _locationRESTService = locationRESTService;
             _cameraDataService = cameraDataService;
             _internet = Connectivity.Current.NetworkAccess;
             _motionSensorDataService = motionSensorDataService;
+            _lightsDataService = lightsDataService;
+            _waterLeakSensorDataService = waterLeakSensorDataService;
+            _doorSensorDataServer = doorSensorDataServer;
+            _windowSensorDataService = windowSensorDataService;
+            _temperatureSensorDataService = temperatureSensorDataService;
+            _humiditySensorDataService = humiditySensorDataService;
+            _vibrationSensorDataService = vibrationSensorDataService;
         }
 
         /// <summary>
@@ -198,15 +222,36 @@ namespace SleepSure.Services
                 //Ensures the conenction to the SQLite database is created
                 await Init();
 
-                //A temporary lsit of cameras
+                //Temporary lists of devices
                 List<Camera> TempCameras = [];
                 List<MotionSensor> TempMotionSensors = [];
+                List<Light> TempLights = [];
+                List<WaterLeakSensor> TempWaterLeakSensors = [];
+                List<DoorSensor> TempDoorSensors = [];
+                List<WindowSensor> TempWindowSensors = [];
+                List<TemperatureSensor> TempTemperatureSensors = [];
+                List<HumiditySensor> TempHumiditySensors = [];
+                List<VibrationSensor> TempVibrationSensors = [];
                 //A list of cameras that are associated with the current room
                 List<Camera> AssociatedCameras = [];
                 List<MotionSensor> AssociatedMotionSensors = [];
+                List<Light> AssociatedLights = [];
+                List<WaterLeakSensor> AssociatedWaterLeakSensors = [];
+                List<DoorSensor> AssociatedDoorSensors = [];
+                List<WindowSensor> AssociatedWindowSensors = [];
+                List<TemperatureSensor> AssociatedTemperatureSensors = [];
+                List<HumiditySensor> AssociatedHumiditySensors = [];
+                List<VibrationSensor> AssociatedVibrationSensors = [];
                 //Retrieves a list of all cameras and inserts them into the temporary list
                 TempCameras = await _cameraDataService.GetCamerasAsync(_isInDemoMode);
                 TempMotionSensors = await _motionSensorDataService.GetMotionSensorsAsync(_isInDemoMode);
+                TempLights = await _lightsDataService.GetLightsAsync(_isInDemoMode);
+                TempWaterLeakSensors = await _waterLeakSensorDataService.GetWaterLeakSensorsAsync(_isInDemoMode);
+                TempDoorSensors = await _doorSensorDataServer.GetDoorSensorsAsync(_isInDemoMode);
+                TempWindowSensors = await _windowSensorDataService.GetWindowSensorsAsync(_isInDemoMode);
+                TempTemperatureSensors = await _temperatureSensorDataService.GetTemperatureSensorsAsync(_isInDemoMode);
+                TempHumiditySensors = await _humiditySensorDataService.GetHumiditySensorsAsync(_isInDemoMode);
+                TempVibrationSensors = await _vibrationSensorDataService.GetVibrationSensorsAsync(_isInDemoMode);
                 //Iterates through the temporary lists
                 foreach (var camera in TempCameras)
                 {
@@ -226,18 +271,123 @@ namespace SleepSure.Services
                         AssociatedMotionSensors.Add(motionSensor);
                     }
                 }
+                foreach (var light in TempLights)
+                {
+                    
+                    if (light.DeviceLocationId == location.Id)
+                    {
+                        
+                        AssociatedLights.Add(light);
+                    }
+                }
+                foreach (var doorSensor in TempDoorSensors)
+                {
+                    
+                    if (doorSensor.DeviceLocationId == location.Id)
+                    {
+                        
+                        AssociatedDoorSensors.Add(doorSensor);
+                    }
+                }
+                foreach (var windowSensor in TempWindowSensors)
+                {
+                    
+                    if (windowSensor.DeviceLocationId == location.Id)
+                    {
+                        
+                        AssociatedWindowSensors.Add(windowSensor);
+                    }
+                }
+                foreach (var vibrationSensor in TempVibrationSensors)
+                {
+                    
+                    if (vibrationSensor.DeviceLocationId == location.Id)
+                    {
+                        
+                        AssociatedVibrationSensors.Add(vibrationSensor);
+                    }
+                }
+                foreach (var humiditySensor in TempHumiditySensors)
+                {
+                   
+                    if (humiditySensor.DeviceLocationId == location.Id)
+                    {
+                        
+                        AssociatedHumiditySensors.Add(humiditySensor);
+                    }
+                }
+                foreach (var waterLeakSensor in TempWaterLeakSensors)
+                {
+                    
+                    if (waterLeakSensor.DeviceLocationId == location.Id)
+                    {
+                        
+                        AssociatedWaterLeakSensors.Add(waterLeakSensor);
+                    }
+                }
+                foreach (var temperatureSensor in TempTemperatureSensors)
+                {
+                    
+                    if (temperatureSensor.DeviceLocationId == location.Id)
+                    {
+                        
+                        AssociatedTemperatureSensors.Add(temperatureSensor);
+                    }
+                }
 
-                //Iterates through the lists
+                //Iterates through the associated lists
                 foreach (var camera in AssociatedCameras)
                 {
-                    //Deletes the camera from the SQLite database
+                    //Deletes the camera from the SQLite database and REST API
                     await _cameraDataService.DeleteCameraAsync(camera);
                 }
 
                 foreach (var motionSensor in AssociatedMotionSensors)
                 {
-                    //Deletes the camera from the SQLite database
+                    //Deletes the motion sensor from the SQLite database and REST API
                     await _motionSensorDataService.DeleteMotionSensorAsync(motionSensor);
+                }
+
+                foreach (var light in AssociatedLights)
+                {
+                    
+                    await _lightsDataService.DeleteLightAsync(light);
+                }
+
+                foreach (var waterLeakSensor in AssociatedWaterLeakSensors)
+                {
+                    
+                    await _waterLeakSensorDataService.DeleteWaterLeakSensorAsync(waterLeakSensor);
+                }
+
+                foreach (var doorSensor in AssociatedDoorSensors)
+                {
+                    
+                    await _doorSensorDataServer.DeleteDoorSensorAsync(doorSensor);
+                }
+
+                foreach (var windowSensor in AssociatedWindowSensors)
+                {
+                    
+                    await _windowSensorDataService.DeleteWindowSensorAsync(windowSensor);
+                }
+
+                foreach (var temperatureSensor in AssociatedTemperatureSensors)
+                {
+                    
+                    await _temperatureSensorDataService.DeleteTemperatureSensorAsync(temperatureSensor);
+                }
+
+                foreach (var humiditySensor in AssociatedHumiditySensors)
+                {
+                    
+                    await _humiditySensorDataService.DeleteHumiditySensorAsync(humiditySensor);
+                }
+
+                foreach (var vibrationSensor in AssociatedVibrationSensors)
+                {
+                    
+                    await _vibrationSensorDataService.DeleteVibrationSensorAsync(vibrationSensor);
                 }
 
                 //Deletes the location from the SQLite database and stores the result code

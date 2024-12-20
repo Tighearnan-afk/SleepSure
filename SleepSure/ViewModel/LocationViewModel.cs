@@ -245,7 +245,7 @@ namespace SleepSure.ViewModel
                 //Sets the IsBusy flag to true
                 IsBusy = true;
 
-                //Determine the type of device that has been clicked and navigate to the appropriate page passing in a dictionary containg the object
+                //Determine the type of device that has been clicked and navigate to the appropriate page passing in a dictionary containing the object
                 switch (selectedObject)
                 {
                     case Camera camera:
